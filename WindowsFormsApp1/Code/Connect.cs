@@ -14,6 +14,7 @@ namespace WindowsFormsApp1
         public static string GetConnectionString()
         {
             string ConnectionString = @"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =DataBase\Sveta.accdb; Persist Security Info = False;";
+            //string ConnectionString = @"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =G:\_PROJECT_\DataBase\Sveta2.accdb; Persist Security Info = False;";
 
             return ConnectionString;
         }

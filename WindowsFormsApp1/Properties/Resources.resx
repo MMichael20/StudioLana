@@ -127,4 +127,7 @@
   <data name="icons8-checked-checkbox-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Pics\icons8-checked-checkbox-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Sveta" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\database\sveta.accdb;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

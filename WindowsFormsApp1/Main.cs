@@ -546,96 +546,237 @@ namespace WindowsFormsApp1
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
 
+            //            DataSet dataSet = GetOrdersById(Choose.id);
+            //            string[] selectedColumns = { "OrderPrice", "OrderAmount", "ItemName", "OrderId" };
+            //            Dictionary<string, string> columnTitleMap = new Dictionary<string, string>
+            //{
+            //    { "OrderId", "מס' הזמנה" },
+            //    { "UserName", "שם" },
+            //    { "ItemName", "תיאור" },
+            //    { "ColorName", "צבע" },
+            //    { "OrderAmount", "כמות" },
+            //    { "OrderPrice", "מחיר" }
+            //    // Add more mappings as needed
+            //};
+
+            //            Graphics graphics = e.Graphics;
+
+            //            Font titleFont = new Font("Arial", 16, FontStyle.Bold);
+            //            Font normalFont = new Font("Arial", 10);
+            //            Font boldFont = new Font("Arial", 10, FontStyle.Bold);
+
+            //            Brush brush = Brushes.Black;
+            //            Brush headingBrush = Brushes.DarkBlue;
+
+            //            int leftMargin = 20;
+            //            int topMargin = 70; // Increased top margin
+
+            //            string storeName = "Studio Lana";
+            //            string address = "עין חנוך 15, גני תקווה";
+            //            string phone = "Phone: 054-5606832";
+            //            string date = "Date: " + DateTime.Now.ToShortDateString();
+            //            string receiptNo = "Receipt #: 001";
+            //            string thankYou = "תודה רבה על ההזמנה!";
+
+            //            // Calculate the center of the drawing area
+            //            int centerX = (int)(graphics.VisibleClipBounds.Width / 2);
+
+            //            SizeF measureString(string text, Font font) => graphics.MeasureString(text, font);
+
+            //            SizeF storeNameSize = measureString(storeName, titleFont);
+            //            SizeF addressSize = measureString(address, normalFont);
+            //            SizeF phoneSize = measureString(phone, normalFont);
+            //            SizeF dateSize = measureString(date, normalFont);
+            //            SizeF receiptNoSize = measureString(receiptNo, normalFont);
+            //            SizeF thankYouSize = measureString(thankYou, normalFont);
+
+            //            graphics.DrawString(storeName, titleFont, headingBrush, centerX - storeNameSize.Width / 2, topMargin);
+            //            topMargin += 30;
+            //            graphics.DrawString(address, normalFont, brush, centerX - addressSize.Width / 2, topMargin);
+            //            topMargin += 20;
+            //            graphics.DrawString(phone, normalFont, brush, centerX - phoneSize.Width / 2, topMargin);
+            //            topMargin += 30;
+            //            graphics.DrawString(date, normalFont, brush, centerX - dateSize.Width / 2, topMargin);
+            //            topMargin += 20;
+            //            graphics.DrawString(receiptNo, normalFont, brush, centerX - receiptNoSize.Width / 2, topMargin);
+            //            topMargin += 40;
+
+            //            // Increased space between store information and table headers
+            //            topMargin += 40;
+
+            //            Font tableFont = new Font("Arial", 10);
+            //            Font HeaderTableFont = new Font("Arial", 10, FontStyle.Bold);
+
+            //            int columnWidth = 100; // Increased column width
+            //            int columnSpacing = 30; // Increased column spacing
+
+            //            for (int i = 0; i < selectedColumns.Length; i++)
+            //            {
+            //                string columnName = selectedColumns[i];
+            //                string columnTitle = columnTitleMap.ContainsKey(columnName) ? columnTitleMap[columnName] : columnName;
+            //                SizeF columnTitleSize = graphics.MeasureString(columnTitle, HeaderTableFont);
+
+            //                // Adjusting the position to center and space out the columns
+            //                int xPosition = centerX - ((selectedColumns.Length * columnWidth) + ((selectedColumns.Length - 1) * columnSpacing)) / 2 + (i * (columnWidth + columnSpacing));
+            //                graphics.DrawString(columnTitle, HeaderTableFont, Brushes.Black, xPosition, topMargin);
+            //            }
+
+            //            topMargin += 30; // Increased space between table header and data
+
+            //            foreach (DataRow row in dataSet.Tables[0].Rows)
+            //            {
+            //                for (int i = 0; i < selectedColumns.Length; i++)
+            //                {
+            //                    int columnIndex = dataSet.Tables[0].Columns.IndexOf(selectedColumns[i]);
+            //                    if (columnIndex >= 0)
+            //                    {
+            //                        string columnValue = row[columnIndex].ToString();
+            //                        SizeF columnValueSize = graphics.MeasureString(columnValue, tableFont);
+
+            //                        // Adjusting the position to center and space out the columns
+            //                        int xPosition = centerX - ((selectedColumns.Length * columnWidth) + ((selectedColumns.Length - 1) * columnSpacing)) / 2 + (i * (columnWidth + columnSpacing));
+            //                        graphics.DrawString(columnValue, tableFont, Brushes.Black, xPosition, topMargin);
+            //                    }
+            //                }
+            //                topMargin += 25; // Increased row height
+            //            }
+
+            //            topMargin += 20; // Increased space between table and total
+
+            //            string totalText = "Total Order Price: " + CalculateTotal(dataSet).ToString("C");
+            //            SizeF totalSize = graphics.MeasureString(totalText, tableFont);
+            //            graphics.DrawString(totalText, tableFont, Brushes.Black, centerX - totalSize.Width / 2, topMargin);
+            //            topMargin += 40;
+
+            //            thankYouSize = measureString(thankYou, normalFont);
+            //            graphics.DrawString(thankYou, normalFont, brush, centerX - thankYouSize.Width / 2, topMargin);
+
             DataSet dataSet = GetOrdersById(Choose.id);
-            // string[] selectedColumns = { "OrderId", "ItemName", "OrderAmount", "OrderPrice" };
-            string[] selectedColumns = { "OrderPrice",  "OrderAmount", "ItemName","OrderId"};
+            string[] selectedColumns = { "OrderPrice", "OrderAmount", "ItemName", "OrderId" };
             Dictionary<string, string> columnTitleMap = new Dictionary<string, string>
-            {
-                { "OrderId", "מס' הזמנה" },
-                { "UserName", "שם" },
-                { "ItemName", "תיאור" },
-                { "ColorName", "צבע" },
-                { "OrderAmount", "כמות" },
-                { "OrderPrice", "מחיר" }
-                // Add more mappings as needed
-            };
-            
+{
+    { "OrderId", "מס' הזמנה" },
+    { "UserName", "שם" },
+    { "ItemName", "תיאור" },
+    { "ColorName", "צבע" },
+    { "OrderAmount", "כמות" },
+    { "OrderPrice", "מחיר" }
+    // Add more mappings as needed
+};
+
             Graphics graphics = e.Graphics;
 
-            // Define fonts
             Font titleFont = new Font("Arial", 16, FontStyle.Bold);
             Font normalFont = new Font("Arial", 10);
             Font boldFont = new Font("Arial", 10, FontStyle.Bold);
 
-            // Define brushes
             Brush brush = Brushes.Black;
             Brush headingBrush = Brushes.DarkBlue;
 
-            // Set margins
             int leftMargin = 20;
-            int topMargin = 50;
-            int rowHeight = 20;
+            int topMargin = 20; // Set top margin to position at the top of the page
 
-            // Receipt content
             string storeName = "Studio Lana";
             string address = "עין חנוך 15, גני תקווה";
             string phone = "Phone: 054-5606832";
             string date = "Date: " + DateTime.Now.ToShortDateString();
             string receiptNo = "Receipt #: 001";
-           
             string thankYou = "תודה רבה על ההזמנה!";
 
-            // Print store information
-            graphics.DrawString(storeName, titleFont, headingBrush, leftMargin, topMargin);
-            topMargin += 30;
-            graphics.DrawString(address, normalFont, brush, leftMargin, topMargin);
-            topMargin += 20;
-            graphics.DrawString(phone, normalFont, brush, leftMargin, topMargin);
-            topMargin += 30;
-            graphics.DrawString(date, normalFont, brush, leftMargin, topMargin);
-            topMargin += 20;
-            graphics.DrawString(receiptNo, normalFont, brush, leftMargin, topMargin);
-            topMargin += 40;
+            // Calculate the width of the receipt content
+            float totalWidth = graphics.VisibleClipBounds.Width;
+
+            // Calculate the center of the drawing area
+            int centerX = (int)(totalWidth / 2);
+
+            SizeF measureString(string text, Font font) => graphics.MeasureString(text, font);
+
+            SizeF storeNameSize = measureString(storeName, titleFont);
+            SizeF addressSize = measureString(address, normalFont);
+            SizeF phoneSize = measureString(phone, normalFont);
+            SizeF dateSize = measureString(date, normalFont);
+            SizeF receiptNoSize = measureString(receiptNo, normalFont);
+            SizeF thankYouSize = measureString(thankYou, normalFont);
+
+            // Calculate the total height of the receipt content
+            float totalHeight = storeNameSize.Height + addressSize.Height + phoneSize.Height +
+                                dateSize.Height + receiptNoSize.Height + 40 + // Space between sections
+                                40 + // Increased space between store information and table headers
+                                selectedColumns.Length * 30 + // Height of table headers
+                                dataSet.Tables[0].Rows.Count * 25 + // Height of table rows
+                                20 + // Space between table and total
+                                40 + // Height of the total section
+                                thankYouSize.Height; // Height of the thank you section
+
+            // Reset top margin to align at the top of the page
+            topMargin = 20;
+
+            graphics.DrawString(storeName, titleFont, headingBrush, centerX - storeNameSize.Width / 2, topMargin);
+            topMargin += (int)storeNameSize.Height;
+            graphics.DrawString(address, normalFont, brush, centerX - addressSize.Width / 2, topMargin);
+            topMargin += (int)addressSize.Height;
+            graphics.DrawString(phone, normalFont, brush, centerX - phoneSize.Width / 2, topMargin);
+            topMargin += (int)phoneSize.Height;
+            graphics.DrawString(date, normalFont, brush, centerX - dateSize.Width / 2, topMargin);
+            topMargin += (int)dateSize.Height;
+            graphics.DrawString(receiptNo, normalFont, brush, centerX - receiptNoSize.Width / 2, topMargin);
+            topMargin += (int)receiptNoSize.Height + 40;
 
             Font tableFont = new Font("Arial", 10);
             Font HeaderTableFont = new Font("Arial", 10, FontStyle.Bold);
+
+            int columnWidth = 50; // Increased column width
+            int columnSpacing = 30; // Increased column spacing
+
             for (int i = 0; i < selectedColumns.Length; i++)
             {
                 string columnName = selectedColumns[i];
                 string columnTitle = columnTitleMap.ContainsKey(columnName) ? columnTitleMap[columnName] : columnName;
-                graphics.DrawString(columnTitle, HeaderTableFont, Brushes.Black, leftMargin + (i * 100), topMargin);
-                // Adjust positions and spacing as needed
+                SizeF columnTitleSize = graphics.MeasureString(columnTitle, HeaderTableFont);
+
+                // Calculate the center for each column
+                int xPosition = (int)(((totalWidth - (selectedColumns.Length * columnWidth) - (selectedColumns.Length - 1) * columnSpacing)) / 2) + i * (columnWidth + columnSpacing);
+                int textOffset = (int)((columnWidth - columnTitleSize.Width) / 2); // Adjust for text alignment
+
+                graphics.DrawString(columnTitle, HeaderTableFont, Brushes.Black, xPosition + textOffset, topMargin);
             }
 
-            topMargin += rowHeight;
+            topMargin += 30; // Increased space between table header and data
 
-            // Loop through the rows in the DataSet and draw selected columns
             foreach (DataRow row in dataSet.Tables[0].Rows)
             {
                 for (int i = 0; i < selectedColumns.Length; i++)
                 {
-                    // Find the column index by name and get the value
                     int columnIndex = dataSet.Tables[0].Columns.IndexOf(selectedColumns[i]);
                     if (columnIndex >= 0)
                     {
                         string columnValue = row[columnIndex].ToString();
-                        graphics.DrawString(columnValue, tableFont, Brushes.Black, leftMargin + (i * 100), topMargin);
-                        // Adjust positions and spacing as needed
+                        SizeF columnValueSize = graphics.MeasureString(columnValue, tableFont);
+
+                        // Calculate the center for each column and adjust for text alignment
+                        int xPosition = (int)(((totalWidth - (selectedColumns.Length * columnWidth) - (selectedColumns.Length - 1) * columnSpacing)) / 2) + i * (columnWidth + columnSpacing);
+                        int textOffset = (int)((columnWidth - columnValueSize.Width) / 2); // Adjust for text alignment
+
+                        graphics.DrawString(columnValue, tableFont, Brushes.Black, xPosition + textOffset, topMargin);
                     }
                 }
-                topMargin += rowHeight;
+                topMargin += 25; // Increased row height
             }
-            topMargin += 10; // Space between items and total
 
-            // Print total
-            graphics.DrawString("Total Order Price: " + CalculateTotal(dataSet).ToString("C"), tableFont, Brushes.Black, leftMargin, topMargin);
+            topMargin += 20; // Increased space between table and total
+
+            string totalText = "Total Order Price: " + CalculateTotal(dataSet).ToString("C");
+            SizeF totalSize = graphics.MeasureString(totalText, tableFont);
+            graphics.DrawString(totalText, tableFont, Brushes.Black, centerX - totalSize.Width / 2, topMargin);
             topMargin += 40;
 
-            // Thank you message
-            graphics.DrawString(thankYou, normalFont, brush, leftMargin, topMargin);
+            thankYouSize = measureString(thankYou, normalFont);
+            graphics.DrawString(thankYou, normalFont, brush, centerX - thankYouSize.Width / 2, topMargin);
+
+
         }
 
-      
+
 
         private void History_Click(object sender, EventArgs e)
         {

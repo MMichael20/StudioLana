@@ -89,5 +89,15 @@ namespace WindowsFormsApp1.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Sveta {
+            get {
+                object obj = ResourceManager.GetObject("Sveta", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
