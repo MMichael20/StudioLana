@@ -176,6 +176,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.WorkButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -817,6 +818,7 @@
             // Box
             // 
             this.Box.AutoScroll = true;
+            this.Box.Controls.Add(this.WorkButton);
             this.Box.Controls.Add(this.PaymentButton);
             this.Box.Controls.Add(this.History);
             this.Box.Controls.Add(this.TestBox);
@@ -1553,6 +1555,17 @@
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
+            // WorkButton
+            // 
+            this.WorkButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WorkButton.Location = new System.Drawing.Point(514, 399);
+            this.WorkButton.Name = "WorkButton";
+            this.WorkButton.Size = new System.Drawing.Size(96, 50);
+            this.WorkButton.TabIndex = 54;
+            this.WorkButton.Text = "נוכחות";
+            this.WorkButton.UseVisualStyleBackColor = true;
+            this.WorkButton.Click += new System.EventHandler(this.WorkButton_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1687,6 +1700,7 @@
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
         private System.Windows.Forms.Button History;
         private System.Windows.Forms.Button PaymentButton;
+        private System.Windows.Forms.Button WorkButton;
     }
 }
 

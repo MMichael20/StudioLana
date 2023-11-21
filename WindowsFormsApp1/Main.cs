@@ -279,6 +279,7 @@ namespace WindowsFormsApp1
                 MessageBox.Show("הלקוח התעדכן בהצלחה! ");
                 Bar.Visible = false;
                 Bar.Value = 0;
+                Choose.u = u;
             }
         }
         //private void Format()
@@ -795,8 +796,15 @@ namespace WindowsFormsApp1
 
         private void PaymentButton_Click(object sender, EventArgs e)
         {
+            // MessageBox.Show(Choose.location);
             PaymentStats ps = new PaymentStats();
             ps.Show();
+        }
+
+        private void WorkButton_Click(object sender, EventArgs e)
+        {
+            Work w = new Work();
+            w.Show();
         }
     }
 }
