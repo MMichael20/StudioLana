@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-    partial class Work
+    partial class Clock
     {
         /// <summary>
         /// Required designer variable.
@@ -28,21 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.WorkersList = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.EndButton = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // WorkersList
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "אינה"});
-            this.comboBox1.Location = new System.Drawing.Point(216, 177);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(238, 21);
-            this.comboBox1.TabIndex = 0;
+            this.WorkersList.FormattingEnabled = true;
+            this.WorkersList.Items.AddRange(new object[] {
+            "אינה",
+            "Test"});
+            this.WorkersList.Location = new System.Drawing.Point(216, 177);
+            this.WorkersList.Name = "WorkersList";
+            this.WorkersList.Size = new System.Drawing.Size(238, 21);
+            this.WorkersList.TabIndex = 0;
             // 
             // label26
             // 
@@ -66,6 +67,7 @@
             this.EndButton.TabIndex = 54;
             this.EndButton.Text = "יציאה";
             this.EndButton.UseVisualStyleBackColor = true;
+            this.EndButton.Click += new System.EventHandler(this.EndButton_Click);
             // 
             // StartButton
             // 
@@ -76,8 +78,9 @@
             this.StartButton.TabIndex = 55;
             this.StartButton.Text = "כניסה";
             this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
-            // Work
+            // Clock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -85,9 +88,9 @@
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.EndButton);
             this.Controls.Add(this.label26);
-            this.Controls.Add(this.comboBox1);
-            this.Name = "Work";
-            this.Text = "Work";
+            this.Controls.Add(this.WorkersList);
+            this.Name = "Clock";
+            this.Text = "Clock";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -95,7 +98,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox WorkersList;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Button EndButton;
         private System.Windows.Forms.Button StartButton;

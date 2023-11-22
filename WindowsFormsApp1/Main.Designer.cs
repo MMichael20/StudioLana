@@ -120,6 +120,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.Box = new System.Windows.Forms.TabPage();
+            this.WorkButton = new System.Windows.Forms.Button();
             this.PaymentButton = new System.Windows.Forms.Button();
             this.History = new System.Windows.Forms.Button();
             this.TestBox = new System.Windows.Forms.Button();
@@ -176,7 +177,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.WorkButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.XIcon = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -187,6 +189,8 @@
             this.tabControl2.SuspendLayout();
             this.tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.XIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // Mname
@@ -481,6 +485,7 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.CityBox);
+            this.tabPage1.Controls.Add(this.pictureBox1);
             this.tabPage1.Controls.Add(this.EditB);
             this.tabPage1.Controls.Add(this.DebtBox);
             this.tabPage1.Controls.Add(this.label1);
@@ -841,14 +846,25 @@
             this.Box.Controls.Add(this.OrderGrid);
             this.Box.Controls.Add(this.Mname);
             this.Box.Controls.Add(this.groupBox1);
-            this.Box.Location = new System.Drawing.Point(4, 104);
+            this.Box.Location = new System.Drawing.Point(4, 54);
             this.Box.Name = "Box";
             this.Box.Padding = new System.Windows.Forms.Padding(3);
             this.Box.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Box.Size = new System.Drawing.Size(1067, 489);
+            this.Box.Size = new System.Drawing.Size(1067, 539);
             this.Box.TabIndex = 1;
             this.Box.Text = "סטטוס פריטים";
             this.Box.UseVisualStyleBackColor = true;
+            // 
+            // WorkButton
+            // 
+            this.WorkButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WorkButton.Location = new System.Drawing.Point(514, 399);
+            this.WorkButton.Name = "WorkButton";
+            this.WorkButton.Size = new System.Drawing.Size(96, 50);
+            this.WorkButton.TabIndex = 54;
+            this.WorkButton.Text = "נוכחות";
+            this.WorkButton.UseVisualStyleBackColor = true;
+            this.WorkButton.Click += new System.EventHandler(this.WorkButton_Click);
             // 
             // PaymentButton
             // 
@@ -1555,23 +1571,36 @@
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
-            // WorkButton
+            // pictureBox1
             // 
-            this.WorkButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WorkButton.Location = new System.Drawing.Point(514, 399);
-            this.WorkButton.Name = "WorkButton";
-            this.WorkButton.Size = new System.Drawing.Size(96, 50);
-            this.WorkButton.TabIndex = 54;
-            this.WorkButton.Text = "נוכחות";
-            this.WorkButton.UseVisualStyleBackColor = true;
-            this.WorkButton.Click += new System.EventHandler(this.WorkButton_Click);
+            this.pictureBox1.Image = global::WindowsFormsApp1.Properties.Resources.Lana;
+            this.pictureBox1.Location = new System.Drawing.Point(947, 338);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(104, 135);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            // 
+            // XIcon
+            // 
+            this.XIcon.Image = global::WindowsFormsApp1.Properties.Resources.x_icon;
+            this.XIcon.Location = new System.Drawing.Point(1060, 12);
+            this.XIcon.Name = "XIcon";
+            this.XIcon.Size = new System.Drawing.Size(27, 25);
+            this.XIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.XIcon.TabIndex = 8;
+            this.XIcon.TabStop = false;
+            this.XIcon.Click += new System.EventHandler(this.XIcon_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(1099, 669);
+            this.Controls.Add(this.XIcon);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Main";
             this.Text = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
@@ -1588,6 +1617,8 @@
             this.tabControl2.ResumeLayout(false);
             this.tabPage8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.XIcon)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1701,6 +1732,8 @@
         private System.Windows.Forms.Button History;
         private System.Windows.Forms.Button PaymentButton;
         private System.Windows.Forms.Button WorkButton;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox XIcon;
     }
 }
 

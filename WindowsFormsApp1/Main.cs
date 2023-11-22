@@ -803,8 +803,13 @@ namespace WindowsFormsApp1
 
         private void WorkButton_Click(object sender, EventArgs e)
         {
-            Work w = new Work();
+            Clock w = new Clock();
             w.Show();
+        }
+
+        private void XIcon_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

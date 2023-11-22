@@ -82,7 +82,7 @@
   <ItemGroup>
     <Compile Include="Code\CheckService.cs" />
     <Compile Include="Code\Check.cs" />
-    <Compile Include="Code\WorkService.cs" />
+    <Compile Include="Code\ClockService.cs" />
     <Compile Include="PayDebt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,11 +183,11 @@
       <DependentUpon>UserSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Code\Validation.cs" />
-    <Compile Include="Work.cs">
+    <Compile Include="Clock.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Work.Designer.cs">
-      <DependentUpon>Work.cs</DependentUpon>
+    <Compile Include="Clock.Designer.cs">
+      <DependentUpon>Clock.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="CityForm.resx">
       <DependentUpon>CityForm.cs</DependentUpon>
@@ -241,8 +241,8 @@
     <EmbeddedResource Include="UserSearch.resx">
       <DependentUpon>UserSearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Work.resx">
-      <DependentUpon>Work.cs</DependentUpon>
+    <EmbeddedResource Include="Clock.resx">
+      <DependentUpon>Clock.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -276,6 +276,8 @@
     </Content>
     <Content Include="Pics\icons8-save-80.png" />
     <Content Include="Pics\Lana.png" />
+    <Content Include="Pics\x-icon.png" />
+    <None Include="Resources\x-icon.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
