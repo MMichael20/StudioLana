@@ -18,6 +18,7 @@ namespace WindowsFormsApp1
         public static int price;
         public static int discount;
         public static double debt;
+        public static string worker = "אורח";
         // public static string location;
     }
 }

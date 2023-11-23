@@ -36,7 +36,7 @@ namespace WindowsFormsApp1
             {
                 int x = int.Parse(this.CityGrid.CurrentRow.Cells[0].Value.ToString());
                 Choose.city = x;
-                Program.Form.UpdateCity(x);
+                Program.play.UpdateCity(x);
                 this.Hide();
 
             }

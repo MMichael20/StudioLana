@@ -36,20 +36,20 @@
             // 
             // WorkersList
             // 
+            this.WorkersList.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.WorkersList.FormattingEnabled = true;
             this.WorkersList.Items.AddRange(new object[] {
-            "אינה",
-            "Test"});
-            this.WorkersList.Location = new System.Drawing.Point(216, 177);
+            "אינה"});
+            this.WorkersList.Location = new System.Drawing.Point(261, 165);
             this.WorkersList.Name = "WorkersList";
-            this.WorkersList.Size = new System.Drawing.Size(238, 21);
+            this.WorkersList.Size = new System.Drawing.Size(238, 33);
             this.WorkersList.TabIndex = 0;
             // 
             // label26
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label26.Location = new System.Drawing.Point(460, 174);
+            this.label26.Location = new System.Drawing.Point(505, 169);
             this.label26.Name = "label26";
             this.label26.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label26.Size = new System.Drawing.Size(52, 24);
@@ -61,7 +61,7 @@
             // EndButton
             // 
             this.EndButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EndButton.Location = new System.Drawing.Point(236, 248);
+            this.EndButton.Location = new System.Drawing.Point(281, 232);
             this.EndButton.Name = "EndButton";
             this.EndButton.Size = new System.Drawing.Size(96, 50);
             this.EndButton.TabIndex = 54;
@@ -72,7 +72,7 @@
             // StartButton
             // 
             this.StartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StartButton.Location = new System.Drawing.Point(352, 248);
+            this.StartButton.Location = new System.Drawing.Point(403, 232);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(96, 50);
             this.StartButton.TabIndex = 55;

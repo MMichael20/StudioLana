@@ -121,16 +121,22 @@
   <data name="icons8-checked-checkbox-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Pics\icons8-checked-checkbox-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Sveta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\database\sveta.accdb;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="icons8-save-80" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Pics\icons8-save-80.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="person-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\person-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Lana" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Pics\Lana.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Sveta" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\database\sveta.accdb;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="x-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\x-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="background1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\background1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

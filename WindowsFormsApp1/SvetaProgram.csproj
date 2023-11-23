@@ -83,6 +83,9 @@
     <Compile Include="Code\CheckService.cs" />
     <Compile Include="Code\Check.cs" />
     <Compile Include="Code\ClockService.cs" />
+    <Compile Include="MyControls\MyButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PayDebt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +97,11 @@
     </Compile>
     <Compile Include="PaymentStats.Designer.cs">
       <DependentUpon>PaymentStats.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SetDiscount.cs">
       <SubType>Form</SubType>
@@ -120,7 +128,7 @@
     </Compile>
     <Compile Include="Code\Item.cs" />
     <Compile Include="Code\ItemService.cs" />
-    <Compile Include="Code\Color.cs" />
+    <Compile Include="Code\ColorType.cs" />
     <Compile Include="ColorList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,14 +223,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="SetAmount.resx">
       <DependentUpon>SetAmount.cs</DependentUpon>
     </EmbeddedResource>
@@ -237,6 +240,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AllOrders.resx">
       <DependentUpon>AllOrders.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UserSearch.resx">
       <DependentUpon>UserSearch.cs</DependentUpon>
@@ -277,6 +281,8 @@
     <Content Include="Pics\icons8-save-80.png" />
     <Content Include="Pics\Lana.png" />
     <Content Include="Pics\x-icon.png" />
+    <None Include="Resources\background1.jpg" />
+    <None Include="Resources\person-icon.png" />
     <None Include="Resources\x-icon.png" />
   </ItemGroup>
   <ItemGroup />

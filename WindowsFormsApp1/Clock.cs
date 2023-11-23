@@ -29,7 +29,10 @@ namespace WindowsFormsApp1
             }
             else
             {
+                Choose.worker = WorkersList.SelectedItem.ToString();
                 SetWork(WorkersList.Text, 1);
+                MessageBox.Show("נרשמה כניסה לעובד - " + WorkersList.SelectedItem.ToString());
+                Program.play.SetText();
 
             }
         }
@@ -42,8 +45,10 @@ namespace WindowsFormsApp1
             }
             else
             {
+                Choose.worker = "אורח";
                 SetWork(WorkersList.Text, 0);
-
+                MessageBox.Show("נרשמה יציאה לעובד - " + WorkersList.SelectedItem.ToString());
+                Program.play.SetText();
             }
         }
     }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    class Color
+    class ColorType
     {
         private int id;
         private string cname;
 
-        public Color(int id , string cname)
+        public ColorType(int id , string cname)
         {
             this.id = id;
             this.cname = cname;

@@ -63,6 +63,16 @@ namespace WindowsFormsApp1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap background1 {
+            get {
+                object obj = ResourceManager.GetObject("background1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_checked_checkbox_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-checked-checkbox-48", resourceCulture);
@@ -86,6 +96,16 @@ namespace WindowsFormsApp1.Properties {
         internal static System.Drawing.Bitmap Lana {
             get {
                 object obj = ResourceManager.GetObject("Lana", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap person_icon {
+            get {
+                object obj = ResourceManager.GetObject("person-icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

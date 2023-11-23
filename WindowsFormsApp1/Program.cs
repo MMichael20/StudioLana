@@ -9,7 +9,8 @@ namespace WindowsFormsApp1
 {
     static class Program
     {
-        public static Main Form;
+        public static Main play;
+        //public static Login Load;
         //public static Login Load;
         /// <summary>
         /// The main entry point for the application.
@@ -19,9 +20,10 @@ namespace WindowsFormsApp1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Form = new Main();
+            play = new Main();
             //Load = new Login();
-            Application.Run(Form);
+            Application.Run(play);
+            //Application.Run(Load);
             
         }
     }

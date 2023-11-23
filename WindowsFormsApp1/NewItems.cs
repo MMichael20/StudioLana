@@ -90,7 +90,7 @@ namespace WindowsFormsApp1
                 if(cl.ShowDialog() == DialogResult.OK)
                 {
                     DataSet ds = GetColorById(Choose.color);
-                    Color c = new Color(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString());
+                    ColorType c = new ColorType(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString());
                     NewItemGrid.CurrentRow.Cells[3].Value = c.Cname.ToString();
                 }
             }
@@ -313,7 +313,7 @@ namespace WindowsFormsApp1
             if(NewItemGrid.Rows.Count > 0)
             {
                 DataSet ds = GetColorById(id);
-                Color c = new Color(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString());
+                ColorType c = new ColorType(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString());
                 NewItemGrid.CurrentRow.Cells[3].Value = c.Cname.ToString();
             }
 
