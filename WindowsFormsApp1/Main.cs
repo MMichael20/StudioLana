@@ -62,6 +62,11 @@ namespace WindowsFormsApp1
             UserService us = new UserService();
             us.SetDebt(id, debt);
         }
+        private DataSet GetUsers()
+        {
+            UserService us = new UserService();
+            return us.GetUsers();
+        }
         public Main()
         {
             InitializeComponent();            
@@ -92,6 +97,9 @@ namespace WindowsFormsApp1
         private void Main_Load(object sender, EventArgs e)
         {
             SetText();
+            UserGrid.AutoGenerateColumns = false;
+            UserGrid.DataSource = GetUsers();
+            UserGrid.DataMember = "Users";
         }
         private void UserS_Click(object sender, EventArgs e)
         {
