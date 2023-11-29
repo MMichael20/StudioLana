@@ -281,7 +281,9 @@
     <Content Include="Pics\icons8-save-80.png" />
     <Content Include="Pics\Lana.png" />
     <Content Include="Pics\trash.png" />
+    <Content Include="Pics\V-icon.png" />
     <Content Include="Pics\x-icon.png" />
+    <None Include="Resources\V-icon.png" />
     <None Include="Resources\trash.png" />
     <None Include="Resources\background1.jpg" />
     <None Include="Resources\person-icon.png" />
