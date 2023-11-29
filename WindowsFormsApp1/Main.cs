@@ -477,8 +477,6 @@ namespace WindowsFormsApp1
                     }
                 }
             }
-            
-            
          }
 
         private void ReadyGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -597,8 +595,8 @@ namespace WindowsFormsApp1
 
             string storeName = "Studio Lana";
             string address = "עין חנוך 15, גני תקווה";
-            string phone = "Phone: 054-5606832";
-            string date = "Date: " + DateTime.Now.ToShortDateString();
+            string phone = "טלפון: " + "054-5606832";
+            string date = DateTime.Now.ToString("MM / dd / yyyy HH: mm");
             string receiptNo = "Receipt #: 001";
             string thankYou = "!תודה רבה על ההזמנה";
 
@@ -622,10 +620,10 @@ namespace WindowsFormsApp1
                                 dateSize.Height + receiptNoSize.Height + 40 + // Space between sections
                                 40 + // Increased space between store information and table headers
                                 selectedColumns.Length * 30 + // Height of table headers
-                                dataSet.Tables[0].Rows.Count * 25 + // Height of table rows
-                                20 + // Space between table and total
-                                40 + // Height of the total section
-                                thankYouSize.Height; // Height of the thank you section
+                                dataSet.Tables[0].Rows.Count * 25;
+            //20 + // Space between table and total
+            //40 + // Height of the total section
+            //thankYouSize.Height; // Height of the thank you section
 
             // Reset top margin to align at the top of the page
             topMargin = 20;
@@ -639,7 +637,29 @@ namespace WindowsFormsApp1
             graphics.DrawString(date, normalFont, brush, centerX - dateSize.Width / 2, topMargin);
             topMargin += (int)dateSize.Height;
             graphics.DrawString(receiptNo, normalFont, brush, centerX - receiptNoSize.Width / 2, topMargin);
-            topMargin += (int)receiptNoSize.Height + 40;
+            topMargin += (int)receiptNoSize.Height;
+
+
+            // Define the text for the three lines
+            string line1 = "לכ': " + dataSet.Tables[0].Rows[0][11].ToString() + " " + dataSet.Tables[0].Rows[0][12].ToString();
+            string line2 = "תאריך הזמנה: " + dataSet.Tables[0].Rows[0][4].ToString();
+            Font headlineFont = new Font("Arial", 12, FontStyle.Bold);
+
+            // Measure the sizes of these lines
+            SizeF line1Size = measureString(line1, headlineFont);
+            SizeF line2Size = measureString(line2, normalFont);
+
+            // Draw the lines in the desired styles before the table section
+            topMargin += 10; // Add space before the table segment
+
+            // Draw headline style line
+            graphics.DrawString(line1, headlineFont, headingBrush, centerX - line1Size.Width / 2, topMargin);
+            topMargin += (int)line1Size.Height + 5; // Add some space between headline and normal text lines
+
+            // Draw normal style lines
+            graphics.DrawString(line2, normalFont, brush, centerX - line2Size.Width / 2, topMargin);
+            topMargin += (int)line2Size.Height + 10 ;
+
 
             Font tableFont = new Font("Arial", 10);
             Font HeaderTableFont = new Font("Arial", 10, FontStyle.Bold);
@@ -682,17 +702,17 @@ namespace WindowsFormsApp1
                 topMargin += 25; // Increased row height
             }
 
-            topMargin += 20; // Increased space between table and total
+            topMargin += 0; // Increased space between table and total
             decimal totalAmount = CalculateTotal(dataSet);
             decimal tax = totalAmount * 0.17m;
             decimal beforeTax = totalAmount - tax;
             string line1BeforeTotal = "לפני מע'מ: " + beforeTax.ToString("C");
             string line2BeforeTotal = "סה'כ מע'מ: " + tax.ToString("C");
 
-            SizeF line1Size = measureString(line1BeforeTotal, normalFont);
-            SizeF line2Size = measureString(line2BeforeTotal, normalFont);
+            line1Size = measureString(line1BeforeTotal, normalFont);
+            line2Size = measureString(line2BeforeTotal, normalFont);
 
-            topMargin += 20; // Increase space between previous content and additional lines
+            topMargin += 10; // Increase space between previous content and additional lines
 
             graphics.DrawString(line1BeforeTotal, normalFont, brush, centerX - line1Size.Width / 2, topMargin);
             topMargin += (int)line1Size.Height;
@@ -718,7 +738,7 @@ namespace WindowsFormsApp1
             SizeF additionalMessageSize5 = measureString(additionalMessage5, normalFont);
             SizeF additionalMessageSize6 = measureString(additionalMessage6, normalFont);
 
-            topMargin += 20; // Increase space between total and additional messages
+            topMargin += 0; // Increase space between total and additional messages
 
             graphics.DrawString(additionalMessage1, normalFont, brush, centerX - additionalMessageSize1.Width / 2, topMargin);
             topMargin += (int)additionalMessageSize1.Height;
@@ -743,8 +763,6 @@ namespace WindowsFormsApp1
 
 
         }
-
-
 
         private void History_Click(object sender, EventArgs e)
         {
@@ -777,6 +795,11 @@ namespace WindowsFormsApp1
         private void XIcon_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void DelButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
