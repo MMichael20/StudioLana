@@ -1,22 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.OleDb;
-using System.Net.Sockets;
 using System.IO;
 
 namespace WindowsFormsApp1
 {
     public partial class Main : Form
     {
-
+        public Point mouseLocation;
         private DataSet GetUserById(int x)
         {
             UserService us = new UserService();
@@ -50,7 +43,7 @@ namespace WindowsFormsApp1
         private DataSet GetReadyOrders(int x)
         {
             OrderService os = new OrderService();
-            return os.GetFinishById(x) ;
+            return os.GetFinishById(x);
         }
         private DataSet GetDebt(int x)
         {
@@ -67,9 +60,19 @@ namespace WindowsFormsApp1
             UserService us = new UserService();
             return us.GetUsers();
         }
+        private DataSet GetUnfinished()
+        {
+            OrderService os = new OrderService();
+            return os.GetUnfinished();
+        }
+        private DataSet GetUserDebts()
+        {
+            UserService us = new UserService();
+            return us.GetUserDebts();
+        }
         public Main()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
         public void SetText()
         {
@@ -82,7 +85,7 @@ namespace WindowsFormsApp1
             // Check the time of the day and print the corresponding greeting
             if (currentHour >= 5 && currentHour < 12)
             {
-                
+
                 GreetText.Text = "בוקר טוב, " + Choose.worker + "!";
             }
             else if (currentHour >= 12 && currentHour < 18)
@@ -94,18 +97,29 @@ namespace WindowsFormsApp1
                 GreetText.Text = "ערב טוב, " + Choose.worker + "!";
             }
         }
-        private void Main_Load(object sender, EventArgs e)
+        public void PopulateGrids()
         {
-            SetText();
             UserGrid.AutoGenerateColumns = false;
             UserGrid.DataSource = GetUsers();
             UserGrid.DataMember = "Users";
+            UnfinishedItems.AutoGenerateColumns = false;
+            UnfinishedItems.DataSource = GetUnfinished();
+            UnfinishedItems.DataMember = "Orders";
+            UserOwe.AutoGenerateColumns = false;
+            UserOwe.DataSource = GetUserDebts();
+            UserOwe.DataMember = "Users";
+
+        }
+        private void Main_Load(object sender, EventArgs e)
+        {
+            SetText();
+            PopulateGrids();
         }
         private void UserS_Click(object sender, EventArgs e)
         {
             SaveB.Enabled = false;
             UserSearch userS = new UserSearch();
-            if(userS.ShowDialog() == DialogResult.OK)
+            if (userS.ShowDialog() == DialogResult.OK)
             {
                 Populate(Choose.u);
                 Block();
@@ -155,10 +169,8 @@ namespace WindowsFormsApp1
             SubBox.ReadOnly = true;
             EmailBox.ReadOnly = true;
         }
-        private void AddUser_Click(object sender, EventArgs e)
+        public void ResetAllBoxes()
         {
-            IdBox.Text = (int.Parse(HighestUser().Tables[0].Rows[0][0].ToString())+ 1).ToString();
-            Unblock();
             FnameBox.Text = "";
             LnameBox.Text = "";
             CityBox1.Text = "";
@@ -170,9 +182,47 @@ namespace WindowsFormsApp1
             EmailBox.Text = "";
             DebtBox.Text = "";
         }
+        public void Unpopulate()
+        {
+            Mname.Text = "";
+            Debt.Text = "";
+            Id.Text = "";
+            Fname.Text = "";
+            Lname.Text = "";
+            Street.Text = "";
+            City.Text = "";
+            Phone.Text = "";
+            Note.Text = "";
+            Discount.Text = "";
+            Sub.Text = "";
+            IdBox.Text = "";
+            FnameBox.Text = "";
+            LnameBox.Text = "";
+            CityBox1.Text = "";
+            StreetBox.Text = "";
+            PhoneBox.Text = "";
+            NoteBox.Text = "";
+            DisBox.Text = "";
+            SubBox.Text = "";
+            EmailBox.Text = "";
+            DebtBox.Text = "";
+            TotalM.Text = "";
+            TotalA.Text = "";
+            TotalM2.Text = "";
+            TotalA2.Text = "";
+            Debt.Text = "";
+            OrderGrid.DataSource = null;
+            ReadyGrid.DataSource = null;
+        }
+        private void AddUser_Click(object sender, EventArgs e)
+        {
+            IdBox.Text = (int.Parse(HighestUser().Tables[0].Rows[0][0].ToString()) + 1).ToString();
+            Unblock();
+            ResetAllBoxes();
+        }
         public void Unblock()
         {
-            
+
             FnameBox.ReadOnly = false;
             LnameBox.ReadOnly = false;
             // CityBox.ReadOnly = false;
@@ -188,13 +238,13 @@ namespace WindowsFormsApp1
 
         private void CityBox_DoubleClick(object sender, EventArgs e)
         {
-            if(CityBox1.ReadOnly == false)
+            if (CityBox1.ReadOnly == false)
             {
                 CityForm cf = new CityForm();
                 cf.Show();
             }
 
-            
+
         }
         public void UpdateCity(int x)
         {
@@ -242,10 +292,10 @@ namespace WindowsFormsApp1
         private void SaveB_Click(object sender, EventArgs e)
         {
 
-          
+
             if (int.Parse(IdBox.Text) == int.Parse(HighestUser().Tables[0].Rows[0][0].ToString()) + 1)
             {
-                
+
                 if (DisBox.Text == "")
                 {
                     DisBox.Text = "0";
@@ -266,18 +316,18 @@ namespace WindowsFormsApp1
                 {
                     StreetBox.Text = "אין";
                 }
-                if(CityBox1.Text == "")
+                if (CityBox1.Text == "")
                 {
                     CityBox1.Text = "לא צויין";
                 }
-                if(DebtBox.Text == "")
+                if (DebtBox.Text == "")
                 {
                     DebtBox.Text = "0";
                 }
-                else if(Check())
+                else if (Check())
                 {
                     User u = new User(FnameBox.Text, LnameBox.Text, StreetBox.Text, int.Parse(GetId(CityBox1.Text).Tables[0].Rows[0][0].ToString()), PhoneBox.Text, NoteBox.Text, int.Parse(DisBox.Text), SubBox.Text, EmailBox.Text, double.Parse(DebtBox.Text));
-                    
+
                     UserService us = new UserService();
                     us.InsertUser(u);
                     Block();
@@ -296,8 +346,8 @@ namespace WindowsFormsApp1
                 }
             }
 
-            else if(Check())
-            { 
+            else if (Check())
+            {
                 User u = new User(int.Parse(IdBox.Text), FnameBox.Text, LnameBox.Text, StreetBox.Text, int.Parse(GetId(CityBox1.Text).Tables[0].Rows[0][0].ToString()), PhoneBox.Text, NoteBox.Text, int.Parse(DisBox.Text), SubBox.Text, EmailBox.Text, int.Parse(DebtBox.Text.Replace("₪", "")));
                 UserService us = new UserService();
                 us.UpdatetUser(u);
@@ -338,7 +388,7 @@ namespace WindowsFormsApp1
 
         private void NewItemB_Click(object sender, EventArgs e)
         {
-            if(Id.Text == "")
+            if (Id.Text == "")
             {
                 MessageBox.Show("עלייך לשלוף תיק לקוח!");
             }
@@ -378,7 +428,7 @@ namespace WindowsFormsApp1
                 total += int.Parse(OrderGrid.Rows[i].Cells[6].Value.ToString().Replace("₪ ", "").Replace(".00", "").Replace(",", ""));
                 amount += int.Parse(OrderGrid.Rows[i].Cells[5].Value.ToString());
             }
-            for(int i =0; i< ReadyGrid.Rows.Count; i++)
+            for (int i = 0; i < ReadyGrid.Rows.Count; i++)
             {
                 total2 += int.Parse(ReadyGrid.Rows[i].Cells[6].Value.ToString().Replace("₪ ", "").Replace(".00", "").Replace(",", ""));
                 amount2 += int.Parse(ReadyGrid.Rows[i].Cells[5].Value.ToString());
@@ -387,11 +437,11 @@ namespace WindowsFormsApp1
             TotalA.Text = amount.ToString();
             TotalM2.Text = String.Format("₪ {0:n}", total2);
             TotalA2.Text = amount2.ToString();
-            Debt.Text = String.Format("₪ {0:n}" , GetDebt(int.Parse(Id.Text)).Tables[0].Rows[0][0].ToString());
+            Debt.Text = String.Format("₪ {0:n}", GetDebt(Choose.id).Tables[0].Rows[0][0].ToString());
         }
         private void EditB_Click(object sender, EventArgs e)
         {
-            if(CityBox1.Text == "")
+            if (CityBox1.Text == "")
             {
                 MessageBox.Show("עלייך לשלוף תיק לקוח!");
             }
@@ -451,11 +501,11 @@ namespace WindowsFormsApp1
             }
 
         }
-        
+
         private void PayDebt_Click(object sender, EventArgs e)
         {
-            
-            if(Id.Text == "")
+
+            if (Id.Text == "")
             {
                 MessageBox.Show("עלייך לשלוף תיק לקוח!");
             }
@@ -473,7 +523,7 @@ namespace WindowsFormsApp1
                             Calculate();
                         }
                     }
-                    
+
                 }
                 else
                 {
@@ -485,7 +535,7 @@ namespace WindowsFormsApp1
                     }
                 }
             }
-         }
+        }
 
         private void ReadyGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -518,10 +568,10 @@ namespace WindowsFormsApp1
             try
             {
                 TextWriter tw = new StreamWriter("C:/Users/Michael/Desktop/Checks/Check.txt", true);
-                tw.WriteLine("Very interesting something");
+                tw.WriteLine("The date today is:" + DateTime.Now.ToString());
                 tw.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
@@ -554,11 +604,11 @@ namespace WindowsFormsApp1
 
 
         }
-           
+
         private static decimal CalculateTotal(DataSet dataSet)
         {
             decimal total = 0;
-            if(dataSet.Tables.Count > 0)
+            if (dataSet.Tables.Count > 0)
             {
                 foreach (DataRow row in dataSet.Tables[0].Rows)
                 {
@@ -569,7 +619,7 @@ namespace WindowsFormsApp1
                     }
                 }
             }
-            
+
 
             return total;
         }
@@ -666,8 +716,7 @@ namespace WindowsFormsApp1
 
             // Draw normal style lines
             graphics.DrawString(line2, normalFont, brush, centerX - line2Size.Width / 2, topMargin);
-            topMargin += (int)line2Size.Height + 10 ;
-
+            topMargin += (int)line2Size.Height + 10;
 
             Font tableFont = new Font("Arial", 10);
             Font HeaderTableFont = new Font("Arial", 10, FontStyle.Bold);
@@ -774,7 +823,7 @@ namespace WindowsFormsApp1
 
         private void History_Click(object sender, EventArgs e)
         {
-            if(Choose.u == null)
+            if (Choose.u == null)
             {
                 AllOrders All = new AllOrders();
                 All.Show();
@@ -784,7 +833,7 @@ namespace WindowsFormsApp1
                 AllOrders All = new AllOrders();
                 All.Show();
             }
-            
+
         }
 
         private void PaymentButton_Click(object sender, EventArgs e)
@@ -792,12 +841,6 @@ namespace WindowsFormsApp1
             // MessageBox.Show(Choose.location);
             PaymentStats ps = new PaymentStats();
             ps.Show();
-        }
-
-        private void WorkButton_Click(object sender, EventArgs e)
-        {
-            Clock w = new Clock();
-            w.Show();
         }
 
         private void XIcon_Click(object sender, EventArgs e)
@@ -808,6 +851,85 @@ namespace WindowsFormsApp1
         private void DelButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void UserGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 5)
+            {
+                int x = int.Parse(this.UserGrid.CurrentRow.Cells[0].Value.ToString());
+                DataSet ds = GetUserById(x);
+                User u = new User(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString(), ds.Tables[0].Rows[0][2].ToString(), ds.Tables[0].Rows[0][3].ToString(),
+                  int.Parse(ds.Tables[0].Rows[0][4].ToString()), ds.Tables[0].Rows[0][5].ToString(), ds.Tables[0].Rows[0][6].ToString(), int.Parse(ds.Tables[0].Rows[0][7].ToString()), ds.Tables[0].Rows[0][8].ToString(), ds.Tables[0].Rows[0][9].ToString(), int.Parse(ds.Tables[0].Rows[0][10].ToString()));
+                Choose.u = u;
+                Choose.id = x;
+                Populate(Choose.u);
+                Block();
+            }
+        }
+
+        private void LoginButton_Click(object sender, EventArgs e)
+        {
+            Clock w = new Clock();
+            w.Show();
+        }
+
+        private void SearchText_TextChanged(object sender, EventArgs e)
+        {
+            DataTable dt = GetUsers().Tables[0];
+            DataView dv = dt.DefaultView;
+            dv.RowFilter = string.Format("username like '%{0}%' or Convert([userid] , System.String) like '{0}'", SearchText.Text);
+            UserGrid.DataSource = dv.ToTable();
+        }
+
+        private void Disselect_Click(object sender, EventArgs e)
+        {
+            Choose.u = null;
+            Choose.id = 0;
+            ResetAllBoxes();
+            Unpopulate();
+        }
+
+        private void CheckListButton_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 3;
+            tabControl2.SelectedIndex = 4;
+        }
+
+        private void AddCust_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 1;
+            IdBox.Text = (int.Parse(HighestUser().Tables[0].Rows[0][0].ToString()) + 1).ToString();
+            Unblock();
+            ResetAllBoxes();
+        }
+
+        private void OweButton_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 3;
+            tabControl2.SelectedIndex = 0;
+        }
+
+        private void HomeButton_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 0;
+
+        }
+
+        private void MovingPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseLocation = new Point(-e.X, -e.Y);
+        }
+
+        private void MovingPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Point mousePose = Control.MousePosition;
+                mousePose.Offset(mouseLocation.X, mouseLocation.Y);
+                Location = mousePose;
+
+            }
         }
     }
 }

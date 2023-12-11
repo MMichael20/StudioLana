@@ -62,6 +62,9 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Lana.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System">
@@ -85,6 +88,15 @@
     <Compile Include="Code\ClockService.cs" />
     <Compile Include="MyControls\MyButton.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyControls\MyGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyControls\RoundedTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyControls\RoundedTextBox.Designer.cs">
+      <DependentUpon>RoundedTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="PayDebt.cs">
       <SubType>Form</SubType>
@@ -212,6 +224,9 @@
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MyControls\RoundedTextBox.resx">
+      <DependentUpon>RoundedTextBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewItems.resx">
       <DependentUpon>NewItems.cs</DependentUpon>
     </EmbeddedResource>
@@ -278,11 +293,17 @@
     <Content Include="DataBase\Sveta.accdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Lana.ico" />
     <Content Include="Pics\icons8-save-80.png" />
     <Content Include="Pics\Lana.png" />
     <Content Include="Pics\trash.png" />
     <Content Include="Pics\V-icon.png" />
     <Content Include="Pics\x-icon.png" />
+    <None Include="Resources\home2.png" />
+    <None Include="Resources\Ok.png" />
+    <None Include="Resources\save2.png" />
+    <None Include="Resources\HandWriting.png" />
+    <None Include="Resources\login-icon.png" />
     <None Include="Resources\V-icon.png" />
     <None Include="Resources\trash.png" />
     <None Include="Resources\background1.jpg" />

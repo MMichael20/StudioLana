@@ -65,7 +65,7 @@
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Varela Round", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.NullValue = null;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(137)))), ((int)(((byte)(207)))), ((int)(((byte)(240)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(137)))), ((int)(((byte)(207)))), ((int)(((byte)(240)))));
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.UserGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
@@ -89,6 +89,7 @@
             this.UserGrid.EnableHeadersVisualStyles = false;
             this.UserGrid.GridColor = System.Drawing.SystemColors.ButtonHighlight;
             this.UserGrid.Location = new System.Drawing.Point(0, 86);
+            this.UserGrid.MultiSelect = false;
             this.UserGrid.Name = "UserGrid";
             this.UserGrid.ReadOnly = true;
             this.UserGrid.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -102,6 +103,7 @@
             this.UserGrid.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.UserGrid.RowTemplate.Height = 30;
             this.UserGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.UserGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.UserGrid.Size = new System.Drawing.Size(877, 459);
             this.UserGrid.TabIndex = 0;
             this.UserGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.UserGrid_CellClick);

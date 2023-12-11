@@ -148,6 +148,27 @@ namespace WindowsFormsApp1
             }
             return dataset;
         }
-
+        public DataSet GetUnfinished()
+        {
+            DataSet dataset = new DataSet();
+            try
+            {
+                myConnection.Open();
+                string sSql = "select * from Orders, Users, Colors, Items where OrderStatus = '" + "בטיפול" + "' AND Colors.ColorId = Orders.OrderColor AND Users.UserId = Orders.OrderO AND Items.ItemId = Orders.OrderName ORDER BY OrderFinish ASC";
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                OleDbDataAdapter adapter = new OleDbDataAdapter();
+                adapter.SelectCommand = myCmd;
+                adapter.Fill(dataset, "Orders");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return dataset;
+        }
     }
 }
