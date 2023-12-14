@@ -15,10 +15,13 @@ namespace WindowsFormsApp1
         private DateTime date;
         private int amount;
         private int price;
-        private int cab;
+        private string cab;
         private string status;
         private DateTime finish;
-        public Order(int id, int o, int desc, DateTime date, int amount, int price, int cab)
+        private DateTime delivered;
+        private int paid;
+        private bool full;
+        public Order(int id, int o, int desc, DateTime date, int amount, int price, string cab)
         {
             this.id = id;
             this.o = o;
@@ -28,7 +31,7 @@ namespace WindowsFormsApp1
             this.price = price;
             this.cab = cab;
         }
-        public Order(int id, int o, int desc, int color, DateTime date, int amount, int price, int cab, string status, DateTime finish)
+        public Order(int id, int o, int desc, int color, DateTime date, int amount, int price, string cab, string status, DateTime finish, DateTime delivered, int paid, bool full)
         {
             this.id = id;
             this.o = o;
@@ -40,8 +43,11 @@ namespace WindowsFormsApp1
             this.cab = cab;
             this.status = status;
             this.finish = finish;
+            this.delivered = delivered;
+            this.paid = paid;
+            this.full = full;
         }
-        public Order (int o, int desc, int color, DateTime date, int amount, int price, int cab, string status, DateTime finish)
+        public Order (int o, int desc, int color, DateTime date, int amount, int price, string cab, string status, DateTime finish)
         {
             this.o = o;
             this.desc = desc;
@@ -52,6 +58,20 @@ namespace WindowsFormsApp1
             this.cab = cab;
             this.status = status;
             this.finish = finish;
+        }
+        public Order(int o, int desc, int color, DateTime date, int amount, int price, string cab, string status, DateTime finish, int paid, bool full)
+        {
+            this.o = o;
+            this.desc = desc;
+            this.color = color;
+            this.date = date;
+            this.amount = amount;
+            this.price = price;
+            this.cab = cab;
+            this.status = status;
+            this.finish = finish;
+            this.paid = paid;
+            this.full = full;
         }
         public int Id
         {
@@ -89,7 +109,7 @@ namespace WindowsFormsApp1
             get { return this.price; }
             set { this.price = value; }
         }
-        public int Cab
+        public string Cab
         {
             get { return this.cab; }
             set { this.cab = value; }
@@ -103,6 +123,21 @@ namespace WindowsFormsApp1
         {
             get { return this.finish; }
             set { this.finish = value; }
+        }
+        public DateTime Delivered
+        {
+            get { return this.delivered; }
+            set { this.delivered = value; }
+        }
+        public int Paid
+        {
+            get { return this.paid; }
+            set { this.paid = value; }
+        }
+        public bool Full
+        {
+            get { return this.full; }
+            set { this.full = value; }
         }
     }
 }

@@ -50,7 +50,7 @@ namespace WindowsFormsApp1
             UserService us = new UserService();
             return us.GetDebt(x);
         }
-        private void SetDebt(int id, double debt)
+        private void SetDebt(int id, int debt)
         {
             UserService us = new UserService();
             us.SetDebt(id, debt);
@@ -69,6 +69,36 @@ namespace WindowsFormsApp1
         {
             UserService us = new UserService();
             return us.GetUserDebts();
+        }
+        private DataSet GetClocks()
+        {
+            ClockService cs = new ClockService();
+            return cs.GetClocks();
+        }
+        private DataSet GetClocksByMonth(int year, int month, string name)
+        {
+            ClockService cs = new ClockService();
+            return cs.GetClocksByMonth(year, month, name);
+        }
+        private DataSet GetClocksByYear(int year, string name)
+        {
+            ClockService cs = new ClockService();
+            return cs.GetClocksByYear(year, name);
+        }
+        private void SetCabin(List<int> ids, string cabin)
+        {
+            OrderService os = new OrderService();
+            os.SetCabin(ids, cabin);
+        }
+        private void UpdateStatus(List<int> ids, string status)
+        {
+            OrderService os = new OrderService();
+            os.UpdateStatus(ids, status);
+        }
+        private void Deliver(List<int> ids)
+        {
+            OrderService os = new OrderService();
+            os.Deliver(ids);
         }
         public Main()
         {
@@ -97,6 +127,48 @@ namespace WindowsFormsApp1
                 GreetText.Text = "ערב טוב, " + Choose.worker + "!";
             }
         }
+        public void SignOut()
+        {
+            Choose.u = null;
+            Choose.id = 0;
+            ResetAllBoxes();
+            Unpopulate();
+            SaveB.Enabled = false;
+        }
+        public void SignIn(int id)
+        {
+            DataSet ds = GetUserById(id);
+            User u = new User(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString(), ds.Tables[0].Rows[0][2].ToString(), ds.Tables[0].Rows[0][3].ToString(),
+              int.Parse(ds.Tables[0].Rows[0][4].ToString()), ds.Tables[0].Rows[0][5].ToString(), ds.Tables[0].Rows[0][6].ToString(), int.Parse(ds.Tables[0].Rows[0][7].ToString()), ds.Tables[0].Rows[0][8].ToString(), ds.Tables[0].Rows[0][9].ToString(), int.Parse(ds.Tables[0].Rows[0][10].ToString()));
+            Choose.u = u;
+            Choose.id = id;
+            Populate(Choose.u);
+            Block();
+            tabControl1.SelectedIndex = 2;
+        }
+        private List<int> IdSelected(DataGridView table)
+        {
+            List<int> ids = new List<int>();
+            foreach (DataGridViewRow row in table.Rows)
+            {
+                if (row.Cells[0].Value != null && Convert.ToBoolean(row.Cells[0].Value) == true)
+                {
+                    ids.Add(int.Parse(row.Cells[1].Value.ToString()));
+                }
+            }
+            return ids;
+        }
+        public double CalculateWork(DataSet dataSet)
+        {
+            double minutes = 0;
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                minutes += double.Parse(row[4].ToString());
+            }
+            minutes = minutes / 60;
+            return minutes;
+
+        }
         public void PopulateGrids()
         {
             UserGrid.AutoGenerateColumns = false;
@@ -109,11 +181,14 @@ namespace WindowsFormsApp1
             UserOwe.DataSource = GetUserDebts();
             UserOwe.DataMember = "Users";
 
+
         }
         private void Main_Load(object sender, EventArgs e)
         {
             SetText();
             PopulateGrids();
+            //Clock w = new Clock();
+            //w.Show();
         }
         private void UserS_Click(object sender, EventArgs e)
         {
@@ -235,7 +310,6 @@ namespace WindowsFormsApp1
             DebtBox.ReadOnly = false;
             SaveB.Enabled = true;
         }
-
         private void CityBox_DoubleClick(object sender, EventArgs e)
         {
             if (CityBox1.ReadOnly == false)
@@ -326,8 +400,7 @@ namespace WindowsFormsApp1
                 }
                 else if (Check())
                 {
-                    User u = new User(FnameBox.Text, LnameBox.Text, StreetBox.Text, int.Parse(GetId(CityBox1.Text).Tables[0].Rows[0][0].ToString()), PhoneBox.Text, NoteBox.Text, int.Parse(DisBox.Text), SubBox.Text, EmailBox.Text, double.Parse(DebtBox.Text));
-
+                    User u = new User(FnameBox.Text, LnameBox.Text, StreetBox.Text, int.Parse(GetId(CityBox1.Text).Tables[0].Rows[0][0].ToString()), PhoneBox.Text, NoteBox.Text, int.Parse(DisBox.Text), SubBox.Text, EmailBox.Text, int.Parse(DebtBox.Text));
                     UserService us = new UserService();
                     us.InsertUser(u);
                     Block();
@@ -336,13 +409,12 @@ namespace WindowsFormsApp1
                     Bar.Visible = true;
                     System.Threading.Thread.Sleep(3000);
                     DataSet ds = GetUserById(int.Parse(IdBox.Text));
-                    User n = new User(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString(), ds.Tables[0].Rows[0][2].ToString(), ds.Tables[0].Rows[0][3].ToString(),
-                    int.Parse(ds.Tables[0].Rows[0][4].ToString()), ds.Tables[0].Rows[0][5].ToString(), ds.Tables[0].Rows[0][6].ToString(), int.Parse(ds.Tables[0].Rows[0][7].ToString()), ds.Tables[0].Rows[0][8].ToString(), ds.Tables[0].Rows[0][9].ToString(), double.Parse(ds.Tables[0].Rows[0][10].ToString()));
-                    Populate(n);
+                    User newUser = new User(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString(), ds.Tables[0].Rows[0][2].ToString(), ds.Tables[0].Rows[0][3].ToString(),
+                    int.Parse(ds.Tables[0].Rows[0][4].ToString()), ds.Tables[0].Rows[0][5].ToString(), ds.Tables[0].Rows[0][6].ToString(), int.Parse(ds.Tables[0].Rows[0][7].ToString()), ds.Tables[0].Rows[0][8].ToString(), ds.Tables[0].Rows[0][9].ToString(), int.Parse(ds.Tables[0].Rows[0][10].ToString()));
+                    SignIn(newUser.Id);
                     MessageBox.Show("הלקוח נרשם בהצלחה!");
                     Bar.Visible = false;
                     Bar.Value = 0;
-                    Choose.u = n;
                 }
             }
 
@@ -385,7 +457,6 @@ namespace WindowsFormsApp1
         {
             this.Bar.Increment(85);
         }
-
         private void NewItemB_Click(object sender, EventArgs e)
         {
             if (Id.Text == "")
@@ -395,26 +466,17 @@ namespace WindowsFormsApp1
             else
             {
                 NewItems ni = new NewItems();
-                ni.getId(int.Parse(Id.Text));
+                ni.getId(Choose.id);
                 ni.getDis(int.Parse(Discount.Text));
                 if (ni.ShowDialog() == DialogResult.OK)
                 {
-                    System.Threading.Thread.Sleep(500);
                     OrderGrid.AutoGenerateColumns = false;
-                    OrderGrid.DataSource = GetOrders(int.Parse(Id.Text));
+                    OrderGrid.DataSource = GetOrders(Choose.id);
                     OrderGrid.DataMember = "Orders";
+                    DebtBox.Text = Choose.u.Debt.ToString("C");
                     Calculate();
                 }
             }
-
-        }
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
 
         }
         public void Calculate()
@@ -437,7 +499,14 @@ namespace WindowsFormsApp1
             TotalA.Text = amount.ToString();
             TotalM2.Text = String.Format("₪ {0:n}", total2);
             TotalA2.Text = amount2.ToString();
-            Debt.Text = String.Format("₪ {0:n}", GetDebt(Choose.id).Tables[0].Rows[0][0].ToString());
+            try
+            {
+                Debt.Text = String.Format("₪ {0:n}", Choose.u.Debt);
+            }
+            catch
+            {
+                MessageBox.Show("Error!");
+            }
         }
         private void EditB_Click(object sender, EventArgs e)
         {
@@ -450,7 +519,6 @@ namespace WindowsFormsApp1
                 Unblock();
             }
         }
-
         private void CancelOrder_Click(object sender, EventArgs e)
         {
             if (Id.Text == "")
@@ -459,13 +527,13 @@ namespace WindowsFormsApp1
             }
             else if (OrderGrid.Rows.Count > 0)
             {
-                OrderService os = new OrderService();
-                os.UpdateStatus(int.Parse(OrderGrid.CurrentRow.Cells[0].Value.ToString()), "בוטל");
-                SetDebt(int.Parse(Id.Text), -int.Parse(OrderGrid.CurrentRow.Cells[6].Value.ToString()));
+                
+                UpdateStatus(IdSelected(OrderGrid), "בוטל");
+                SetDebt(Choose.id, -int.Parse(OrderGrid.CurrentRow.Cells[6].Value.ToString()));
                 System.Threading.Thread.Sleep(1000);
                 MessageBox.Show("הפריט הוסר בהצלחה");
                 OrderGrid.AutoGenerateColumns = false;
-                OrderGrid.DataSource = GetOrders(int.Parse(Id.Text));
+                OrderGrid.DataSource = GetOrders(Choose.id);
                 OrderGrid.DataMember = "Orders";
                 Calculate();
                 Populate(Choose.u);
@@ -477,34 +545,40 @@ namespace WindowsFormsApp1
         }
         private void ReadyB_Click(object sender, EventArgs e)
         {
-            if (Id.Text == "")
+
+
+            List<int> ids = IdSelected(OrderGrid);
+            if (Choose.id == 0)
             {
                 MessageBox.Show("עלייך לשלוף תיק לקוח!");
             }
-            else if (OrderGrid.Rows.Count > 0)
+            else if (ids.Count == 0)
             {
-                OrderService os = new OrderService();
-                os.UpdateStatus(int.Parse(OrderGrid.CurrentRow.Cells[0].Value.ToString()), "מוכן");
-                System.Threading.Thread.Sleep(1000);
-                MessageBox.Show("הפריט הועבר בהצלחה");
-                OrderGrid.AutoGenerateColumns = false;
-                OrderGrid.DataSource = GetOrders(int.Parse(Id.Text));
-                OrderGrid.DataMember = "Orders";
-                ReadyGrid.AutoGenerateColumns = false;
-                ReadyGrid.DataSource = GetReadyOrders(int.Parse(Id.Text));
-                ReadyGrid.DataMember = "Orders";
-                Calculate();
+                MessageBox.Show("אנא בחר פריט!");
             }
             else
             {
-                MessageBox.Show("לא נבחרו הזמנות");
+                string cabin = "ללא";
+                InputForm input = new InputForm("בחר תא:");
+                if (input.ShowDialog() == DialogResult.OK)
+                {
+                    cabin = input.userInput;
+                }
+                SetCabin(ids, cabin);
+                UpdateStatus(ids, "מוכן");
+                System.Threading.Thread.Sleep(1000);
+                MessageBox.Show("הפריט הועבר בהצלחה");
+                OrderGrid.AutoGenerateColumns = false;
+                OrderGrid.DataSource = GetOrders(Choose.id);
+                OrderGrid.DataMember = "Orders";
+                ReadyGrid.AutoGenerateColumns = false;
+                ReadyGrid.DataSource = GetReadyOrders(Choose.id);
+                ReadyGrid.DataMember = "Orders";
+                Calculate();
             }
-
         }
-
         private void PayDebt_Click(object sender, EventArgs e)
         {
-
             if (Id.Text == "")
             {
                 MessageBox.Show("עלייך לשלוף תיק לקוח!");
@@ -517,18 +591,15 @@ namespace WindowsFormsApp1
                     if (dialogResult == DialogResult.Yes)
                     {
                         PayDebt pd = new PayDebt();
-                        pd.LoadAmount(int.Parse(Debt.Text.Replace("₪", "")), int.Parse(Id.Text));
                         if (pd.ShowDialog() == DialogResult.OK)
                         {
                             Calculate();
                         }
                     }
-
                 }
                 else
                 {
                     PayDebt pd = new PayDebt();
-                    pd.LoadAmount(int.Parse(Debt.Text.Replace("₪", "")), int.Parse(Id.Text));
                     if (pd.ShowDialog() == DialogResult.OK)
                     {
                         Calculate();
@@ -536,33 +607,6 @@ namespace WindowsFormsApp1
                 }
             }
         }
-
-        private void ReadyGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (Id.Text == "")
-            {
-                MessageBox.Show("עלייך לשלוף תיק לקוח!");
-            }
-            else if (OrderGrid.Rows.Count > 0)
-            {
-                OrderService os = new OrderService();
-                os.UpdateStatus(int.Parse(OrderGrid.CurrentRow.Cells[0].Value.ToString()), "הוחזר");
-                System.Threading.Thread.Sleep(1000);
-                MessageBox.Show("הפריט הועבר בהצלחה");
-                OrderGrid.AutoGenerateColumns = false;
-                OrderGrid.DataSource = GetOrders(int.Parse(Id.Text));
-                OrderGrid.DataMember = "Orders";
-                ReadyGrid.AutoGenerateColumns = false;
-                ReadyGrid.DataSource = GetReadyOrders(int.Parse(Id.Text));
-                ReadyGrid.DataMember = "Orders";
-                Calculate();
-            }
-            else
-            {
-                MessageBox.Show("לא נבחרו הזמנות");
-            }
-        }
-
         public static void CheckMaker()
         {
             try
@@ -578,7 +622,6 @@ namespace WindowsFormsApp1
             MessageBox.Show("Worked!");
 
         }
-
         private void CityBox_Click(object sender, EventArgs e)
         {
             if (FnameBox.ReadOnly == false)
@@ -591,20 +634,53 @@ namespace WindowsFormsApp1
                 MessageBox.Show("עלייך לשלוף תיק לקוח!!");
             }
         }
-
         private void ReturnB_Click(object sender, EventArgs e)
         {
-            CheckMaker();
+            List<int> ids = IdSelected(ReadyGrid);
+            if (Choose.id == 0)
+            {
+                MessageBox.Show("עלייך לשלוף תיק לקוח!");
+            }
+            else if (ids.Count == 0)
+            {
+                MessageBox.Show("אנא בחר פריט!");
+            }
+            else
+            {
+                UpdateStatus(ids, "בטיפול");
+                System.Threading.Thread.Sleep(100);
+                MessageBox.Show("הפריט הועבר בהצלחה");
+                OrderGrid.AutoGenerateColumns = false;
+                OrderGrid.DataSource = GetOrders(Choose.id);
+                OrderGrid.DataMember = "Orders";
+                ReadyGrid.AutoGenerateColumns = false;
+                ReadyGrid.DataSource = GetReadyOrders(Choose.id);
+                ReadyGrid.DataMember = "Orders";
+                Calculate();
+            }
         }
-
+        private void AddCust_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 1;
+            IdBox.Text = (int.Parse(HighestUser().Tables[0].Rows[0][0].ToString()) + 1).ToString();
+            Unblock();
+            ResetAllBoxes();
+        }
         private void TestBox_Click(object sender, EventArgs e)
         {
-            printPreviewDialog1.Document = printDocument1;
-            printPreviewDialog1.ShowDialog();
+            if (Choose.id == 0)
+            {
+                MessageBox.Show("עלייך לשלוף תיק לקוח!");
+            }
+            else
+            {
+                printPreviewDialog1.Document = printDocument1;
+                printPreviewDialog1.ShowDialog();
+            }
+
 
 
         }
-
         private static decimal CalculateTotal(DataSet dataSet)
         {
             decimal total = 0;
@@ -820,7 +896,6 @@ namespace WindowsFormsApp1
 
 
         }
-
         private void History_Click(object sender, EventArgs e)
         {
             if (Choose.u == null)
@@ -835,24 +910,20 @@ namespace WindowsFormsApp1
             }
 
         }
-
         private void PaymentButton_Click(object sender, EventArgs e)
         {
             // MessageBox.Show(Choose.location);
             PaymentStats ps = new PaymentStats();
             ps.Show();
         }
-
         private void XIcon_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
         private void DelButton_Click(object sender, EventArgs e)
         {
 
         }
-
         private void UserGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 5)
@@ -861,66 +932,47 @@ namespace WindowsFormsApp1
                 DataSet ds = GetUserById(x);
                 User u = new User(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString(), ds.Tables[0].Rows[0][2].ToString(), ds.Tables[0].Rows[0][3].ToString(),
                   int.Parse(ds.Tables[0].Rows[0][4].ToString()), ds.Tables[0].Rows[0][5].ToString(), ds.Tables[0].Rows[0][6].ToString(), int.Parse(ds.Tables[0].Rows[0][7].ToString()), ds.Tables[0].Rows[0][8].ToString(), ds.Tables[0].Rows[0][9].ToString(), int.Parse(ds.Tables[0].Rows[0][10].ToString()));
-                Choose.u = u;
-                Choose.id = x;
-                Populate(Choose.u);
-                Block();
+                SignIn(u.Id);
+                tabControl1.SelectedIndex = 2;
             }
         }
-
         private void LoginButton_Click(object sender, EventArgs e)
         {
             Clock w = new Clock();
             w.Show();
         }
-
         private void SearchText_TextChanged(object sender, EventArgs e)
         {
             DataTable dt = GetUsers().Tables[0];
             DataView dv = dt.DefaultView;
-            dv.RowFilter = string.Format("username like '%{0}%' or Convert([userid] , System.String) like '{0}'", SearchText.Text);
+
+            // dv.RowFilter = string.Format("username LIKE '%{0}%' OR userphone LIKE '%{0}%' OR (username + ' ' + fname) LIKE '%{0}%'", SearchText.Text);
+            dv.RowFilter = string.Format("userphone LIKE '%{0}%' OR (username + ' ' + userlname) LIKE '%{0}%'", SearchText.Text);
             UserGrid.DataSource = dv.ToTable();
         }
-
         private void Disselect_Click(object sender, EventArgs e)
         {
-            Choose.u = null;
-            Choose.id = 0;
-            ResetAllBoxes();
-            Unpopulate();
+            SignOut();
         }
-
         private void CheckListButton_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 3;
-            tabControl2.SelectedIndex = 4;
+            tabControl2.SelectedIndex = 3;
         }
-
-        private void AddCust_Click(object sender, EventArgs e)
-        {
-            tabControl1.SelectedIndex = 1;
-            IdBox.Text = (int.Parse(HighestUser().Tables[0].Rows[0][0].ToString()) + 1).ToString();
-            Unblock();
-            ResetAllBoxes();
-        }
-
         private void OweButton_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 3;
             tabControl2.SelectedIndex = 0;
         }
-
         private void HomeButton_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 0;
 
         }
-
         private void MovingPanel_MouseDown(object sender, MouseEventArgs e)
         {
             mouseLocation = new Point(-e.X, -e.Y);
         }
-
         private void MovingPanel_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -931,5 +983,305 @@ namespace WindowsFormsApp1
 
             }
         }
-    }
+        private void PrintWorkButton_Click(object sender, EventArgs e)
+        {
+            if (WorkersList.SelectedItem == null)
+            {
+                MessageBox.Show("נא לבחור עובד!");
+            }
+            else if (YearSelect.SelectedItem == null)
+            {
+                MessageBox.Show("נא לבחור שנה");
+            }
+            else if (MonthSelect.SelectedItem == null)
+            {
+                MonthSelect.SelectedIndex = 12;
+            }
+            else
+            {
+                PrintWorkPreview.Document = PrintWork;
+                PrintWorkPreview.ShowDialog();
+            }
+        }
+        private void PrintWork_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            DataSet dataSet = GetClocksByMonth(int.Parse(YearSelect.SelectedItem.ToString()), int.Parse(MonthSelect.SelectedItem.ToString()), WorkersList.SelectedItem.ToString());
+            string[] selectedColumns = { "ClockDiff", "ClockExit", "ClockEntry", "ClockId" };
+            Dictionary<string, string> columnTitleMap = new Dictionary<string, string>
+                {
+                    { "ClockId", "מס'" },
+                    { "ClockName", "שם" },
+                    { "ClockEntry", "כניסה" },
+                    { "ClockExit", "יציאה" },
+                    { "ClockDiff", "דקות" }
+                };
+
+            Graphics graphics = e.Graphics;
+
+            Font titleFont = new Font("Arial", 16, FontStyle.Bold);
+            Font normalFont = new Font("Arial", 10);
+            Font boldFont = new Font("Arial", 10, FontStyle.Bold);
+
+            Brush brush = Brushes.Black;
+            Brush headingBrush = Brushes.DarkBlue;
+
+            int leftMargin = 20;
+            int topMargin = 20; // Set top margin to position at the top of the page
+
+            string storeName = "Studio Lana";
+            string address = "עין חנוך 15, גני תקווה";
+            string phone = "טלפון: " + "054-5606832";
+            string date = DateTime.Now.ToString("MM / dd / yyyy HH: mm");
+            string receiptNo = "Receipt #: 001";
+            string thankYou = "!תודה רבה על ההזמנה";
+
+            // Calculate the width of the receipt content
+            float totalWidth = graphics.VisibleClipBounds.Width;
+
+            // Calculate the center of the drawing area
+            int centerX = (int)(totalWidth / 2);
+
+            SizeF measureString(string text, Font font) => graphics.MeasureString(text, font);
+
+            SizeF storeNameSize = measureString(storeName, titleFont);
+            SizeF addressSize = measureString(address, normalFont);
+            SizeF phoneSize = measureString(phone, normalFont);
+            SizeF dateSize = measureString(date, normalFont);
+            SizeF receiptNoSize = measureString(receiptNo, normalFont);
+            SizeF thankYouSize = measureString(thankYou, normalFont);
+
+            // Calculate the total height of the receipt content
+            float totalHeight = storeNameSize.Height + addressSize.Height + phoneSize.Height +
+                                dateSize.Height + receiptNoSize.Height + 40 + // Space between sections
+                                40 + // Increased space between store information and table headers
+                                selectedColumns.Length * 30 + // Height of table headers
+                                dataSet.Tables[0].Rows.Count * 25;
+            //20 + // Space between table and total
+            //40 + // Height of the total section
+            //thankYouSize.Height; // Height of the thank you section
+
+            // Reset top margin to align at the top of the page
+            topMargin = 20;
+
+            graphics.DrawString(storeName, titleFont, headingBrush, centerX - storeNameSize.Width / 2, topMargin);
+            topMargin += (int)storeNameSize.Height;
+            graphics.DrawString(address, normalFont, brush, centerX - addressSize.Width / 2, topMargin);
+            topMargin += (int)addressSize.Height;
+            graphics.DrawString(phone, normalFont, brush, centerX - phoneSize.Width / 2, topMargin);
+            topMargin += (int)phoneSize.Height;
+            graphics.DrawString(date, normalFont, brush, centerX - dateSize.Width / 2, topMargin);
+            topMargin += (int)dateSize.Height;
+            graphics.DrawString(receiptNo, normalFont, brush, centerX - receiptNoSize.Width / 2, topMargin);
+            topMargin += (int)receiptNoSize.Height;
+
+
+            // Define the text for the three lines
+            string line1 = "שם העובד: " + dataSet.Tables[0].Rows[0][1].ToString();
+            Font headlineFont = new Font("Arial", 12, FontStyle.Bold);
+
+            // Measure the sizes of these lines
+            SizeF line1Size = measureString(line1, headlineFont);
+
+            topMargin += 10; // Add space before the table segment
+            // Draw headline style line
+            graphics.DrawString(line1, headlineFont, headingBrush, centerX - line1Size.Width / 2, topMargin);
+            topMargin += (int)line1Size.Height + 5; // Add some space between headline and normal text lines
+            Font tableFont = new Font("Arial", 10);
+            Font HeaderTableFont = new Font("Arial", 10, FontStyle.Bold);
+
+            int columnWidth = 120; // Increased column width
+            int columnSpacing = 30; // Increased column spacing
+
+            for (int i = 0; i < selectedColumns.Length; i++)
+            {
+                string columnName = selectedColumns[i];
+                string columnTitle = columnTitleMap.ContainsKey(columnName) ? columnTitleMap[columnName] : columnName;
+                SizeF columnTitleSize = graphics.MeasureString(columnTitle, HeaderTableFont);
+
+                // Calculate the center for each column
+                int xPosition = (int)(((totalWidth - (selectedColumns.Length * columnWidth) - (selectedColumns.Length - 1) * columnSpacing)) / 2) + i * (columnWidth + columnSpacing);
+                int textOffset = (int)((columnWidth - columnTitleSize.Width) / 2); // Adjust for text alignment
+
+                graphics.DrawString(columnTitle, HeaderTableFont, Brushes.Black, xPosition + textOffset, topMargin);
+            }
+
+            topMargin += 30; // Increased space between table header and data
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                for (int i = 0; i < selectedColumns.Length; i++)
+                {
+                    int columnIndex = dataSet.Tables[0].Columns.IndexOf(selectedColumns[i]);
+                    if (columnIndex >= 0)
+                    {
+                        string columnValue = row[columnIndex].ToString();
+                        SizeF columnValueSize = graphics.MeasureString(columnValue, tableFont);
+
+                        // Calculate the center for each column and adjust for text alignment
+                        int xPosition = (int)(((totalWidth - (selectedColumns.Length * columnWidth) - (selectedColumns.Length - 1) * columnSpacing)) / 2) + i * (columnWidth + columnSpacing);
+                        int textOffset = (int)((columnWidth - columnValueSize.Width) / 2); // Adjust for text alignment
+
+                        graphics.DrawString(columnValue, tableFont, Brushes.Black, xPosition + textOffset, topMargin);
+                    }
+                }
+                topMargin += 25; // Increased row height
+            }
+
+            topMargin += 0; // Increased space between table and total
+            decimal totalAmount = 0;
+            decimal tax = totalAmount * 0.17m;
+            decimal beforeTax = totalAmount - tax;
+            topMargin += (int)line1Size.Height;
+            string totalText = "סך הכל שעות עבודה: ";
+            SizeF totalSize = graphics.MeasureString(totalText, tableFont);
+            graphics.DrawString(totalText, tableFont, Brushes.Black, centerX - totalSize.Width / 2, topMargin);
+            topMargin += 40;
+            topMargin += 0; // Increase space between total and additional messages
+            // The existing thank you message
+            graphics.DrawString(thankYou, normalFont, brush, centerX - thankYouSize.Width / 2, topMargin);
+        }
+        private void YesIcon_Click(object sender, EventArgs e)
+        {
+            if (WorkersList.SelectedItem == null)
+            {
+                MessageBox.Show("נא לבחור עובד!");
+            }
+            else if (YearSelect.SelectedItem == null)
+            {
+                MessageBox.Show("נא לבחור שנה");
+            }
+            else if (MonthSelect.SelectedItem == null)
+            {
+                MonthSelect.SelectedIndex = 12;
+            }
+            else
+            {
+                DataSet dataSet = new DataSet();
+                if (MonthSelect.SelectedIndex == 12)
+                {
+                    dataSet = GetClocksByYear(int.Parse(YearSelect.SelectedItem.ToString()), WorkersList.SelectedItem.ToString());
+                }
+                else
+                {
+                    dataSet = GetClocksByMonth(int.Parse(YearSelect.SelectedItem.ToString()), int.Parse(MonthSelect.SelectedItem.ToString()), WorkersList.SelectedItem.ToString());
+                }
+                WorkersGrid.AutoGenerateColumns = false;
+                WorkersGrid.DataSource = dataSet;
+                WorkersGrid.DataMember = "Clock";
+                WorkText.Text = "כמות שעות: " + CalculateWork(dataSet).ToString("0.00");
+            }
+
+        }
+        private void UserGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int id = int.Parse(this.UserGrid.CurrentRow.Cells[0].Value.ToString());
+            SignIn(id);
+        }
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (tabControl1.SelectedIndex == 0)
+            {
+                SignOut();
+            }
+        }
+        private void DeliveryButton_Click(object sender, EventArgs e)
+        {
+            List<int> ids = IdSelected(ReadyGrid);
+            if (Choose.id == 0)
+            {
+                MessageBox.Show("עלייך לשלוף תיק לקוח!");
+            }
+            else if (ids.Count == 0)
+            {
+                MessageBox.Show("אנא בחר פריט!");
+            }
+            else
+            {
+                Deliver(ids);
+                System.Threading.Thread.Sleep(100);
+                MessageBox.Show("הפריט נמסר בהצלחה");
+                OrderGrid.AutoGenerateColumns = false;
+                OrderGrid.DataSource = GetOrders(Choose.id);
+                OrderGrid.DataMember = "Orders";
+                ReadyGrid.AutoGenerateColumns = false;
+                ReadyGrid.DataSource = GetReadyOrders(Choose.id);
+                ReadyGrid.DataMember = "Orders";
+                Calculate();
+            }
+        }
+        private void RefreshBox_Click(object sender, EventArgs e)
+        {
+            if (Choose.id != 0)
+            {
+                Populate(Choose.u);
+            }
+            PopulateGrids();
+
+        }
+        private void UserOwe_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int id = int.Parse(this.UserOwe.CurrentRow.Cells[0].Value.ToString());
+            SignIn(id);
+        }
+        private void UnfinishedItems_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string name = (this.UnfinishedItems.CurrentRow.Cells[1].Value.ToString());
+
+            int start = name.IndexOf('(') + 1;
+            int end = name.IndexOf(')') - start;
+            int id = int.Parse(name.Substring(start, end));
+            SignIn(id);
+        }
+
+
+        private void OrderGrid_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        {
+            if (e.StateChanged == DataGridViewElementStates.Selected)
+            {
+                OrderGrid.ClearSelection();
+            }
+        }
+
+        private void SelectAllOrder_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in OrderGrid.Rows)
+            {
+                if (row.Cells[0].Value == null)
+                {
+                    row.Cells[0].Value = true;
+                }
+                else
+                {
+                    row.Cells[0].Value = true;
+                }
+
+            }
+        }
+
+        private void SelectAllReady_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in ReadyGrid.Rows)
+            {
+                if (row.Cells[0].Value == null)
+                {
+                    row.Cells[0].Value = true;
+                }
+                else
+                {
+                    row.Cells[0].Value = true;
+                }
+
+            }
+        }
+
+        private void ReadyGrid_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        {
+            if (e.StateChanged == DataGridViewElementStates.Selected)
+            {
+                ReadyGrid.ClearSelection();
+            }
+        }
+    }    
+    
 }

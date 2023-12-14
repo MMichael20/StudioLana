@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
@@ -16,14 +10,16 @@ namespace WindowsFormsApp1
         public PaymentStats()
         {
             InitializeComponent();
-            
-            
-           
         }
         public DataSet GetAllChecksByType(int t)
         {
             CheckService cs = new CheckService();
             return cs.GetAllChecksByType(t);
+        }
+        public DataSet GetAllChecksByTypeAndId(int t, int id)
+        {
+            CheckService cs = new CheckService();
+            return cs.GetAllChecksByTypeAndId(t, id);
         }
         public DataSet GetAllChecksByTypeAndDate(int t, DateTime date)
         {
@@ -39,6 +35,11 @@ namespace WindowsFormsApp1
         {
             CheckService cs = new CheckService();
             return cs.GetAllChecks();
+        }
+        public DataSet GetAllChecksById(int id)
+        {
+            CheckService cs = new CheckService();
+            return cs.GetAllChecksById(id);
         }
         public void Populate()
         {
@@ -74,10 +75,51 @@ namespace WindowsFormsApp1
             Chart1.Series["s1"].Points[2].Color = System.Drawing.Color.GreenYellow;
             Chart1.Series["s1"].Points[2].AxisLabel = "מזומן";
         }
+        public void PopulateById(int id)
+        {
+
+            int bit = 0;
+            int credit = 0;
+            int cash = 0;
+            CheckTable.AutoGenerateColumns = false;
+            CheckTable.DataSource = GetAllChecksById(id);
+            CheckTable.DataMember = "Checks";
+
+            bit += int.Parse(GetAllChecksByTypeAndId(1, id).Tables[0].Rows.Count.ToString());
+            credit += int.Parse(GetAllChecksByTypeAndId(2, id).Tables[0].Rows.Count.ToString());
+            cash += int.Parse(GetAllChecksByTypeAndId(3, id).Tables[0].Rows.Count.ToString());
+
+            int total = bit + credit + cash;
+            Total.Text = "מספר כל התשלומים: " + total;
+            BitLabel.Text = "מספר התשלומים בביט: " + bit;
+
+            CreditLabel.Text = "מספר התשלומים באשראי: " + credit;
+            CashLabel.Text = "מספר התשלומים במזומן: " + cash;
+
+
+            Chart1.Series["s1"].Points.Add(bit);
+            Chart1.Series["s1"].Points[0].Color = System.Drawing.Color.CadetBlue;
+            Chart1.Series["s1"].Points[0].AxisLabel = "ביט";
+
+            Chart1.Series["s1"].Points.Add(credit);
+            Chart1.Series["s1"].Points[1].Color = System.Drawing.Color.IndianRed;
+            Chart1.Series["s1"].Points[1].AxisLabel = "אשראי";
+
+            Chart1.Series["s1"].Points.Add(cash);
+            Chart1.Series["s1"].Points[2].Color = System.Drawing.Color.GreenYellow;
+            Chart1.Series["s1"].Points[2].AxisLabel = "מזומן";
+        }
         private void PaymentStats_Load(object sender, EventArgs e)
         {
-            Populate();
-
+            if (Choose.u == null)
+            {
+                Populate();
+            }
+            else
+            {
+                PopulateById(Choose.id);
+            }
+            
         }
 
         private void Submit_Click(object sender, EventArgs e)

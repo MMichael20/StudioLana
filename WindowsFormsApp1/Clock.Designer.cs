@@ -36,23 +36,24 @@
             // 
             // WorkersList
             // 
-            this.WorkersList.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.WorkersList.Font = new System.Drawing.Font("Secular One", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WorkersList.FormattingEnabled = true;
             this.WorkersList.Items.AddRange(new object[] {
             "אינה"});
             this.WorkersList.Location = new System.Drawing.Point(261, 165);
             this.WorkersList.Name = "WorkersList";
-            this.WorkersList.Size = new System.Drawing.Size(238, 33);
+            this.WorkersList.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.WorkersList.Size = new System.Drawing.Size(238, 38);
             this.WorkersList.TabIndex = 0;
             // 
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label26.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label26.Location = new System.Drawing.Point(505, 169);
             this.label26.Name = "label26";
             this.label26.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label26.Size = new System.Drawing.Size(52, 24);
+            this.label26.Size = new System.Drawing.Size(56, 27);
             this.label26.TabIndex = 17;
             this.label26.Text = "עובד:";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -60,8 +61,8 @@
             // 
             // EndButton
             // 
-            this.EndButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EndButton.Location = new System.Drawing.Point(281, 232);
+            this.EndButton.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EndButton.Location = new System.Drawing.Point(276, 232);
             this.EndButton.Name = "EndButton";
             this.EndButton.Size = new System.Drawing.Size(96, 50);
             this.EndButton.TabIndex = 54;
@@ -71,19 +72,21 @@
             // 
             // StartButton
             // 
-            this.StartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StartButton.Location = new System.Drawing.Point(403, 232);
+            this.StartButton.BackColor = System.Drawing.Color.Transparent;
+            this.StartButton.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StartButton.Location = new System.Drawing.Point(391, 232);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(96, 50);
             this.StartButton.TabIndex = 55;
             this.StartButton.Text = "כניסה";
-            this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.UseVisualStyleBackColor = false;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // Clock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.EndButton);

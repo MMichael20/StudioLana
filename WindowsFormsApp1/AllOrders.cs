@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
@@ -20,17 +13,19 @@ namespace WindowsFormsApp1
             OrderService os = new OrderService();
             return os.GetAllOrdersById(i);
         }
-        private DataSet GetAllOrders()
+        private DataSet GetAllSent()
         {
             //UserService us = new UserService();
             //return us.GetUsers();
             OrderService os = new OrderService();
-            return os.GetAllOrders();
+            return os.GetAllSent();
         }
-        private DataSet GetUserById(int id)
+        private DataSet GetAllSentById(int id)
         {
-            UserService us = new UserService();
-            return us.GetUserById(id);
+            //UserService us = new UserService();
+            //return us.GetUsers();
+            OrderService os = new OrderService();
+            return os.GetAllSentById(id);
         }
         public AllOrders()
         {
@@ -44,21 +39,16 @@ namespace WindowsFormsApp1
             if(Choose.u == null)
             {
                 OrderGrid.AutoGenerateColumns = false;
-                OrderGrid.DataSource = GetAllOrders();
+                OrderGrid.DataSource = GetAllSent();
                 OrderGrid.DataMember = "Orders";
             }
             else
             {
                 OrderGrid.AutoGenerateColumns = false;
-                OrderGrid.DataSource = GetOrdersById(Choose.id);
+                OrderGrid.DataSource = GetAllSentById(Choose.id);
                 OrderGrid.DataMember = "Orders";
             }
-            
-
         }
-      
-
-
         private void SearchText_TextChanged(object sender, EventArgs e)
         {
             DataTable dt = GetOrdersById(Choose.id).Tables[0];
@@ -72,6 +62,17 @@ namespace WindowsFormsApp1
         private void OrderGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void OrderGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string name = (this.OrderGrid.CurrentRow.Cells[1].Value.ToString());
+
+            int start = name.IndexOf('(') + 1;
+            int end = name.IndexOf(')') - start;
+            int id = int.Parse(name.Substring(start, end));
+            
+            Program.play.SignIn(id);
         }
     }
 }

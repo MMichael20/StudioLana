@@ -18,9 +18,9 @@ namespace WindowsFormsApp1
         private int discount;
         private string sub;
         private string email;
-        private double debt;
+        private int debt;
 
-        public User(int id, string fname, string lname, string street, int city, string phone, string note, int discount, string sub, string email, double debt)
+        public User(int id, string fname, string lname, string street, int city, string phone, string note, int discount, string sub, string email, int debt)
         {
             this.id = id;
             this.fname = fname;
@@ -34,7 +34,7 @@ namespace WindowsFormsApp1
             this.email = email;
             this.debt = debt;
         }
-        public User(string fname, string lname, string street, int city, string phone, string note, int discount, string sub, string email, double debt)
+        public User(string fname, string lname, string street, int city, string phone, string note, int discount, string sub, string email, int debt)
         {
             this.fname = fname;
             this.lname = lname;
@@ -98,7 +98,7 @@ namespace WindowsFormsApp1
             get { return this.email; }
             set { this.email = value; }
         }
-        public double Debt
+        public int Debt
         {
             get { return this.debt; }
             set { this.debt = value; }

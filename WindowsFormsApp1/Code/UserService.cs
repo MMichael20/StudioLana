@@ -102,6 +102,10 @@ namespace WindowsFormsApp1
             {
                 myConnection.Close();
             }
+            finally
+            {
+                myConnection.Close();
+            }
         }
         public void UpdatetUser(User p)
         {
@@ -128,8 +132,12 @@ namespace WindowsFormsApp1
             {
                 myConnection.Close();
             }
+            finally
+            {
+                myConnection.Close();
+            }
         }
-        public void SetDebt(double id, double debt)
+        public void SetDebt(int id, int debt)
         {
             try
             {
@@ -141,6 +149,10 @@ namespace WindowsFormsApp1
 
             catch (Exception ex)
 
+            {
+                myConnection.Close();
+            }
+            finally
             {
                 myConnection.Close();
             }

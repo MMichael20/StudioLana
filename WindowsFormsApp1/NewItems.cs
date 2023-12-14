@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
-
+using System.Collections.Generic;
+using System.Threading;
 
 namespace WindowsFormsApp1
 {
@@ -28,6 +29,16 @@ namespace WindowsFormsApp1
         {
             ColorService us = new ColorService();
             return us.GetColorByName(name);
+        }
+        private void NewOrder(List<Order> orders)
+        {
+            OrderService os = new OrderService();
+            os.NewOrder(orders);
+        }
+        private void SetDebt(int id, int debt)
+        {
+            UserService us = new UserService();
+            us.SetDebt(id, debt);
         }
         public void getId(int id)
         {
@@ -446,7 +457,14 @@ namespace WindowsFormsApp1
             if(NewItemGrid.Rows.Count != 0)
             {
                 NewItemGrid.CurrentRow.Cells[6].Value = "1" + FindDay(1) + " (אקספרס)";
-
+                if (NewItemGrid.CurrentRow.Cells[5].Value.ToString().Contains("("))
+                {
+                    NewItemGrid.CurrentRow.Cells[5].Value = DiscountOne(-50, double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Remove(NewItemGrid.CurrentRow.Cells[5].Value.ToString().IndexOf(" (")).Replace("₪ ", "").Replace(".00", "").Replace(",", "")));
+                }
+                else
+                {
+                    NewItemGrid.CurrentRow.Cells[5].Value = DiscountOne(-50, double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Replace("₪ ", "").Replace(".00", "").Replace(",", "")));
+                }
             }           
         }
         public void UpdateColor()
@@ -461,9 +479,10 @@ namespace WindowsFormsApp1
         }
         private void SubmitOrder_Click(object sender, EventArgs e)
         {
+            int total = 0;
             if (Check())
             {
-
+                List<Order> orders = new List<Order>();
                 UpdateColor();
                 DateTime today = DateTime.Today;
                 for (int i = 0; i < NewItemGrid.Rows.Count; i++)
@@ -486,17 +505,34 @@ namespace WindowsFormsApp1
                     if (final > 6)
                         final = final - 5;
                     DateTime finish = today.AddDays(final);
-                    Order newOrder = new Order(userId, id, color, DateTime.Now, amount, price, 5, "בטיפול", finish);
-                    OrderService os = new OrderService();
-                    os.NewOrder(newOrder);
-                    UserService us = new UserService();
-                    us.SetDebt(userId, price);
-                    double price2 = price;
-                    Choose.u.Debt += price2;
-                    this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                    //finish = today.AddDays(work);
+                    Order newOrder = new Order(userId, id, color, DateTime.Now, amount, price, "ללא", "בטיפול", finish, 0, false);
+                    orders.Add(newOrder);
+                    //OrderService os = new OrderService();
+                    //os.NewOrder(newOrder);
+                    //UserService us = new UserService();
+                    //us.SetDebt(userId, price); Need to fix the thing with the debt setter
+                    total += price;
                 }
+                Choose.u.Debt = Choose.u.Debt + total;
+                SetDebt(Choose.id, Choose.u.Debt + total);
+                NewOrder(orders);
+                Thread.Sleep(100);
+                this.DialogResult = System.Windows.Forms.DialogResult.OK;
             }
         }
 
+        private void Exp2_Click(object sender, EventArgs e)
+        {
+            NewItemGrid.CurrentRow.Cells[6].Value = "0" + FindDay(0) + " (אקספרס)";
+            if (NewItemGrid.CurrentRow.Cells[5].Value.ToString().Contains("("))
+            {
+                NewItemGrid.CurrentRow.Cells[5].Value = DiscountOne(-100, double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Remove(NewItemGrid.CurrentRow.Cells[5].Value.ToString().IndexOf(" (")).Replace("₪ ", "").Replace(".00", "").Replace(",", "")));
+            }
+            else
+            {
+                NewItemGrid.CurrentRow.Cells[5].Value = DiscountOne(-100, double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Replace("₪ ", "").Replace(".00", "").Replace(",", "")));
+            }
+        }
     }
 }

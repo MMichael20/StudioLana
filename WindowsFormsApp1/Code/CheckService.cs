@@ -34,6 +34,10 @@ namespace WindowsFormsApp1
             {
                 myConnection.Close();
             }
+            finally
+            {
+                myConnection.Close();
+            }
         }
         public DataSet GetAllChecksByType(int t)
         {
@@ -57,13 +61,57 @@ namespace WindowsFormsApp1
             }
             return dataset;
         }
+        public DataSet GetAllChecksByTypeAndId(int t, int id)
+        {
+            DataSet dataset = new DataSet();
+            try
+            {
+                myConnection.Open();
+                string sSql = $"select * from Checks WHERE CheckType = {t} AND CheckUser = {id}";
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                OleDbDataAdapter adapter = new OleDbDataAdapter();
+                adapter.SelectCommand = myCmd;
+                adapter.Fill(dataset, "Checks");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return dataset;
+        }
         public DataSet GetAllChecks()
         {
             DataSet dataset = new DataSet();
             try
             {
                 myConnection.Open();
-                string sSql = "select * from Checks, Types, Users WHERE Users.UserId = Checks.CheckUser AND Types.TypeId = Checks.CheckType";
+                string sSql = "select Checks.*, Types.*, Users.*,  Users.UserName + ' ' + Users.UserLName + ' (' + CStr(Users.UserId) + ') ' AS FullName from Checks, Types, Users WHERE Users.UserId = Checks.CheckUser AND Types.TypeId = Checks.CheckType";
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                OleDbDataAdapter adapter = new OleDbDataAdapter();
+                adapter.SelectCommand = myCmd;
+                adapter.Fill(dataset, "Checks");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return dataset;
+        }
+        public DataSet GetAllChecksById(int id)
+        {
+            DataSet dataset = new DataSet();
+            try
+            {
+                myConnection.Open();
+                string sSql = $"select Checks.*, Types.*, Users.*,  Users.UserName + ' ' + Users.UserLName + ' (' + CStr(Users.UserId) + ') ' AS FullName from Checks, Types, Users WHERE CheckUser = {id} AND Users.UserId = Checks.CheckUser AND Types.TypeId = Checks.CheckType";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 OleDbDataAdapter adapter = new OleDbDataAdapter();
                 adapter.SelectCommand = myCmd;

@@ -86,6 +86,12 @@
     <Compile Include="Code\CheckService.cs" />
     <Compile Include="Code\Check.cs" />
     <Compile Include="Code\ClockService.cs" />
+    <Compile Include="InputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputForm.Designer.cs">
+      <DependentUpon>InputForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MyControls\MyButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -215,6 +221,9 @@
     <EmbeddedResource Include="ColorList.resx">
       <DependentUpon>ColorList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InputForm.resx">
+      <DependentUpon>InputForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ItemsList.resx">
       <DependentUpon>ItemsList.cs</DependentUpon>
     </EmbeddedResource>
@@ -299,6 +308,10 @@
     <Content Include="Pics\trash.png" />
     <Content Include="Pics\V-icon.png" />
     <Content Include="Pics\x-icon.png" />
+    <None Include="Resources\checkbox.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\YesIcon.png" />
+    <None Include="Resources\search2.png" />
     <None Include="Resources\home2.png" />
     <None Include="Resources\Ok.png" />
     <None Include="Resources\save2.png" />

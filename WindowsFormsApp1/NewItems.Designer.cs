@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewItems));
             this.NewItemGrid = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,8 +65,10 @@
             this.SetDis = new System.Windows.Forms.Button();
             this.DisBox = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.Exp = new System.Windows.Forms.Button();
             this.SubmitOrder = new System.Windows.Forms.Button();
+            this.Exp = new WindowsFormsApp1.MyButton();
+            this.Icons = new System.Windows.Forms.ImageList(this.components);
+            this.Exp2 = new WindowsFormsApp1.MyButton();
             ((System.ComponentModel.ISupportInitialize)(this.NewItemGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -464,16 +468,6 @@
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label1.UseMnemonic = false;
             // 
-            // Exp
-            // 
-            this.Exp.Location = new System.Drawing.Point(18, 451);
-            this.Exp.Name = "Exp";
-            this.Exp.Size = new System.Drawing.Size(89, 41);
-            this.Exp.TabIndex = 62;
-            this.Exp.Text = "אקספרס";
-            this.Exp.UseVisualStyleBackColor = true;
-            this.Exp.Click += new System.EventHandler(this.Exp_Click);
-            // 
             // SubmitOrder
             // 
             this.SubmitOrder.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.icons8_checked_checkbox_48;
@@ -491,13 +485,61 @@
             this.SubmitOrder.UseVisualStyleBackColor = true;
             this.SubmitOrder.Click += new System.EventHandler(this.SubmitOrder_Click);
             // 
+            // Exp
+            // 
+            this.Exp.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.Exp.BackgroundColor = System.Drawing.Color.LightSeaGreen;
+            this.Exp.BorderColor = System.Drawing.Color.LavenderBlush;
+            this.Exp.BorderRadius = 20;
+            this.Exp.BorderSize = 0;
+            this.Exp.FlatAppearance.BorderSize = 0;
+            this.Exp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Exp.ForeColor = System.Drawing.Color.Lime;
+            this.Exp.ImageKey = "Extra.png";
+            this.Exp.ImageList = this.Icons;
+            this.Exp.Location = new System.Drawing.Point(40, 437);
+            this.Exp.Name = "Exp";
+            this.Exp.Size = new System.Drawing.Size(131, 43);
+            this.Exp.TabIndex = 64;
+            this.Exp.TextColor = System.Drawing.Color.Lime;
+            this.Exp.UseVisualStyleBackColor = false;
+            this.Exp.Click += new System.EventHandler(this.Exp_Click);
+            // 
+            // Icons
+            // 
+            this.Icons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("Icons.ImageStream")));
+            this.Icons.TransparentColor = System.Drawing.Color.Transparent;
+            this.Icons.Images.SetKeyName(0, "Extra.png");
+            this.Icons.Images.SetKeyName(1, "ExtraBlack.png");
+            // 
+            // Exp2
+            // 
+            this.Exp2.BackColor = System.Drawing.Color.MediumOrchid;
+            this.Exp2.BackgroundColor = System.Drawing.Color.MediumOrchid;
+            this.Exp2.BorderColor = System.Drawing.Color.LavenderBlush;
+            this.Exp2.BorderRadius = 20;
+            this.Exp2.BorderSize = 0;
+            this.Exp2.FlatAppearance.BorderSize = 0;
+            this.Exp2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Exp2.ForeColor = System.Drawing.Color.Lime;
+            this.Exp2.ImageKey = "ExtraBlack.png";
+            this.Exp2.ImageList = this.Icons;
+            this.Exp2.Location = new System.Drawing.Point(202, 437);
+            this.Exp2.Name = "Exp2";
+            this.Exp2.Size = new System.Drawing.Size(131, 43);
+            this.Exp2.TabIndex = 65;
+            this.Exp2.TextColor = System.Drawing.Color.Lime;
+            this.Exp2.UseVisualStyleBackColor = false;
+            this.Exp2.Click += new System.EventHandler(this.Exp2_Click);
+            // 
             // NewItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 622);
-            this.Controls.Add(this.SubmitOrder);
+            this.Controls.Add(this.Exp2);
             this.Controls.Add(this.Exp);
+            this.Controls.Add(this.SubmitOrder);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DisBox);
             this.Controls.Add(this.SetDis);
@@ -565,7 +607,6 @@
         private System.Windows.Forms.Button SetDis;
         private System.Windows.Forms.Label DisBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button Exp;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
@@ -574,5 +615,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn Length;
         private System.Windows.Forms.Button SubmitOrder;
+        private MyButton Exp;
+        private System.Windows.Forms.ImageList Icons;
+        private MyButton Exp2;
     }
 }

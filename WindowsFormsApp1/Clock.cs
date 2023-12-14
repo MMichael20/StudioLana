@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
@@ -16,10 +9,20 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
         }
-        private void SetWork(string name, int type)
+        private void SetStartWork(string name)
         {
             ClockService cs = new ClockService();
-            cs.SetWork(name, DateTime.Now, type);
+            cs.SetStartWork(name, DateTime.Now);
+        }
+        private void SetEndWork(string name)
+        {
+            ClockService cs = new ClockService();
+            cs.SetEndWork(name, DateTime.Now);
+        }
+        private int IsThereEntry(string name)
+        {
+            ClockService cs = new ClockService();
+            return cs.IsThereEntry(name);
         }
         private void StartButton_Click(object sender, EventArgs e)
         {
@@ -30,9 +33,10 @@ namespace WindowsFormsApp1
             else
             {
                 Choose.worker = WorkersList.SelectedItem.ToString();
-                SetWork(WorkersList.Text, 1);
-                MessageBox.Show("נרשמה כניסה לעובד - " + WorkersList.SelectedItem.ToString());
+                SetStartWork(WorkersList.Text);
+                //MessageBox.Show("נרשמה כניסה לעובד - " + WorkersList.SelectedItem.ToString());
                 Program.play.SetText();
+                this.Close();
 
             }
         }
@@ -43,12 +47,17 @@ namespace WindowsFormsApp1
             {
                 MessageBox.Show("בחר עובד מן הרשימה!");
             }
+            else if(IsThereEntry(WorkersList.SelectedItem.ToString()) == 0)
+            {
+                MessageBox.Show("אין סימון כניסה להיום");
+            }
             else
             {
                 Choose.worker = "אורח";
-                SetWork(WorkersList.Text, 0);
-                MessageBox.Show("נרשמה יציאה לעובד - " + WorkersList.SelectedItem.ToString());
+                SetEndWork(WorkersList.Text);
+                //MessageBox.Show("נרשמה יציאה לעובד - " + WorkersList.SelectedItem.ToString());
                 Program.play.SetText();
+                this.Close();
             }
         }
     }
