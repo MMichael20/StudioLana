@@ -83,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\FunctionService.cs" />
     <Compile Include="Code\CheckService.cs" />
     <Compile Include="Code\Check.cs" />
     <Compile Include="Code\ClockService.cs" />
@@ -92,6 +93,8 @@
     <Compile Include="InputForm.Designer.cs">
       <DependentUpon>InputForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Code\Invoice.cs" />
+    <Compile Include="Code\InvoiceService.cs" />
     <Compile Include="MyControls\MyButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -126,12 +129,6 @@
     </Compile>
     <Compile Include="SetDiscount.Designer.cs">
       <DependentUpon>SetDiscount.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SetNote.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SetNote.Designer.cs">
-      <DependentUpon>SetNote.cs</DependentUpon>
     </Compile>
     <Compile Include="CityForm.cs">
       <SubType>Form</SubType>
@@ -202,6 +199,8 @@
     <Compile Include="AllOrders.Designer.cs">
       <DependentUpon>AllOrders.cs</DependentUpon>
     </Compile>
+    <Compile Include="Code\Shop.cs" />
+    <Compile Include="Code\ShopService.cs" />
     <Compile Include="UserSearch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,9 +255,6 @@
     <EmbeddedResource Include="SetDiscount.resx">
       <DependentUpon>SetDiscount.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SetNote.resx">
-      <DependentUpon>SetNote.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SetPrice.resx">
       <DependentUpon>SetPrice.cs</DependentUpon>
     </EmbeddedResource>
@@ -308,6 +304,12 @@
     <Content Include="Pics\trash.png" />
     <Content Include="Pics\V-icon.png" />
     <Content Include="Pics\x-icon.png" />
+    <None Include="Resources\itemsbackground.jpg" />
+    <None Include="Resources\Goodtrash.png" />
+    <None Include="Resources\Jeans.jpg" />
+    <None Include="Resources\trashbin.png" />
+    <None Include="Resources\multicolor.jpg" />
+    <None Include="Resources\editicon2.png" />
     <None Include="Resources\checkbox.png" />
     <None Include="Resources\refresh.png" />
     <None Include="Resources\YesIcon.png" />

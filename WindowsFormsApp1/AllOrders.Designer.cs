@@ -32,8 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.OrderGrid = new System.Windows.Forms.DataGridView();
-            this.label26 = new System.Windows.Forms.Label();
-            this.SearchText = new System.Windows.Forms.TextBox();
             this.OrderId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OrderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,6 +41,8 @@
             this.OrderPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OrderFinish = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Paid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label26 = new System.Windows.Forms.Label();
+            this.SearchText = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.OrderGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,33 +91,12 @@
             this.OrderGrid.ReadOnly = true;
             this.OrderGrid.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.OrderGrid.RowHeadersVisible = false;
+            this.OrderGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.OrderGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.OrderGrid.Size = new System.Drawing.Size(1047, 498);
             this.OrderGrid.TabIndex = 0;
             this.OrderGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.OrderGrid_CellContentClick);
             this.OrderGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.OrderGrid_CellDoubleClick);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Secular One", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(788, 30);
-            this.label26.Name = "label26";
-            this.label26.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label26.Size = new System.Drawing.Size(75, 30);
-            this.label26.TabIndex = 16;
-            this.label26.Text = "חיפוש:";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label26.UseMnemonic = false;
-            // 
-            // SearchText
-            // 
-            this.SearchText.Font = new System.Drawing.Font("Secular One", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchText.Location = new System.Drawing.Point(192, 27);
-            this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(590, 38);
-            this.SearchText.TabIndex = 17;
-            this.SearchText.TextChanged += new System.EventHandler(this.SearchText_TextChanged);
             // 
             // OrderId
             // 
@@ -197,6 +176,28 @@
             this.Paid.HeaderText = "שולם";
             this.Paid.Name = "Paid";
             this.Paid.ReadOnly = true;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Secular One", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(788, 30);
+            this.label26.Name = "label26";
+            this.label26.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label26.Size = new System.Drawing.Size(75, 30);
+            this.label26.TabIndex = 16;
+            this.label26.Text = "חיפוש:";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label26.UseMnemonic = false;
+            // 
+            // SearchText
+            // 
+            this.SearchText.Font = new System.Drawing.Font("Secular One", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchText.Location = new System.Drawing.Point(192, 27);
+            this.SearchText.Name = "SearchText";
+            this.SearchText.Size = new System.Drawing.Size(590, 38);
+            this.SearchText.TabIndex = 17;
+            this.SearchText.TextChanged += new System.EventHandler(this.SearchText_TextChanged);
             // 
             // AllOrders
             // 

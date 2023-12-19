@@ -209,6 +209,7 @@
             this.Controls.Add(this.label26);
             this.Controls.Add(this.UserGrid);
             this.Name = "UserSearch";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UserSearch";
             this.Load += new System.EventHandler(this.UserSearch_Load);
             ((System.ComponentModel.ISupportInitialize)(this.UserGrid)).EndInit();

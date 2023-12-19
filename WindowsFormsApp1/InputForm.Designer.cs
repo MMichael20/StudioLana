@@ -38,25 +38,30 @@
             // 
             // ChangeLabel
             // 
+            this.ChangeLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ChangeLabel.AutoSize = true;
             this.ChangeLabel.Font = new System.Drawing.Font("Secular One", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChangeLabel.Location = new System.Drawing.Point(198, 143);
+            this.ChangeLabel.Location = new System.Drawing.Point(134, 32);
             this.ChangeLabel.Name = "ChangeLabel";
             this.ChangeLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ChangeLabel.Size = new System.Drawing.Size(55, 30);
             this.ChangeLabel.TabIndex = 0;
             this.ChangeLabel.Text = "בחר:";
+            this.ChangeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // UserInput
             // 
+            this.UserInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.UserInput.BackColor = System.Drawing.SystemColors.Window;
             this.UserInput.BorderColor = System.Drawing.Color.MediumBlue;
             this.UserInput.BorderFocusColor = System.Drawing.Color.LightBlue;
             this.UserInput.BorderRadius = 15;
             this.UserInput.BorderSize = 2;
-            this.UserInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UserInput.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UserInput.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.UserInput.Location = new System.Drawing.Point(99, 177);
+            this.UserInput.Location = new System.Drawing.Point(24, 74);
             this.UserInput.Margin = new System.Windows.Forms.Padding(4);
             this.UserInput.Multiline = false;
             this.UserInput.Name = "UserInput";
@@ -64,13 +69,17 @@
             this.UserInput.PasswordChar = false;
             this.UserInput.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.UserInput.PlaceholderText = "";
-            this.UserInput.Size = new System.Drawing.Size(250, 31);
+            this.UserInput.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.UserInput.Size = new System.Drawing.Size(250, 38);
             this.UserInput.TabIndex = 1;
             this.UserInput.Texts = "";
             this.UserInput.UnderlinedStyle = false;
             // 
             // YesIcon
             // 
+            this.YesIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.YesIcon.BackColor = System.Drawing.Color.LightSalmon;
             this.YesIcon.BackgroundColor = System.Drawing.Color.LightSalmon;
             this.YesIcon.BorderColor = System.Drawing.Color.LavenderBlush;
@@ -81,7 +90,7 @@
             this.YesIcon.ForeColor = System.Drawing.Color.Lime;
             this.YesIcon.ImageKey = "YesIcon.png";
             this.YesIcon.ImageList = this.imageList1;
-            this.YesIcon.Location = new System.Drawing.Point(169, 215);
+            this.YesIcon.Location = new System.Drawing.Point(94, 118);
             this.YesIcon.Name = "YesIcon";
             this.YesIcon.Size = new System.Drawing.Size(118, 43);
             this.YesIcon.TabIndex = 26;
@@ -99,13 +108,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(463, 353);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(297, 187);
             this.Controls.Add(this.YesIcon);
             this.Controls.Add(this.UserInput);
             this.Controls.Add(this.ChangeLabel);
             this.Name = "InputForm";
             this.Text = "InputForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InputForm_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputForm_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

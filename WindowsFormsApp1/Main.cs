@@ -4,102 +4,16 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
     public partial class Main : Form
     {
-        public Point mouseLocation;
-        private DataSet GetUserById(int x)
-        {
-            UserService us = new UserService();
-            return us.GetUserById(x);
-        }
-        private DataSet GetCity(int x)
-        {
-            CityService cs = new CityService();
-            return cs.GetCity(x);
-        }
-        private DataSet GetId(string x)
-        {
-            CityService cs = new CityService();
-            return cs.GetId(x);
-        }
-        private DataSet HighestUser()
-        {
-            UserService us = new UserService();
-            return us.HighestUser();
-        }
-        private DataSet GetOrdersById(int x)
-        {
-            OrderService os = new OrderService();
-            return os.GetOrdersById(x);
-        }
-        private DataSet GetOrders(int x)
-        {
-            OrderService os = new OrderService();
-            return os.GetOrdersById(x);
-        }
-        private DataSet GetReadyOrders(int x)
-        {
-            OrderService os = new OrderService();
-            return os.GetFinishById(x);
-        }
-        private DataSet GetDebt(int x)
-        {
-            UserService us = new UserService();
-            return us.GetDebt(x);
-        }
-        private void SetDebt(int id, int debt)
-        {
-            UserService us = new UserService();
-            us.SetDebt(id, debt);
-        }
-        private DataSet GetUsers()
-        {
-            UserService us = new UserService();
-            return us.GetUsers();
-        }
-        private DataSet GetUnfinished()
-        {
-            OrderService os = new OrderService();
-            return os.GetUnfinished();
-        }
-        private DataSet GetUserDebts()
-        {
-            UserService us = new UserService();
-            return us.GetUserDebts();
-        }
-        private DataSet GetClocks()
-        {
-            ClockService cs = new ClockService();
-            return cs.GetClocks();
-        }
-        private DataSet GetClocksByMonth(int year, int month, string name)
-        {
-            ClockService cs = new ClockService();
-            return cs.GetClocksByMonth(year, month, name);
-        }
-        private DataSet GetClocksByYear(int year, string name)
-        {
-            ClockService cs = new ClockService();
-            return cs.GetClocksByYear(year, name);
-        }
-        private void SetCabin(List<int> ids, string cabin)
-        {
-            OrderService os = new OrderService();
-            os.SetCabin(ids, cabin);
-        }
-        private void UpdateStatus(List<int> ids, string status)
-        {
-            OrderService os = new OrderService();
-            os.UpdateStatus(ids, status);
-        }
-        private void Deliver(List<int> ids)
-        {
-            OrderService os = new OrderService();
-            os.Deliver(ids);
-        }
+        bool isBlocked = true;
+        private Point mouseLocation;
+        FunctionService function = new FunctionService();
         public Main()
         {
             InitializeComponent();
@@ -137,7 +51,7 @@ namespace WindowsFormsApp1
         }
         public void SignIn(int id)
         {
-            DataSet ds = GetUserById(id);
+            DataSet ds = function.GetUserById(id);
             User u = new User(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString(), ds.Tables[0].Rows[0][2].ToString(), ds.Tables[0].Rows[0][3].ToString(),
               int.Parse(ds.Tables[0].Rows[0][4].ToString()), ds.Tables[0].Rows[0][5].ToString(), ds.Tables[0].Rows[0][6].ToString(), int.Parse(ds.Tables[0].Rows[0][7].ToString()), ds.Tables[0].Rows[0][8].ToString(), ds.Tables[0].Rows[0][9].ToString(), int.Parse(ds.Tables[0].Rows[0][10].ToString()));
             Choose.u = u;
@@ -169,18 +83,62 @@ namespace WindowsFormsApp1
             return minutes;
 
         }
+        private async Task Animate(int goal, Label label)
+        {
+            const int animationSpeed = 1; // Adjust animation speed (lower values make it faster)
+            int step = goal / 20; // Adjust steps for a smooth animation
+            for (int i = 0; i <= goal; i += step)
+            {
+                label.Text = i.ToString();
+                await Task.Delay(animationSpeed); // Adjust the delay time for speed
+            }
+            label.Text = goal.ToString();
+        }
+        private void CalculateProfit()
+        {
+
+            DateTime today = DateTime.Today;
+            DayOfWeek currentDay = today.DayOfWeek;
+            DateTime startOfWeek = today.AddDays(-(int)currentDay);
+            int price = 0;
+            int year = 0;
+            int month = 0;
+            int day = 0;
+            DataTable data = function.GetAllPrices().Tables[0];
+            foreach(DataRow row in data.Rows)
+            {
+                price = int.Parse(row["CheckPrice"].ToString());
+                DateTime date = row.Field<DateTime>("CheckDate");
+                if (date.Year == today.Year && date.Month == today.Month && date.Day == today.Day)
+                {
+                    day += price;
+                }
+                if(date.Year == today.Year && date.Month == today.Month)
+                {
+                    month += price;
+                }
+                year += price;
+            }
+            ThisYearText.Text = year.ToString();
+            ThisMonthText.Text = month.ToString();
+            ThisDayText.Text = day.ToString();
+
+        }
         public void PopulateGrids()
         {
             UserGrid.AutoGenerateColumns = false;
-            UserGrid.DataSource = GetUsers();
+            UserGrid.DataSource = function.GetUsers();
             UserGrid.DataMember = "Users";
             UnfinishedItems.AutoGenerateColumns = false;
-            UnfinishedItems.DataSource = GetUnfinished();
+            UnfinishedItems.DataSource = function.GetUnfinished();
             UnfinishedItems.DataMember = "Orders";
             UserOwe.AutoGenerateColumns = false;
-            UserOwe.DataSource = GetUserDebts();
+            UserOwe.DataSource = function.GetUserDebts();
             UserOwe.DataMember = "Users";
-
+            ShopGrid.AutoGenerateColumns = false;
+            ShopGrid.DataSource = function.ShopList();
+            ShopGrid.DataMember = "Shop";
+            CalculateProfit();
 
         }
         private void Main_Load(object sender, EventArgs e)
@@ -204,11 +162,12 @@ namespace WindowsFormsApp1
         {
             Mname.Text = u.Fname + " " + u.LName;
             Debt.Text = String.Format("₪ {0:n}", u.Debt.ToString());
+            DebtBox.Text = u.Debt.ToString();
             Id.Text = u.Id.ToString();
             Fname.Text = u.Fname;
             Lname.Text = u.LName;
             Street.Text = u.Street;
-            City.Text = (GetCity(u.City).Tables[0].Rows[0][0].ToString());
+            City.Text = (function.GetCity(u.City).Tables[0].Rows[0][0].ToString());
             Phone.Text = u.Phone;
             Note.Text = u.Note;
             Discount.Text = u.Discount.ToString();
@@ -216,7 +175,7 @@ namespace WindowsFormsApp1
             IdBox.Text = u.Id.ToString();
             FnameBox.Text = u.Fname;
             LnameBox.Text = u.LName;
-            CityBox1.Text = (GetCity(u.City).Tables[0].Rows[0][0].ToString());
+            CityBox1.Text = (function.GetCity(u.City).Tables[0].Rows[0][0].ToString());
             StreetBox.Text = u.Street;
             PhoneBox.Text = u.Phone;
             NoteBox.Text = u.Note;
@@ -225,12 +184,19 @@ namespace WindowsFormsApp1
             EmailBox.Text = u.Email;
             DebtBox.Text = String.Format("₪ {0:n}", u.Debt.ToString());
             OrderGrid.AutoGenerateColumns = false;
-            OrderGrid.DataSource = GetOrders(u.Id);
+            OrderGrid.DataSource = function.GetOrders(u.Id);
             OrderGrid.DataMember = "Orders";
             ReadyGrid.AutoGenerateColumns = false;
-            ReadyGrid.DataSource = GetReadyOrders(u.Id);
+            ReadyGrid.DataSource = function.GetReadyOrders(u.Id);
             ReadyGrid.DataMember = "Orders";
             Calculate();
+            int labelCenterX = 125;
+            Label[] labels = { Id, Fname, Lname, Street, City, Phone, Note, Discount, Sub };
+            foreach (Label label in labels)
+            {
+                int labelWidth = TextRenderer.MeasureText(label.Text, label.Font).Width;
+                label.Location = new Point(labelCenterX - labelWidth, label.Location.Y);
+            }
         }
         private void Block()
         {
@@ -243,6 +209,8 @@ namespace WindowsFormsApp1
             DisBox.ReadOnly = true;
             SubBox.ReadOnly = true;
             EmailBox.ReadOnly = true;
+            DebtBox.ReadOnly = true;
+            isBlocked = true;
         }
         public void ResetAllBoxes()
         {
@@ -291,7 +259,7 @@ namespace WindowsFormsApp1
         }
         private void AddUser_Click(object sender, EventArgs e)
         {
-            IdBox.Text = (int.Parse(HighestUser().Tables[0].Rows[0][0].ToString()) + 1).ToString();
+            IdBox.Text = (int.Parse(function.HighestUser().Tables[0].Rows[0][0].ToString()) + 1).ToString();
             Unblock();
             ResetAllBoxes();
         }
@@ -309,6 +277,7 @@ namespace WindowsFormsApp1
             EmailBox.ReadOnly = false;
             DebtBox.ReadOnly = false;
             SaveB.Enabled = true;
+            isBlocked = false;
         }
         private void CityBox_DoubleClick(object sender, EventArgs e)
         {
@@ -322,19 +291,24 @@ namespace WindowsFormsApp1
         }
         public void UpdateCity(int x)
         {
-            CityBox1.Text = (GetCity(x).Tables[0].Rows[0][0].ToString());
+            CityBox1.Text = (function.GetCity(x).Tables[0].Rows[0][0].ToString());
         }
         private bool Check()
         {
+            string debt = DebtBox.Text.ToString();
             if (!Validation.Digits(DisBox.Text))
             {
                 MessageBox.Show("הקש מספר בתיבת ההנחה!");
                 return false;
             }
-            if (!Validation.Digits(DebtBox.Text))
+            if (!int.TryParse(debt.Replace(",", "").Replace("₪", "").Replace(".00", ""), out int newDebt))
             {
                 MessageBox.Show("הקש מספר בתיבת היתרה!!");
                 return false;
+            }
+            else
+            {
+                DebtBox.Text = newDebt.ToString();
             }
             // Validation v = new Validation();
             // return !string.IsNullOrWhiteSpace(str); v.Check(FnameBox.Text, LnameBox.Text, StreetBox.Text, CityBox.Text, PhoneBox.Text, NoteBox.Text, DisBox.Text, SubBox.Text, EmailBox.Text);
@@ -365,9 +339,7 @@ namespace WindowsFormsApp1
         }
         private void SaveB_Click(object sender, EventArgs e)
         {
-
-
-            if (int.Parse(IdBox.Text) == int.Parse(HighestUser().Tables[0].Rows[0][0].ToString()) + 1)
+            if (int.Parse(IdBox.Text) == int.Parse(function.HighestUser().Tables[0].Rows[0][0].ToString()) + 1)
             {
 
                 if (DisBox.Text == "")
@@ -398,17 +370,16 @@ namespace WindowsFormsApp1
                 {
                     DebtBox.Text = "0";
                 }
-                else if (Check())
+                if (Check())
                 {
-                    User u = new User(FnameBox.Text, LnameBox.Text, StreetBox.Text, int.Parse(GetId(CityBox1.Text).Tables[0].Rows[0][0].ToString()), PhoneBox.Text, NoteBox.Text, int.Parse(DisBox.Text), SubBox.Text, EmailBox.Text, int.Parse(DebtBox.Text));
-                    UserService us = new UserService();
-                    us.InsertUser(u);
+                    User u = new User(FnameBox.Text, LnameBox.Text, StreetBox.Text, int.Parse(function.GetId(CityBox1.Text).Tables[0].Rows[0][0].ToString()), PhoneBox.Text, NoteBox.Text, int.Parse(DisBox.Text), SubBox.Text, EmailBox.Text, int.Parse(DebtBox.Text));
+                    function.InsertUser(u);
                     Block();
                     SaveB.Enabled = false;
                     this.timer1.Start();
                     Bar.Visible = true;
                     System.Threading.Thread.Sleep(3000);
-                    DataSet ds = GetUserById(int.Parse(IdBox.Text));
+                    DataSet ds = function.GetUserById(int.Parse(IdBox.Text));
                     User newUser = new User(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString(), ds.Tables[0].Rows[0][2].ToString(), ds.Tables[0].Rows[0][3].ToString(),
                     int.Parse(ds.Tables[0].Rows[0][4].ToString()), ds.Tables[0].Rows[0][5].ToString(), ds.Tables[0].Rows[0][6].ToString(), int.Parse(ds.Tables[0].Rows[0][7].ToString()), ds.Tables[0].Rows[0][8].ToString(), ds.Tables[0].Rows[0][9].ToString(), int.Parse(ds.Tables[0].Rows[0][10].ToString()));
                     SignIn(newUser.Id);
@@ -417,17 +388,16 @@ namespace WindowsFormsApp1
                     Bar.Value = 0;
                 }
             }
-
             else if (Check())
             {
-                User u = new User(int.Parse(IdBox.Text), FnameBox.Text, LnameBox.Text, StreetBox.Text, int.Parse(GetId(CityBox1.Text).Tables[0].Rows[0][0].ToString()), PhoneBox.Text, NoteBox.Text, int.Parse(DisBox.Text), SubBox.Text, EmailBox.Text, int.Parse(DebtBox.Text.Replace("₪", "")));
-                UserService us = new UserService();
-                us.UpdatetUser(u);
+                User u = new User(int.Parse(IdBox.Text), FnameBox.Text, LnameBox.Text, StreetBox.Text, int.Parse(function.GetId(CityBox1.Text).Tables[0].Rows[0][0].ToString()), PhoneBox.Text, NoteBox.Text, int.Parse(DisBox.Text), SubBox.Text, EmailBox.Text, int.Parse(DebtBox.Text.Replace("₪", "")));
+                function.UpdateUser(u);
                 Block();
                 SaveB.Enabled = false;
                 this.timer1.Start();
                 Bar.Visible = true;
-                System.Threading.Thread.Sleep(3000);
+                System.Threading.Thread.Sleep(1000);
+                Choose.u = u;
                 Populate(u);
                 MessageBox.Show("הלקוח התעדכן בהצלחה! ");
                 Bar.Visible = false;
@@ -466,18 +436,19 @@ namespace WindowsFormsApp1
             else
             {
                 NewItems ni = new NewItems();
-                ni.getId(Choose.id);
-                ni.getDis(int.Parse(Discount.Text));
                 if (ni.ShowDialog() == DialogResult.OK)
                 {
                     OrderGrid.AutoGenerateColumns = false;
-                    OrderGrid.DataSource = GetOrders(Choose.id);
+                    OrderGrid.DataSource = function.GetOrders(Choose.id);
                     OrderGrid.DataMember = "Orders";
                     DebtBox.Text = Choose.u.Debt.ToString("C");
                     Calculate();
+                    System.Threading.Thread.Sleep(100);
+                    PrintPreview.Document = printDocument1;
+                    PrintPreview.ShowDialog();
+                    //printDocument1.Print();
                 }
             }
-
         }
         public void Calculate()
         {
@@ -521,26 +492,42 @@ namespace WindowsFormsApp1
         }
         private void CancelOrder_Click(object sender, EventArgs e)
         {
-            if (Id.Text == "")
+            
+            List<int> ids = IdSelected(OrderGrid);
+            if (Choose.id == 0)
             {
                 MessageBox.Show("עלייך לשלוף תיק לקוח!");
             }
-            else if (OrderGrid.Rows.Count > 0)
+            else if (ids.Count == 0)
             {
-                
-                UpdateStatus(IdSelected(OrderGrid), "בוטל");
-                SetDebt(Choose.id, -int.Parse(OrderGrid.CurrentRow.Cells[6].Value.ToString()));
-                System.Threading.Thread.Sleep(1000);
-                MessageBox.Show("הפריט הוסר בהצלחה");
-                OrderGrid.AutoGenerateColumns = false;
-                OrderGrid.DataSource = GetOrders(Choose.id);
-                OrderGrid.DataMember = "Orders";
-                Calculate();
-                Populate(Choose.u);
+                MessageBox.Show("אנא בחר פריט!");
             }
             else
             {
-                MessageBox.Show("לא נבחרו הזמנות");
+                DialogResult result = MessageBox.Show("האם בטוח שלמחוק?", "Confirmation", MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    int total = 0;
+                    foreach (DataGridViewRow row in OrderGrid.Rows)
+                    {
+                        if (row.Cells[0].Value != null && Convert.ToBoolean(row.Cells[0].Value) == true)
+                        {
+                            total += int.Parse(row.Cells["OrderPrice"].Value.ToString());
+                        }
+                    }
+                    function.UpdateStatus(IdSelected(OrderGrid), "בוטל");
+                    int newDebt = Choose.u.Debt - total;
+                    Choose.u.Debt = newDebt;
+                    function.SetDebt(Choose.id, newDebt);
+                    MessageBox.Show("הפריט הוסר בהצלחה");
+                    OrderGrid.AutoGenerateColumns = false;
+                    OrderGrid.DataSource = function.GetOrders(Choose.id);
+                    OrderGrid.DataMember = "Orders";
+                    Calculate();
+                    Populate(Choose.u);
+                }
+
             }
         }
         private void ReadyB_Click(object sender, EventArgs e)
@@ -564,15 +551,13 @@ namespace WindowsFormsApp1
                 {
                     cabin = input.userInput;
                 }
-                SetCabin(ids, cabin);
-                UpdateStatus(ids, "מוכן");
-                System.Threading.Thread.Sleep(1000);
-                MessageBox.Show("הפריט הועבר בהצלחה");
+                function.SetCabin(ids, cabin);
+                function.UpdateStatus(ids, "מוכן");
                 OrderGrid.AutoGenerateColumns = false;
-                OrderGrid.DataSource = GetOrders(Choose.id);
+                OrderGrid.DataSource = function.GetOrders(Choose.id);
                 OrderGrid.DataMember = "Orders";
                 ReadyGrid.AutoGenerateColumns = false;
-                ReadyGrid.DataSource = GetReadyOrders(Choose.id);
+                ReadyGrid.DataSource = function.GetReadyOrders(Choose.id);
                 ReadyGrid.DataMember = "Orders";
                 Calculate();
             }
@@ -647,14 +632,12 @@ namespace WindowsFormsApp1
             }
             else
             {
-                UpdateStatus(ids, "בטיפול");
-                System.Threading.Thread.Sleep(100);
-                MessageBox.Show("הפריט הועבר בהצלחה");
+                function.UpdateStatus(ids, "בטיפול");
                 OrderGrid.AutoGenerateColumns = false;
-                OrderGrid.DataSource = GetOrders(Choose.id);
+                OrderGrid.DataSource = function.GetOrders(Choose.id);
                 OrderGrid.DataMember = "Orders";
                 ReadyGrid.AutoGenerateColumns = false;
-                ReadyGrid.DataSource = GetReadyOrders(Choose.id);
+                ReadyGrid.DataSource = function.GetReadyOrders(Choose.id);
                 ReadyGrid.DataMember = "Orders";
                 Calculate();
             }
@@ -662,7 +645,7 @@ namespace WindowsFormsApp1
         private void AddCust_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 1;
-            IdBox.Text = (int.Parse(HighestUser().Tables[0].Rows[0][0].ToString()) + 1).ToString();
+            IdBox.Text = (int.Parse(function.HighestUser().Tables[0].Rows[0][0].ToString()) + 1).ToString();
             Unblock();
             ResetAllBoxes();
         }
@@ -674,8 +657,9 @@ namespace WindowsFormsApp1
             }
             else
             {
-                printPreviewDialog1.Document = printDocument1;
-                printPreviewDialog1.ShowDialog();
+                PrintPreview.Document = printDocument1;
+                PrintPreview.ShowDialog();
+                
             }
 
 
@@ -702,11 +686,11 @@ namespace WindowsFormsApp1
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
 
-            DataSet dataSet = GetOrdersById(Choose.id);
+            DataSet dataSet = function.GetOrderPrint(Choose.id);
             string[] selectedColumns = { "OrderPrice", "OrderAmount", "ItemName", "OrderId" };
             Dictionary<string, string> columnTitleMap = new Dictionary<string, string>
                 {
-                    { "OrderId", "מס' הזמנה" },
+                    { "OrderId", "מס'" },
                     { "UserName", "שם" },
                     { "ItemName", "תיאור" },
                     { "ColorName", "צבע" },
@@ -724,7 +708,6 @@ namespace WindowsFormsApp1
             Brush brush = Brushes.Black;
             Brush headingBrush = Brushes.DarkBlue;
 
-            int leftMargin = 20;
             int topMargin = 20; // Set top margin to position at the top of the page
 
             string storeName = "Studio Lana";
@@ -755,11 +738,7 @@ namespace WindowsFormsApp1
                                 40 + // Increased space between store information and table headers
                                 selectedColumns.Length * 30 + // Height of table headers
                                 dataSet.Tables[0].Rows.Count * 25;
-            //20 + // Space between table and total
-            //40 + // Height of the total section
-            //thankYouSize.Height; // Height of the thank you section
 
-            // Reset top margin to align at the top of the page
             topMargin = 20;
 
             graphics.DrawString(storeName, titleFont, headingBrush, centerX - storeNameSize.Width / 2, topMargin);
@@ -773,17 +752,14 @@ namespace WindowsFormsApp1
             graphics.DrawString(receiptNo, normalFont, brush, centerX - receiptNoSize.Width / 2, topMargin);
             topMargin += (int)receiptNoSize.Height;
 
-
             // Define the text for the three lines
-            string line1 = "לכ': " + dataSet.Tables[0].Rows[0][11].ToString() + " " + dataSet.Tables[0].Rows[0][12].ToString();
+            string line1 = "לכ': " + Choose.u.Fname + " " + Choose.u.LName;
             string line2 = "תאריך הזמנה: " + dataSet.Tables[0].Rows[0][4].ToString();
             Font headlineFont = new Font("Arial", 12, FontStyle.Bold);
 
             // Measure the sizes of these lines
             SizeF line1Size = measureString(line1, headlineFont);
             SizeF line2Size = measureString(line2, normalFont);
-
-            // Draw the lines in the desired styles before the table section
             topMargin += 10; // Add space before the table segment
 
             // Draw headline style line
@@ -890,11 +866,8 @@ namespace WindowsFormsApp1
 
             graphics.DrawString(additionalMessage6, normalFont, brush, centerX - additionalMessageSize6.Width / 2, topMargin);
             topMargin += (int)additionalMessageSize6.Height;
-
             // The existing thank you message
             graphics.DrawString(thankYou, normalFont, brush, centerX - thankYouSize.Width / 2, topMargin);
-
-
         }
         private void History_Click(object sender, EventArgs e)
         {
@@ -929,7 +902,7 @@ namespace WindowsFormsApp1
             if (e.ColumnIndex == 5)
             {
                 int x = int.Parse(this.UserGrid.CurrentRow.Cells[0].Value.ToString());
-                DataSet ds = GetUserById(x);
+                DataSet ds = function.GetUserById(x);
                 User u = new User(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString(), ds.Tables[0].Rows[0][2].ToString(), ds.Tables[0].Rows[0][3].ToString(),
                   int.Parse(ds.Tables[0].Rows[0][4].ToString()), ds.Tables[0].Rows[0][5].ToString(), ds.Tables[0].Rows[0][6].ToString(), int.Parse(ds.Tables[0].Rows[0][7].ToString()), ds.Tables[0].Rows[0][8].ToString(), ds.Tables[0].Rows[0][9].ToString(), int.Parse(ds.Tables[0].Rows[0][10].ToString()));
                 SignIn(u.Id);
@@ -943,7 +916,7 @@ namespace WindowsFormsApp1
         }
         private void SearchText_TextChanged(object sender, EventArgs e)
         {
-            DataTable dt = GetUsers().Tables[0];
+            DataTable dt = function.GetUsers().Tables[0];
             DataView dv = dt.DefaultView;
 
             // dv.RowFilter = string.Format("username LIKE '%{0}%' OR userphone LIKE '%{0}%' OR (username + ' ' + fname) LIKE '%{0}%'", SearchText.Text);
@@ -999,13 +972,23 @@ namespace WindowsFormsApp1
             }
             else
             {
-                PrintWorkPreview.Document = PrintWork;
-                PrintWorkPreview.ShowDialog();
+                PrintPreview.Document = PrintWork;
+                PrintPreview.ShowDialog();
+                //PrintWork.Print();
+                
             }
         }
         private void PrintWork_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            DataSet dataSet = GetClocksByMonth(int.Parse(YearSelect.SelectedItem.ToString()), int.Parse(MonthSelect.SelectedItem.ToString()), WorkersList.SelectedItem.ToString());
+            DataSet dataSet = new DataSet();
+            if (MonthSelect.SelectedIndex == 12)
+            {
+                dataSet = function.GetClocksByYear(int.Parse(YearSelect.SelectedItem.ToString()), WorkersList.SelectedItem.ToString());
+            }
+            else
+            {
+                dataSet = function.GetClocksByMonth(int.Parse(YearSelect.SelectedItem.ToString()), int.Parse(MonthSelect.SelectedItem.ToString()), WorkersList.SelectedItem.ToString());
+            }
             string[] selectedColumns = { "ClockDiff", "ClockExit", "ClockEntry", "ClockId" };
             Dictionary<string, string> columnTitleMap = new Dictionary<string, string>
                 {
@@ -1025,44 +1008,27 @@ namespace WindowsFormsApp1
             Brush brush = Brushes.Black;
             Brush headingBrush = Brushes.DarkBlue;
 
-            int leftMargin = 20;
             int topMargin = 20; // Set top margin to position at the top of the page
 
             string storeName = "Studio Lana";
             string address = "עין חנוך 15, גני תקווה";
             string phone = "טלפון: " + "054-5606832";
             string date = DateTime.Now.ToString("MM / dd / yyyy HH: mm");
-            string receiptNo = "Receipt #: 001";
             string thankYou = "!תודה רבה על ההזמנה";
-
-            // Calculate the width of the receipt content
             float totalWidth = graphics.VisibleClipBounds.Width;
-
-            // Calculate the center of the drawing area
             int centerX = (int)(totalWidth / 2);
-
             SizeF measureString(string text, Font font) => graphics.MeasureString(text, font);
-
             SizeF storeNameSize = measureString(storeName, titleFont);
             SizeF addressSize = measureString(address, normalFont);
             SizeF phoneSize = measureString(phone, normalFont);
             SizeF dateSize = measureString(date, normalFont);
-            SizeF receiptNoSize = measureString(receiptNo, normalFont);
             SizeF thankYouSize = measureString(thankYou, normalFont);
-
-            // Calculate the total height of the receipt content
             float totalHeight = storeNameSize.Height + addressSize.Height + phoneSize.Height +
-                                dateSize.Height + receiptNoSize.Height + 40 + // Space between sections
+                                dateSize.Height + // Space between sections
                                 40 + // Increased space between store information and table headers
                                 selectedColumns.Length * 30 + // Height of table headers
                                 dataSet.Tables[0].Rows.Count * 25;
-            //20 + // Space between table and total
-            //40 + // Height of the total section
-            //thankYouSize.Height; // Height of the thank you section
-
-            // Reset top margin to align at the top of the page
             topMargin = 20;
-
             graphics.DrawString(storeName, titleFont, headingBrush, centerX - storeNameSize.Width / 2, topMargin);
             topMargin += (int)storeNameSize.Height;
             graphics.DrawString(address, normalFont, brush, centerX - addressSize.Width / 2, topMargin);
@@ -1071,12 +1037,7 @@ namespace WindowsFormsApp1
             topMargin += (int)phoneSize.Height;
             graphics.DrawString(date, normalFont, brush, centerX - dateSize.Width / 2, topMargin);
             topMargin += (int)dateSize.Height;
-            graphics.DrawString(receiptNo, normalFont, brush, centerX - receiptNoSize.Width / 2, topMargin);
-            topMargin += (int)receiptNoSize.Height;
-
-
-            // Define the text for the three lines
-            string line1 = "שם העובד: " + dataSet.Tables[0].Rows[0][1].ToString();
+            string line1 = "שם העובד: " + WorkersList.Text;
             Font headlineFont = new Font("Arial", 12, FontStyle.Bold);
 
             // Measure the sizes of these lines
@@ -1097,14 +1058,10 @@ namespace WindowsFormsApp1
                 string columnName = selectedColumns[i];
                 string columnTitle = columnTitleMap.ContainsKey(columnName) ? columnTitleMap[columnName] : columnName;
                 SizeF columnTitleSize = graphics.MeasureString(columnTitle, HeaderTableFont);
-
-                // Calculate the center for each column
                 int xPosition = (int)(((totalWidth - (selectedColumns.Length * columnWidth) - (selectedColumns.Length - 1) * columnSpacing)) / 2) + i * (columnWidth + columnSpacing);
                 int textOffset = (int)((columnWidth - columnTitleSize.Width) / 2); // Adjust for text alignment
-
                 graphics.DrawString(columnTitle, HeaderTableFont, Brushes.Black, xPosition + textOffset, topMargin);
             }
-
             topMargin += 30; // Increased space between table header and data
 
             foreach (DataRow row in dataSet.Tables[0].Rows)
@@ -1159,11 +1116,11 @@ namespace WindowsFormsApp1
                 DataSet dataSet = new DataSet();
                 if (MonthSelect.SelectedIndex == 12)
                 {
-                    dataSet = GetClocksByYear(int.Parse(YearSelect.SelectedItem.ToString()), WorkersList.SelectedItem.ToString());
+                    dataSet = function.GetClocksByYear(int.Parse(YearSelect.SelectedItem.ToString()), WorkersList.SelectedItem.ToString());
                 }
                 else
                 {
-                    dataSet = GetClocksByMonth(int.Parse(YearSelect.SelectedItem.ToString()), int.Parse(MonthSelect.SelectedItem.ToString()), WorkersList.SelectedItem.ToString());
+                    dataSet = function.GetClocksByMonth(int.Parse(YearSelect.SelectedItem.ToString()), int.Parse(MonthSelect.SelectedItem.ToString()), WorkersList.SelectedItem.ToString());
                 }
                 WorkersGrid.AutoGenerateColumns = false;
                 WorkersGrid.DataSource = dataSet;
@@ -1184,6 +1141,14 @@ namespace WindowsFormsApp1
             {
                 SignOut();
             }
+            if (tabControl1.SelectedIndex != 1)
+            {
+                if (!isBlocked)
+                {
+                    Block();
+                }
+                
+            }
         }
         private void DeliveryButton_Click(object sender, EventArgs e)
         {
@@ -1198,14 +1163,14 @@ namespace WindowsFormsApp1
             }
             else
             {
-                Deliver(ids);
+                function.Deliver(ids);
                 System.Threading.Thread.Sleep(100);
                 MessageBox.Show("הפריט נמסר בהצלחה");
                 OrderGrid.AutoGenerateColumns = false;
-                OrderGrid.DataSource = GetOrders(Choose.id);
+                OrderGrid.DataSource = function.GetOrders(Choose.id);
                 OrderGrid.DataMember = "Orders";
                 ReadyGrid.AutoGenerateColumns = false;
-                ReadyGrid.DataSource = GetReadyOrders(Choose.id);
+                ReadyGrid.DataSource = function.GetReadyOrders(Choose.id);
                 ReadyGrid.DataMember = "Orders";
                 Calculate();
             }
@@ -1247,13 +1212,20 @@ namespace WindowsFormsApp1
         {
             foreach (DataGridViewRow row in OrderGrid.Rows)
             {
-                if (row.Cells[0].Value == null)
+                if (row.Cells[0].Value == null && Convert.ToBoolean(row.Cells[0].Value) == false)
                 {
                     row.Cells[0].Value = true;
                 }
+                else if (row.Cells[0].Value != null && Convert.ToBoolean(row.Cells[0].Value) == true)
+                {
+                    row.Cells[0].Value = false;
+                }
                 else
                 {
-                    row.Cells[0].Value = true;
+                    if (Convert.ToBoolean(row.Cells[0].Value) == false)
+                    {
+                        row.Cells[0].Value = true;
+                    }
                 }
 
             }
@@ -1263,13 +1235,20 @@ namespace WindowsFormsApp1
         {
             foreach (DataGridViewRow row in ReadyGrid.Rows)
             {
-                if (row.Cells[0].Value == null)
+                if (row.Cells[0].Value == null && Convert.ToBoolean(row.Cells[0].Value) == false)
                 {
                     row.Cells[0].Value = true;
                 }
+                else if (row.Cells[0].Value != null && Convert.ToBoolean(row.Cells[0].Value) == true)
+                {
+                    row.Cells[0].Value = false;
+                }
                 else
                 {
-                    row.Cells[0].Value = true;
+                    if (Convert.ToBoolean(row.Cells[0].Value) == false)
+                    {
+                        row.Cells[0].Value = true;
+                    }
                 }
 
             }
@@ -1281,6 +1260,412 @@ namespace WindowsFormsApp1
             {
                 ReadyGrid.ClearSelection();
             }
+        }
+
+        private void PrintChecks_Click(object sender, EventArgs e)
+        {
+            List<int> ids = IdSelected(OrderGrid);
+            ids.AddRange(IdSelected(ReadyGrid));
+            if (ids.Count == 0)
+            {
+                MessageBox.Show("בחר הזמנות");
+            }
+            else
+            {
+                PrintPreview.Document = PrintSelected;
+                PrintPreview.ShowDialog();
+                //PrintSelected.Print();
+            }
+
+        }
+
+        private void PrintSelected_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            List<int> ids = IdSelected(OrderGrid);
+            ids.AddRange(IdSelected(ReadyGrid));
+            DataSet dataSet = function.GetOrderPrintByIds(ids);
+            string[] selectedColumns = { "OrderPrice", "OrderAmount", "ItemName", "OrderId" };
+            Dictionary<string, string> columnTitleMap = new Dictionary<string, string>
+                {
+                    { "OrderId", "מס'" },
+                    { "UserName", "שם" },
+                    { "ItemName", "תיאור" },
+                    { "ColorName", "צבע" },
+                    { "OrderAmount", "כמות" },
+                    { "OrderPrice", "מחיר" }
+                    // Add more mappings as needed
+                };
+
+            Graphics graphics = e.Graphics;
+
+            Font titleFont = new Font("Arial", 16, FontStyle.Bold);
+            Font normalFont = new Font("Arial", 10);
+            Font boldFont = new Font("Arial", 10, FontStyle.Bold);
+
+            Brush brush = Brushes.Black;
+            Brush headingBrush = Brushes.DarkBlue;
+
+            int topMargin = 20; // Set top margin to position at the top of the page
+
+            string storeName = "Studio Lana";
+            string address = "עין חנוך 15, גני תקווה";
+            string phone = "טלפון: " + "054-5606832";
+            string date = DateTime.Now.ToString("MM / dd / yyyy HH: mm");
+            string receiptNo = "Receipt #: 001";
+            string thankYou = "!תודה רבה על ההזמנה";
+
+            // Calculate the width of the receipt content
+            float totalWidth = graphics.VisibleClipBounds.Width;
+
+            // Calculate the center of the drawing area
+            int centerX = (int)(totalWidth / 2);
+
+            SizeF measureString(string text, Font font) => graphics.MeasureString(text, font);
+
+            SizeF storeNameSize = measureString(storeName, titleFont);
+            SizeF addressSize = measureString(address, normalFont);
+            SizeF phoneSize = measureString(phone, normalFont);
+            SizeF dateSize = measureString(date, normalFont);
+            SizeF receiptNoSize = measureString(receiptNo, normalFont);
+            SizeF thankYouSize = measureString(thankYou, normalFont);
+
+            // Calculate the total height of the receipt content
+            float totalHeight = storeNameSize.Height + addressSize.Height + phoneSize.Height +
+                                dateSize.Height + receiptNoSize.Height + 40 + // Space between sections
+                                40 + // Increased space between store information and table headers
+                                selectedColumns.Length * 30 + // Height of table headers
+                                dataSet.Tables[0].Rows.Count * 25;
+
+            topMargin = 20;
+
+            graphics.DrawString(storeName, titleFont, headingBrush, centerX - storeNameSize.Width / 2, topMargin);
+            topMargin += (int)storeNameSize.Height;
+            graphics.DrawString(address, normalFont, brush, centerX - addressSize.Width / 2, topMargin);
+            topMargin += (int)addressSize.Height;
+            graphics.DrawString(phone, normalFont, brush, centerX - phoneSize.Width / 2, topMargin);
+            topMargin += (int)phoneSize.Height;
+            graphics.DrawString(date, normalFont, brush, centerX - dateSize.Width / 2, topMargin);
+            topMargin += (int)dateSize.Height;
+            graphics.DrawString(receiptNo, normalFont, brush, centerX - receiptNoSize.Width / 2, topMargin);
+            topMargin += (int)receiptNoSize.Height;
+
+            // Define the text for the three lines
+            string line1 = "לכ': " + Choose.u.Fname + " " + Choose.u.LName;
+            string line2 = "תאריך הזמנה: " + dataSet.Tables[0].Rows[0][4].ToString();
+            Font headlineFont = new Font("Arial", 12, FontStyle.Bold);
+
+            // Measure the sizes of these lines
+            SizeF line1Size = measureString(line1, headlineFont);
+            SizeF line2Size = measureString(line2, normalFont);
+            topMargin += 10; // Add space before the table segment
+
+            // Draw headline style line
+            graphics.DrawString(line1, headlineFont, headingBrush, centerX - line1Size.Width / 2, topMargin);
+            topMargin += (int)line1Size.Height + 5; // Add some space between headline and normal text lines
+
+            // Draw normal style lines
+            graphics.DrawString(line2, normalFont, brush, centerX - line2Size.Width / 2, topMargin);
+            topMargin += (int)line2Size.Height + 10;
+
+            Font tableFont = new Font("Arial", 10);
+            Font HeaderTableFont = new Font("Arial", 10, FontStyle.Bold);
+
+            int columnWidth = 50; // Increased column width
+            int columnSpacing = 30; // Increased column spacing
+
+            for (int i = 0; i < selectedColumns.Length; i++)
+            {
+                string columnName = selectedColumns[i];
+                string columnTitle = columnTitleMap.ContainsKey(columnName) ? columnTitleMap[columnName] : columnName;
+                SizeF columnTitleSize = graphics.MeasureString(columnTitle, HeaderTableFont);
+
+                // Calculate the center for each column
+                int xPosition = (int)(((totalWidth - (selectedColumns.Length * columnWidth) - (selectedColumns.Length - 1) * columnSpacing)) / 2) + i * (columnWidth + columnSpacing);
+                int textOffset = (int)((columnWidth - columnTitleSize.Width) / 2); // Adjust for text alignment
+
+                graphics.DrawString(columnTitle, HeaderTableFont, Brushes.Black, xPosition + textOffset, topMargin);
+            }
+
+            topMargin += 30; // Increased space between table header and data
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                for (int i = 0; i < selectedColumns.Length; i++)
+                {
+                    int columnIndex = dataSet.Tables[0].Columns.IndexOf(selectedColumns[i]);
+                    if (columnIndex >= 0)
+                    {
+                        string columnValue = row[columnIndex].ToString();
+                        SizeF columnValueSize = graphics.MeasureString(columnValue, tableFont);
+
+                        // Calculate the center for each column and adjust for text alignment
+                        int xPosition = (int)(((totalWidth - (selectedColumns.Length * columnWidth) - (selectedColumns.Length - 1) * columnSpacing)) / 2) + i * (columnWidth + columnSpacing);
+                        int textOffset = (int)((columnWidth - columnValueSize.Width) / 2); // Adjust for text alignment
+
+                        graphics.DrawString(columnValue, tableFont, Brushes.Black, xPosition + textOffset, topMargin);
+                    }
+                }
+                topMargin += 25; // Increased row height
+            }
+
+            topMargin += 0; // Increased space between table and total
+            decimal totalAmount = CalculateTotal(dataSet);
+            decimal tax = totalAmount * 0.17m;
+            decimal beforeTax = totalAmount - tax;
+            string line1BeforeTotal = "לפני מע'מ: " + beforeTax.ToString("C");
+            string line2BeforeTotal = "סה'כ מע'מ: " + tax.ToString("C");
+
+            line1Size = measureString(line1BeforeTotal, normalFont);
+            line2Size = measureString(line2BeforeTotal, normalFont);
+
+            topMargin += 10; // Increase space between previous content and additional lines
+
+            graphics.DrawString(line1BeforeTotal, normalFont, brush, centerX - line1Size.Width / 2, topMargin);
+            topMargin += (int)line1Size.Height;
+
+            graphics.DrawString(line2BeforeTotal, normalFont, brush, centerX - line2Size.Width / 2, topMargin);
+            topMargin += (int)line2Size.Height;
+
+            string totalText = "סך הכל לתשלום בש'ח: " + totalAmount.ToString("C");
+            SizeF totalSize = graphics.MeasureString(totalText, tableFont);
+            graphics.DrawString(totalText, tableFont, Brushes.Black, centerX - totalSize.Width / 2, topMargin);
+            topMargin += 40;
+            DrawAdditionalMessages(graphics, normalFont, centerX, ref topMargin);
+            // The existing thank you message
+            graphics.DrawString(thankYou, normalFont, brush, centerX - thankYouSize.Width / 2, topMargin);
+        }
+
+        private void SubmitShop_Click(object sender, EventArgs e)
+        {
+            int amount = 0;
+            if(!int.TryParse(ShopAmountBox.Texts.ToString(), out amount))
+            {
+                MessageBox.Show("אנא רשום מספרים בכמות");
+            }
+            else if(ShopNameBox.Texts.ToString() == "")
+            {
+                MessageBox.Show("שם הפריט ריק");
+            }
+            else
+            {
+                Shop l = new Shop(ShopNameBox.Texts.ToString(), ShopNoteBox.Texts.ToString(), amount, DateTime.Now, false);
+                function.NewShop(l);
+                MessageBox.Show("נוסף פריט");
+                PopulateGrids();
+            }
+        }
+
+        private void PrintShop_Click(object sender, EventArgs e)
+        {
+            PrintPreview.Document = PrintShopList ;
+            PrintPreview.ShowDialog();
+        }
+
+        private void PrintShopList_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            DataSet dataSet = function.ShopList();
+            string[] selectedColumns = { "ShopDate","ShopAmount", "ShopNote", "ShopName"};
+            Dictionary<string, string> columnTitleMap = new Dictionary<string, string>
+                {
+                    { "ShopId", "מס'" },
+                    { "ShopName", "שם" },
+                    { "ShopNote", "הערה" },
+                    { "ShopAmount", "כמות" },
+                    { "ShopDate", "תאריך" },
+                    // Add more mappings as needed
+                };
+            Graphics graphics = e.Graphics;
+            Font titleFont = new Font("Arial", 16, FontStyle.Bold);
+            Font normalFont = new Font("Arial", 10);
+            Font boldFont = new Font("Arial", 10, FontStyle.Bold);
+
+            Brush brush = Brushes.Black;
+            Brush headingBrush = Brushes.DarkBlue;
+
+            int topMargin = 20; // Set top margin to position at the top of the page
+
+            string storeName = "Studio Lana";
+            string address = "עין חנוך 15, גני תקווה";
+            string phone = "טלפון: " + "054-5606832";
+            string date = DateTime.Now.ToString("MM / dd / yyyy HH: mm");
+            string thankYou = "!סופר אמא";
+
+            // Calculate the width of the receipt content
+            float totalWidth = graphics.VisibleClipBounds.Width;
+
+            // Calculate the center of the drawing area
+            int centerX = (int)(totalWidth / 2);
+
+            SizeF measureString(string text, Font font) => graphics.MeasureString(text, font);
+
+            SizeF storeNameSize = measureString(storeName, titleFont);
+            SizeF addressSize = measureString(address, normalFont);
+            SizeF phoneSize = measureString(phone, normalFont);
+            SizeF dateSize = measureString(date, normalFont);
+
+            SizeF thankYouSize = measureString(thankYou, normalFont);
+
+            // Calculate the total height of the receipt content
+            float totalHeight = storeNameSize.Height + addressSize.Height + phoneSize.Height +
+                                dateSize.Height + // Space between sections
+                                40 + // Increased space between store information and table headers
+                                selectedColumns.Length * 30 + // Height of table headers
+                                dataSet.Tables[0].Rows.Count * 25;
+
+            topMargin = 20;
+
+            graphics.DrawString(storeName, titleFont, headingBrush, centerX - storeNameSize.Width / 2, topMargin);
+            topMargin += (int)storeNameSize.Height;
+            graphics.DrawString(address, normalFont, brush, centerX - addressSize.Width / 2, topMargin);
+            topMargin += (int)addressSize.Height;
+            graphics.DrawString(phone, normalFont, brush, centerX - phoneSize.Width / 2, topMargin);
+            topMargin += (int)phoneSize.Height;
+            graphics.DrawString(date, normalFont, brush, centerX - dateSize.Width / 2, topMargin);
+            topMargin += (int)dateSize.Height;
+
+            // Define the text for the three lines
+            string line1 = "רשימת קניות";
+            string line2 = "תאריך: " + DateTime.Today.ToString();
+            Font headlineFont = new Font("Arial", 12, FontStyle.Bold);
+
+            // Measure the sizes of these lines
+            SizeF line1Size = measureString(line1, headlineFont);
+            SizeF line2Size = measureString(line2, normalFont);
+            topMargin += 10; // Add space before the table segment
+
+            // Draw headline style line
+            graphics.DrawString(line1, headlineFont, headingBrush, centerX - line1Size.Width / 2, topMargin);
+            topMargin += (int)line1Size.Height + 5; // Add some space between headline and normal text lines
+
+            // Draw normal style lines
+            graphics.DrawString(line2, normalFont, brush, centerX - line2Size.Width / 2, topMargin);
+            topMargin += (int)line2Size.Height + 10;
+
+            Font tableFont = new Font("Arial", 10);
+            Font HeaderTableFont = new Font("Arial", 10, FontStyle.Bold);
+
+            int columnWidth = 50; // Increased column width
+            int columnSpacing = 30; // Increased column spacing
+
+            for (int i = 0; i < selectedColumns.Length; i++)
+            {
+                string columnName = selectedColumns[i];
+                string columnTitle = columnTitleMap.ContainsKey(columnName) ? columnTitleMap[columnName] : columnName;
+                SizeF columnTitleSize = graphics.MeasureString(columnTitle, HeaderTableFont);
+
+                // Calculate the center for each column
+                int xPosition = (int)(((totalWidth - (selectedColumns.Length * columnWidth) - (selectedColumns.Length - 1) * columnSpacing)) / 2) + i * (columnWidth + columnSpacing);
+                int textOffset = (int)((columnWidth - columnTitleSize.Width) / 2); // Adjust for text alignment
+
+                graphics.DrawString(columnTitle, HeaderTableFont, Brushes.Black, xPosition + textOffset, topMargin);
+            }
+
+            topMargin += 30; // Increased space between table header and data
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                for (int i = 0; i < selectedColumns.Length; i++)
+                {
+                    int columnIndex = dataSet.Tables[0].Columns.IndexOf(selectedColumns[i]);
+                    if (columnIndex >= 0)
+                    {
+                        string columnValue = row[columnIndex].ToString();
+                        SizeF columnValueSize = graphics.MeasureString(columnValue, tableFont);
+
+                        // Calculate the center for each column and adjust for text alignment
+                        int xPosition = (int)(((totalWidth - (selectedColumns.Length * columnWidth) - (selectedColumns.Length - 1) * columnSpacing)) / 2) + i * (columnWidth + columnSpacing);
+                        int textOffset = (int)((columnWidth - columnValueSize.Width) / 2); // Adjust for text alignment
+
+                        graphics.DrawString(columnValue, tableFont, Brushes.Black, xPosition + textOffset, topMargin);
+                    }
+                }
+                topMargin += 25; // Increased row height
+            }
+            topMargin += 40;
+            // The existing thank you message
+            graphics.DrawString(thankYou, normalFont, brush, centerX - thankYouSize.Width / 2, topMargin);
+        }
+        private void DrawAdditionalMessages(Graphics graphics, Font normalFont, int centerX, ref int topMargin)
+        {
+            string[] additionalMessages = new string[]
+                {
+                    "סימון ומידה באחריות הלקוח בלבד",
+                    "קבלת בגד עם שובר הזמנה בלבד",
+                    "אין החזר כספי על תיקון שבוצע",
+                    "שמירת פריט עד 30 יום",
+                    "אין אחריות על גניבה או כל נזק אחר",
+                    "לתשומת לבכם - המתפרה סגורה ביום שלישי"
+                };
+            foreach (string message in additionalMessages)
+            {
+                SizeF messageSize = graphics.MeasureString(message, normalFont);
+
+                graphics.DrawString(message, normalFont, Brushes.Black, centerX - messageSize.Width / 2, topMargin);
+                topMargin += (int)messageSize.Height;
+            }
+        }
+
+        private void GoEdit_Click(object sender, EventArgs e)
+        {
+            
+            if (Choose.id == 0)
+            {
+                MessageBox.Show("עלייך לשלוף תיק לקוח!");
+            }
+            else
+            {
+                Unblock();
+                tabControl1.SelectedIndex = 1;
+            }
+        }
+
+
+
+        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl2.SelectedIndex == 1 && tabControl1.SelectedIndex == 3)
+            {
+                Animate(int.Parse(ThisYearText.Text), ThisYearText);
+                Animate(int.Parse(ThisMonthText.Text), ThisMonthText);
+                Animate(int.Parse(ThisDayText.Text), ThisDayText);
+            }
+        }
+
+        private void SelectShop_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in ShopGrid.Rows)
+            {
+                if (row.Cells[3].Value == null && Convert.ToBoolean(row.Cells[3].Value) == false)
+                {
+                    row.Cells[3].Value = true;
+                }
+                else if (row.Cells[3].Value != null && Convert.ToBoolean(row.Cells[3].Value) == true)
+                {
+                    row.Cells[3].Value = false;
+                }
+                else
+                {
+                    if (Convert.ToBoolean(row.Cells[3].Value) == false)
+                    {
+                        row.Cells[3].Value = true;
+                    }
+                }
+
+            }
+        }
+
+        private void WorkersList_Click(object sender, EventArgs e)
+        {
+            WorkersList.DroppedDown = true;
+        }
+        private void MonthSelect_Click(object sender, EventArgs e)
+        {
+            MonthSelect.DroppedDown = true;
+        }
+
+        private void YearSelect_Click(object sender, EventArgs e)
+        {
+            YearSelect.DroppedDown = true;
         }
     }    
     

@@ -1,13 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
     public partial class PayDebt : Form
     {
-
+        FunctionService function = new FunctionService();
+        private void PayDebt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SubmitAll();
+                e.Handled = true;
+            }
+        }
         private DataSet GetAllUnpaidOrdersById(int id)
         {
             OrderService os = new OrderService();
@@ -38,143 +48,148 @@ namespace WindowsFormsApp1
             UserService us = new UserService();
             us.SetDebt(id, debt);
         }
-
+        private void PayService(List<int[]> listId)
+        {
+            OrderService os = new OrderService();
+            os.Pay(listId);
+        }
         public PayDebt()
         {
             InitializeComponent();
         }
         // Control ActiveControl;
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Button button = (Button)sender;
-            ActiveControl.Focus();
-            SendKeys.Send(button.Text);
-        }
+
         private void PayDebt_Load(object sender, EventArgs e)
         {
+            this.AcceptButton = null;
             this.ActiveControl = AmountBox;
+            AmountText.Text = String.Format("₪{0}.00", Choose.u.Debt.ToString());
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(
+                (Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2,
+                (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2
+            );
         }
 
         private void AmountBox_Enter(object sender, EventArgs e)
         {
             ActiveControl = (Control)sender;
         }
-        private void Pay(int amount)
-        {
-            int index = Listbox.SelectedIndex;
-            Check c = new Check("תשלום עבור הזמנות", Choose.id, amount , index + 1);
-            int current = 0;
-            int goal = 0;
-            int diff = 0;
-            int orderId = 0;
-            List<int> listId = new List<int>();
-            DataSet data = GetAllUnpaidOrdersById(Choose.id);
-            if(data.Tables[0].Rows.Count == 0)
-            {
-                MessageBox.Show("הלקוח שילם הכל אחשלי!");
-            }
-            else
-            {
-                foreach (DataRow row in data.Tables[0].Rows)
-                {
-                    if (amount > 0)
-                    {
-                        current = row.Field<int>("OrderPaid");
-                        goal = row.Field<int>("OrderPrice");
-                        orderId = row.Field<int>("OrderId");
-                        if (current < goal)
-                        {
-                            diff = goal - current;
-                            if (amount >= diff)
-                            {
-                                CloseDebt(orderId, current + diff);
-                                amount = amount - diff;
-                                listId.Add(orderId);
-                            }
-                            else if (amount < diff)
-                            {
-                                PayForOrders(orderId, amount + current);
-                                amount = 0;
-                                listId.Add(orderId);
-                            }
-                        }
-                        else if (current == goal)
-                        {
-                            UpdateFull(orderId);
-
-                        }
-                    }
-                }
-                if(amount > 0)
-                {
-                    MessageBox.Show("נשאר עודף: " + amount.ToString());
-                }
-                
-                MessageBox.Show("שולם על הזמנות: " +string.Join(", ", listId));
-                NewCheck(c);
-            }
-            
-
-        }
-        //private void UpdateOrders(int amount)
+        //private void Pay(int amount)
         //{
-        //    DataSet data = GetAllUnpaidOrdersById(Choose.id);
+        //    int index = Listbox.SelectedIndex;
+        //    Check c = new Check("תשלום עבור הזמנות", Choose.id, amount , index + 1);
         //    int current = 0;
         //    int goal = 0;
         //    int diff = 0;
-        //    //int rowCount = -1;
-        //    bool full = false;
-        //    List<int[]> listId = new List<int[]>();
-            
-        //    foreach (DataRow row in data.Tables[0].Rows)
+        //    int orderId = 0;
+        //    List<int> listId = new List<int>();
+        //    DataSet data = GetAllUnpaidOrdersById(Choose.id);
+        //    if(data.Tables[0].Rows.Count == 0)
         //    {
-        //        //rowCount++;
-        //        if (amount > 0)
+        //        MessageBox.Show("הלקוח שילם הכל אחשלי!");
+        //    }
+        //    else
+        //    {
+        //        foreach (DataRow row in data.Tables[0].Rows)
         //        {
-        //            current = row.Field<int>("OrderPaid");
-        //            goal = row.Field<int>("OrderPrice");
-        //            if (current < goal)
+        //            if (amount > 0)
         //            {
-        //                diff = goal - current;
-        //                if (amount >= diff)
+        //                current = row.Field<int>("OrderPaid");
+        //                goal = row.Field<int>("OrderPrice");
+        //                orderId = row.Field<int>("OrderId");
+        //                if (current < goal)
         //                {
-        //                    row["OrderPaid"] = current + diff;
-        //                    row["OrderFull"] = true;
-        //                    //listId.Add(new int[] { rowCount, diff, 1 });
-        //                    amount = amount - diff;
+        //                    diff = goal - current;
+        //                    if (amount >= diff)
+        //                    {
+        //                        CloseDebt(orderId, current + diff);
+        //                        amount = amount - diff;
+        //                        listId.Add(orderId);
+        //                    }
+        //                    else if (amount < diff)
+        //                    {
+        //                        PayForOrders(orderId, amount + current);
+        //                        amount = 0;
+        //                        listId.Add(orderId);
+        //                    }
         //                }
-        //                else if (amount < diff)
+        //                else if (current == goal)
         //                {
-        //                    row["OrderFull"] = amount + current;
-        //                    //listId.Add(new int[] {rowCount, amount, 0 });
-        //                    amount = 0;
+        //                    UpdateFull(orderId);
+
         //                }
         //            }
         //        }
-        //        else return;
-                
+        //        if(amount > 0)
+        //        {
+        //            MessageBox.Show("נשאר עודף: " + amount.ToString());
+        //        }
+
+        //        MessageBox.Show("שולם על הזמנות: " +string.Join(", ", listId));
+        //        NewCheck(c);
         //    }
-        //    //for (int i = 0; i < listId.Count; i++)
-        //    //{
-        //    //    foreach(int[] item in listId)
-        //    //    {
-        //    //        rowCount = item[0];
-        //    //        int paid = item[1];
-        //    //        if (item[2] == 1)
-        //    //        {
-        //    //            full = true;
-        //    //        }
-        //    //        else
-        //    //        {
-        //    //            full = false;
-        //    //        }
-        //    //        DataRow row = data.Tables[0].Rows[rowCount];
-        //    //        row["OrderPaid"] = paid;
-        //    //        row["OrderFull"] = full;
-        //    //    }
-        //    //}
         //}
+        void AddTextToTextBox(object sender, EventArgs e)
+        {
+            if (sender is Button button)
+            {
+                // Assuming textBox1 is the TextBox control
+                AmountBox.Text += button.Text;
+                this.ActiveControl = null;
+            }
+        }
+        private void UpdateOrders(int amount)
+        {
+            DataSet data = GetAllUnpaidOrdersById(Choose.id);
+            int current = 0;
+            int goal = 0;
+            int diff = 0;
+            int id = 0;
+            int totalPaid = 0;
+            List<int[]> listId = new List<int[]>();
+
+            foreach (DataRow row in data.Tables[0].Rows)
+            {
+                if (amount > 0)
+                {
+                    current = row.Field<int>("OrderPaid");
+                    goal = row.Field<int>("OrderPrice");
+                    id = row.Field<int>("OrderId");
+                    if (current < goal)
+                    {
+                        diff = goal - current;
+                        if (amount >= diff)
+                        {
+                            listId.Add(new int[] { id, diff, 1 });
+                            totalPaid += diff;
+                            amount = amount - diff;
+                        }
+                        else if (amount < diff)
+                        {
+                            listId.Add(new int[] { id, amount, 0 });
+                            totalPaid += amount;
+                            amount = 0;
+                        }
+                    }
+                }
+                else continue;
+            }
+            if (amount > 0)
+            {
+                MessageBox.Show("נשאר עודף: " + amount.ToString());
+            }
+            PayService(listId);
+            int index = Listbox.SelectedIndex;
+            Check c = new Check("תשלום עבור הזמנות", Choose.id, totalPaid, index + 1);
+            NewCheck(c);
+            MessageBox.Show("שולם על הזמנות: " + string.Join(",", listId.Select(arr => arr[0]))); 
+        }
         private void Submit_Click(object sender, EventArgs e)
+        {
+            SubmitAll();
+        }
+        private void SubmitAll()
         {
             if (!Validation.Digits(AmountBox.Text))
             {
@@ -189,24 +204,27 @@ namespace WindowsFormsApp1
                 int amount = int.Parse(AmountBox.Text);
                 if (amount > 0)
                 {
-                    Pay(amount);
-                    SetDebt(Choose.id, Choose.u.Debt - amount);
-                    Choose.u.Debt = Choose.u.Debt - amount;
+                    int newDebt = Choose.u.Debt - amount;
+                    UpdateOrders(amount);
+                    SetDebt(Choose.id, newDebt);
+                    Choose.u.Debt = newDebt;
                     this.DialogResult = System.Windows.Forms.DialogResult.OK;
                     this.Close();
                 }
-               
             }
         }
-
-        private void button11_Click(object sender, EventArgs e)
-        {
-            AmountBox.Text = "";
-        }
-
         private void CancelB_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        private void myButton11_Click(object sender, EventArgs e)
+        {
+            AmountBox.Text = "";
+        }
+        private void Listbox_Click(object sender, EventArgs e)
+        {
+            //function.UpIndex(Listbox);
+            Listbox.DroppedDown = true;
         }
     }
 }

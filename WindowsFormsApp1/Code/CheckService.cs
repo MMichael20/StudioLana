@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.OleDb;
 
@@ -18,21 +14,16 @@ namespace WindowsFormsApp1
         }
         public void NewCheck(Check p)
         {
-            string name = p.Name;
-            int o = p.User;
-            int price = p.Price;
-            DateTime date = p.Date;
-            int type = p.Type;
             try
             {
                 myConnection.Open();
-                string sSql = "INSERT INTO Checks(CheckName, CheckUser, CheckPrice, CheckDate, CheckType) VALUES('" + name + "'," + o + "," + price + ",#" + date + "#," + type + ")";
+                string sSql = "INSERT INTO Checks(CheckName, CheckUser, CheckPrice, CheckDate, CheckType) VALUES('" + p.Name + "'," + p.User + "," + p.Price + ",#" + p.Date + "#," + p.Type + ")";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 myCmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
-                myConnection.Close();
+                throw ex;
             }
             finally
             {
@@ -90,6 +81,28 @@ namespace WindowsFormsApp1
             {
                 myConnection.Open();
                 string sSql = "select Checks.*, Types.*, Users.*,  Users.UserName + ' ' + Users.UserLName + ' (' + CStr(Users.UserId) + ') ' AS FullName from Checks, Types, Users WHERE Users.UserId = Checks.CheckUser AND Types.TypeId = Checks.CheckType";
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                OleDbDataAdapter adapter = new OleDbDataAdapter();
+                adapter.SelectCommand = myCmd;
+                adapter.Fill(dataset, "Checks");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return dataset;
+        }
+        public DataSet GetAllPrices()
+        {
+            DataSet dataset = new DataSet();
+            try
+            {
+                myConnection.Open();
+                string sSql = "select CheckPrice, CheckDate from Checks";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 OleDbDataAdapter adapter = new OleDbDataAdapter();
                 adapter.SelectCommand = myCmd;

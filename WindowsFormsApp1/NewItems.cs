@@ -3,57 +3,19 @@ using System.Data;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Threading;
+using System.Text.RegularExpressions;
+using System.Drawing;
 
 namespace WindowsFormsApp1
 {
     public partial class NewItems : Form
     {
-        public int userId;
-        public int discount1;
+        FunctionService function = new FunctionService();
+        private object previousValue;
         public DataTable table = new DataTable();
         public NewItems()
         {
             InitializeComponent();
-        }
-        private DataSet GetItemById(int x)
-        {
-            ItemService us = new ItemService();
-            return us.GetItemById(x);
-        }
-        private DataSet GetColorById(int x)
-        {
-            ColorService us = new ColorService();
-            return us.GetColorById(x);
-        }
-        private DataSet GetColorByName(string name)
-        {
-            ColorService us = new ColorService();
-            return us.GetColorByName(name);
-        }
-        private void NewOrder(List<Order> orders)
-        {
-            OrderService os = new OrderService();
-            os.NewOrder(orders);
-        }
-        private void SetDebt(int id, int debt)
-        {
-            UserService us = new UserService();
-            us.SetDebt(id, debt);
-        }
-        public void getId(int id)
-        {
-            userId = id;
-        }
-        public void getDis(int dis)
-        {
-            if(dis == 0)
-            {
-                discount1 = -500;
-            }
-            else
-            {
-                discount1 = dis;
-            }
         }
         private void NewC_Click(object sender, EventArgs e)
         {
@@ -73,17 +35,26 @@ namespace WindowsFormsApp1
             {
                 InsertItem(Choose.item);
             }
-        }
-
-        private void NewItems_Load(object sender, EventArgs e)
-        {
-            UpdateTotal();
-            if(discount1 > 0 & discount1 <= 100)
+            else
             {
-                DisBox.Text = string.Format("% {0}", discount1);
+                NewItemGrid.Rows.RemoveAt(NewItemGrid.Rows.Count - 1);
             }
         }
-
+        private void NewItems_Load(object sender, EventArgs e)
+        {
+            CenterAll();
+            UpdateTotal();
+            if(Choose.u.Discount > 0 & Choose.u.Discount <= 100)
+            {
+                DiscountTextBox.Texts = Choose.u.Discount.ToString();
+            }
+        }
+        private void CenterAll()
+        {
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point((Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2, (Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 2);
+            
+        }
         private void NewItemGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 1 & e.RowIndex >= 0)
@@ -93,95 +64,138 @@ namespace WindowsFormsApp1
                 {
                     InsertItem(Choose.item);
                 }
-
             }
             if (e.ColumnIndex == 3  & e.RowIndex >= 0)
             {
                 ColorList cl = new ColorList();
                 if(cl.ShowDialog() == DialogResult.OK)
                 {
-                    DataSet ds = GetColorById(Choose.color);
+                    DataSet ds = function.GetColorById(Choose.color);
                     ColorType c = new ColorType(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString());
                     NewItemGrid.CurrentRow.Cells[3].Value = c.Cname.ToString();
                 }
             }
             if (e.ColumnIndex == 2 & e.RowIndex >= 0)
             {
-                SetAmount sa = new SetAmount();
-                if (sa.ShowDialog() == DialogResult.OK)
-                {
-                    NewItemGrid.CurrentRow.Cells[2].Value = Choose.amount;
-                    if (NewItemGrid.CurrentRow.Cells[5].Value != null)
-                    {
+                
+                NewItemGrid.CurrentCell = NewItemGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                NewItemGrid.BeginEdit(true);
+                //SetAmount sa = new SetAmount();
+                //if (sa.ShowDialog() == DialogResult.OK)
+                //{
+                //    NewItemGrid.CurrentRow.Cells[2].Value = Choose.amount;
+                //    if (NewItemGrid.CurrentRow.Cells[5].Value != null)
+                //    {
                         
-                        if (NewItemGrid.CurrentRow.Cells[5].Value.ToString().Contains("("))
-                        {
-                            if (DisBox.Text != "0 %")
-                            {
-                                // int price = double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[5].Value.ToString().IndexOf('(') + 1).Replace(")", ""));
-                                int id = int.Parse(NewItemGrid.CurrentRow.Cells[1].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[1].Value.ToString().IndexOf('[') + 1).Replace("]", ""));
-                                DataSet ds = GetItemById(id);
-                                Item i = new Item(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString(), int.Parse(ds.Tables[0].Rows[0][2].ToString()), int.Parse(ds.Tables[0].Rows[0][3].ToString()));
-                                double discount = Convert.ToDouble(Choose.discount);
-                                discount = discount / 100;
-                                int price = i.Price;
-                                double sale = price * discount;
-                                double newprice = price - sale;
-                                NewItemGrid.CurrentRow.Cells[5].Value = String.Format("₪ {0:n}", Math.Ceiling(newprice) * Choose.amount) + " (" + price * Choose.amount + ")";
-                                UpdateTotal();
-                            }
-                        }
-                        else
-                        {
-                            // double x = double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[5].Value.ToString().IndexOf('(') + 1).Replace(")", ""));
-                            int id = int.Parse(NewItemGrid.CurrentRow.Cells[1].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[1].Value.ToString().IndexOf('[') + 1).Replace("]", ""));
-                            DataSet ds = GetItemById(id);
-                            Item i = new Item(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString(), int.Parse(ds.Tables[0].Rows[0][2].ToString()), int.Parse(ds.Tables[0].Rows[0][3].ToString()));
-                            NewItemGrid.CurrentRow.Cells[5].Value = String.Format("₪ {0:n}", i.Price * Choose.amount);
-                            UpdateTotal();
-                        }
-                    }
-                }
+                //        if (NewItemGrid.CurrentRow.Cells[5].Value.ToString().Contains("("))
+                //        {
+                //            if (DisBox.Text != "0 %")
+                //            {
+                //                // int price = double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[5].Value.ToString().IndexOf('(') + 1).Replace(")", ""));
+                //                int id = int.Parse(NewItemGrid.CurrentRow.Cells[1].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[1].Value.ToString().IndexOf('[') + 1).Replace("]", ""));
+                //                DataSet ds = GetItemById(id);
+                //                Item i = new Item(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString(), int.Parse(ds.Tables[0].Rows[0][2].ToString()), int.Parse(ds.Tables[0].Rows[0][3].ToString()));
+                //                double discount = Convert.ToDouble(Choose.discount);
+                //                discount = discount / 100;
+                //                int price = i.Price;
+                //                double sale = price * discount;
+                //                double newprice = price - sale;
+                //                NewItemGrid.CurrentRow.Cells[5].Value = String.Format("₪ {0:n}", Math.Ceiling(newprice) * Choose.amount) + " (" + price * Choose.amount + ")";
+                //                UpdateTotal();
+                //            }
+                //        }
+                //        else
+                //        {
+                //            // double x = double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[5].Value.ToString().IndexOf('(') + 1).Replace(")", ""));
+                //            int id = int.Parse(NewItemGrid.CurrentRow.Cells[1].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[1].Value.ToString().IndexOf('[') + 1).Replace("]", ""));
+                //            DataSet ds = GetItemById(id);
+                //            Item i = new Item(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString(), int.Parse(ds.Tables[0].Rows[0][2].ToString()), int.Parse(ds.Tables[0].Rows[0][3].ToString()));
+                //            NewItemGrid.CurrentRow.Cells[5].Value = String.Format("₪ {0:n}", i.Price * Choose.amount);
+                //            UpdateTotal();
+                //        }
+                //    }
+                //}
             }
             if (e.ColumnIndex == 4 & e.RowIndex >= 0)
             {
-                SetNote sn = new SetNote();
-                if(sn.ShowDialog() == DialogResult.OK)
-                {
-                    NewItemGrid.CurrentRow.Cells[4].Value = Choose.note;
-                }
+                NewItemGrid.CurrentCell = NewItemGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                NewItemGrid.BeginEdit(true);
             }
             if (e.ColumnIndex == 5 & e.RowIndex >= 0)
             {
-                SetPrice sp = new SetPrice();
-                
-                if (NewItemGrid.CurrentRow.Cells[5].Value != null)
+                //SetPrice sp = new SetPrice();
+
+                //if (NewItemGrid.CurrentRow.Cells["Price"].Value != null)
+                //{
+                //    if (NewItemGrid.CurrentRow.Cells["Price"].Value.ToString().Contains("("))
+                //    {
+                //        sp.newPrice(int.Parse(NewItemGrid.CurrentRow.Cells["Price"].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[5].Value.ToString().IndexOf('(') + 1).Replace(")", "")));
+                //    }
+                //    else
+                //    {
+                //        sp.newPrice(int.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Replace("₪ ", "").Replace(".00", "").Replace(",", "")));
+                //    }
+                //}
+                //if (sp.ShowDialog() == DialogResult.OK)
+                //{
+                //    NewItemGrid.CurrentRow.Cells["Price"].Value = String.Format("₪ {0:n}", Choose.price);
+                //    UpdateTotal();
+                //}
+                NewItemGrid.CurrentCell = NewItemGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                NewItemGrid.BeginEdit(true);
+            }
+            if (e.ColumnIndex == 6 & e.RowIndex >= 0)
+            {
+                NewItemGrid.CurrentCell = NewItemGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                NewItemGrid.BeginEdit(true);
+            }
+            if (e.ColumnIndex == 7 & e.RowIndex >= 0)
+            {
+                NewItemGrid.Rows.RemoveAt(e.RowIndex);
+                updateN();
+                UpdateTotal();
+            }
+        }
+        private void CalculatePrice()
+        {
+
+            if (NewItemGrid.CurrentRow.Cells["Price"].Value != null)
+            {
+                if (NewItemGrid.CurrentRow.Cells["Price"].Value.ToString().Contains("("))
                 {
-                    if (NewItemGrid.CurrentRow.Cells[5].Value.ToString().Contains("("))
+                    if (DisBox.Text != "")
                     {
-                        sp.l(int.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[5].Value.ToString().IndexOf('(') + 1).Replace(")", "")));
-                    }
-                    else
-                    {
-                        sp.l(int.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Replace("₪ ", "").Replace(".00", "").Replace(",", "")));
+                        // int price = double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[5].Value.ToString().IndexOf('(') + 1).Replace(")", ""));
+                        int itemId = int.Parse(NewItemGrid.CurrentRow.Cells[1].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[1].Value.ToString().IndexOf('[') + 1).Replace("]", ""));
+                        DataSet ds = function.GetItemPriceById(itemId);
+                        double discount = Convert.ToDouble(Choose.discount);
+                        discount = discount / 100;
+                        int price = int.Parse(ds.Tables["Items"].Rows[0]["ItemPrice"].ToString());
+                        double sale = price * discount;
+                        double newprice = price - sale;
+                        NewItemGrid.CurrentRow.Cells[5].Value = String.Format("₪ {0:n}", Math.Ceiling(newprice) * Choose.amount) + " (" + price * Choose.amount + ")";
+                        UpdateTotal();
                     }
                 }
-                if (sp.ShowDialog() == DialogResult.OK)
+                else
                 {
-                    NewItemGrid.CurrentRow.Cells[5].Value = String.Format("₪ {0:n}", Choose.price);
+                    // double x = double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[5].Value.ToString().IndexOf('(') + 1).Replace(")", ""));
+                    int itemId = int.Parse(NewItemGrid.CurrentRow.Cells[1].Value.ToString().Substring(NewItemGrid.CurrentRow.Cells[1].Value.ToString().IndexOf('[') + 1).Replace("]", ""));
+                    DataSet ds = function.GetItemPriceById(itemId);
+                    NewItemGrid.CurrentRow.Cells[5].Value = String.Format("₪ {0:n}", int.Parse(ds.Tables["Items"].Rows[0]["ItemPrice"].ToString()) * Choose.amount);
                     UpdateTotal();
                 }
             }
         }
         private void InsertItem(int item)
         {
-            DataSet ds = GetItemById(item);
+            DataSet ds = function.GetItemById(item);
             Item i = new Item(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString(), int.Parse(ds.Tables[0].Rows[0][2].ToString()), int.Parse(ds.Tables[0].Rows[0][3].ToString()));
             NewItemGrid.CurrentRow.Cells[1].Value = i.Name + " [" + i.Id.ToString() + "]";
             NewItemGrid.CurrentRow.Cells[6].Value = i.Length.ToString() + FindDay(i.Length);
             NewItemGrid.CurrentRow.Cells[2].Value = "1";
             
-            if(DisBox.Text == "0 %")
+            if(DisBox.Text == "")
             {
                 NewItemGrid.CurrentRow.Cells[5].Value = String.Format("₪ {0:n}", i.Price);
             }
@@ -206,7 +220,6 @@ namespace WindowsFormsApp1
                 updateN();
                 UpdateTotal();
             }
-           
         }
         public string FindDay(int x)
         {
@@ -253,28 +266,30 @@ namespace WindowsFormsApp1
         }
         public void UpdateTotal()
         {
-            int x = 0;
+            int total = 0;
             if (NewItemGrid.Rows.Count != 0)
             {
                 for(int i = 0; i < NewItemGrid.Rows.Count; i++)
                 {
-                    if (NewItemGrid.Rows[i].Cells[5].Value != null)
+                    if (NewItemGrid.Rows[i].Cells["Price"].Value != null)
                     {
-                        int p = NewItemGrid.Rows[i].Cells[5].Value.ToString().IndexOf(" (");
-                        if(p < 0 )
+                        int check = NewItemGrid.Rows[i].Cells["Price"].Value.ToString().IndexOf(" (");
+                        if(check < 0 )
                         {
-                            x += int.Parse(NewItemGrid.Rows[i].Cells[5].Value.ToString().Replace("₪ ", "").Replace(".00", "").Replace(",", ""));
+                            total += int.Parse(NewItemGrid.Rows[i].Cells[5].Value.ToString().Replace("₪ ", "").Replace(".00", "").Replace(",", ""));
                         }
                         else
                         {
-                            x += int.Parse(NewItemGrid.Rows[i].Cells[5].Value.ToString().Remove(p).Replace("₪ ", "").Replace(".00", "").Replace(",", ""));
+                            total += int.Parse(NewItemGrid.Rows[i].Cells[5].Value.ToString().Remove(check).Replace("₪ ", "").Replace(".00", "").Replace(",", ""));
                         }
-                       
-                    }
-                        
+                    }  
                 }
+                Total.Text = String.Format("₪ {0:n}", total);
             }
-            Total.Text = String.Format("₪ {0:n}", x);
+            else if (NewItemGrid.Rows.Count == 0)
+            {
+                Total.Text = String.Format("₪ {0:n}", 0);
+            }
         }
         private void Color1_Click(object sender, EventArgs e)
         {
@@ -309,7 +324,7 @@ namespace WindowsFormsApp1
         }
         private void Color8_Click(object sender, EventArgs e)
         {
-            Ncolor(5);
+            Ncolor(18);
         }
         private void Color9_Click(object sender, EventArgs e)
         {
@@ -317,17 +332,25 @@ namespace WindowsFormsApp1
         }
         private void Color10_Click(object sender, EventArgs e)
         {
-            Ncolor(8);
+            //Ncolor(8);
+            ColorList cl = new ColorList();
+            if (cl.ShowDialog() == DialogResult.OK)
+            {
+                DataSet ds = function.GetColorById(Choose.color);
+                ColorType c = new ColorType(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString());
+                NewItemGrid.CurrentRow.Cells[3].Value = c.Cname.ToString();
+            }
         }
         public void Ncolor(int id)
         {
             if(NewItemGrid.Rows.Count > 0)
             {
-                DataSet ds = GetColorById(id);
+                DataSet ds = function.GetColorById(id);
                 ColorType c = new ColorType(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString());
                 NewItemGrid.CurrentRow.Cells[3].Value = c.Cname.ToString();
+               
             }
-
+            this.ActiveControl = null;
         }
         public void Nitem(int x)// New item from the buttons
         {
@@ -342,8 +365,8 @@ namespace WindowsFormsApp1
             int nRowIndex = NewItemGrid.Rows.Count - 1;
             NewItemGrid.CurrentCell = NewItemGrid.Rows[nRowIndex].Cells[0];
             InsertItem(x);
-            
             UpdateTotal();
+            this.ActiveControl = null;
         }
         private void Item1_Click(object sender, EventArgs e)
         {
@@ -424,9 +447,7 @@ namespace WindowsFormsApp1
                             double newprice = price - sale;
                             NewItemGrid.Rows[i].Cells[5].Value = String.Format("₪ {0:n}", Math.Ceiling(newprice)) + " (" + price + ")";
                         }
-                        
                      }
-                    
                 }
                 UpdateTotal();
             }
@@ -439,17 +460,6 @@ namespace WindowsFormsApp1
             double newprice = price - sale;
             return String.Format("₪ {0:n}", Math.Ceiling(newprice)) + " (" + price + ")";
         }
-        private void SetDis_Click(object sender, EventArgs e)
-        {
-            SetDiscount sd = new SetDiscount();
-            if(sd.ShowDialog() == DialogResult.OK)
-            {
-                DisBox.Text = String.Format("% {0}", Choose.discount);
-                Discount(Choose.discount);
-            }
-
-        }
-
         private void Exp_Click(object sender, EventArgs e)
         {
             //int p = NewItemGrid.CurrentRow.Cells[6].Value.ToString().IndexOf("-");
@@ -489,7 +499,7 @@ namespace WindowsFormsApp1
                 {
                     int id = int.Parse(NewItemGrid.Rows[i].Cells[1].Value.ToString().Substring(NewItemGrid.Rows[i].Cells[1].Value.ToString().IndexOf('[') + 1).Replace("]", ""));
                     int amount = int.Parse(NewItemGrid.Rows[i].Cells[2].Value.ToString());
-                    int color = int.Parse(GetColorByName(NewItemGrid.Rows[i].Cells[3].Value.ToString()).Tables[0].Rows[0][0].ToString());
+                    int color = int.Parse(function.GetColorByName(NewItemGrid.Rows[i].Cells[3].Value.ToString()).Tables[0].Rows[0][0].ToString());
                     int price = 0;
                     if (NewItemGrid.Rows[i].Cells[5].Value.ToString().Contains("("))
                     {
@@ -506,7 +516,7 @@ namespace WindowsFormsApp1
                         final = final - 5;
                     DateTime finish = today.AddDays(final);
                     //finish = today.AddDays(work);
-                    Order newOrder = new Order(userId, id, color, DateTime.Now, amount, price, "ללא", "בטיפול", finish, 0, false);
+                    Order newOrder = new Order(Choose.u.Id, id, color, DateTime.Now, amount, price, "ללא", "בטיפול", finish, 0, false);
                     orders.Add(newOrder);
                     //OrderService os = new OrderService();
                     //os.NewOrder(newOrder);
@@ -514,14 +524,14 @@ namespace WindowsFormsApp1
                     //us.SetDebt(userId, price); Need to fix the thing with the debt setter
                     total += price;
                 }
-                Choose.u.Debt = Choose.u.Debt + total;
-                SetDebt(Choose.id, Choose.u.Debt + total);
-                NewOrder(orders);
+                int newDebt = Choose.u.Debt + total;
+                Choose.u.Debt = newDebt;
+                function.SetDebt(Choose.id, newDebt);
+                function.NewOrder(orders);
                 Thread.Sleep(100);
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
             }
         }
-
         private void Exp2_Click(object sender, EventArgs e)
         {
             NewItemGrid.CurrentRow.Cells[6].Value = "0" + FindDay(0) + " (אקספרס)";
@@ -532,6 +542,212 @@ namespace WindowsFormsApp1
             else
             {
                 NewItemGrid.CurrentRow.Cells[5].Value = DiscountOne(-100, double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Replace("₪ ", "").Replace(".00", "").Replace(",", "")));
+            }
+        }
+        private void UpdatePrice(int newPrice, DataGridViewCellEventArgs e)
+        {
+            NewItemGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = String.Format("₪ {0:n}", newPrice);
+            UpdateTotal();
+        }
+        private void NewItemGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            DataGridViewCell cell = NewItemGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                if (e.ColumnIndex == 2)
+                {
+                    int num;
+                    if (!int.TryParse(e.FormattedValue.ToString(), out num))
+                    {
+                        NewItemGrid.CancelEdit();
+                        cell.Value = previousValue;
+                        MessageBox.Show("אנא רשום מספר בכמות");
+                    }
+                    else
+                    {
+                        Choose.amount = num;
+                        CalculatePrice();
+                    }
+                }
+                if (e.ColumnIndex == 5)
+                {
+                    string price = e.FormattedValue.ToString();
+                    
+                    int num;
+                    if (price.Contains("("))
+                    {
+                        if (!int.TryParse(price.Remove(price.IndexOf(" (")).Replace("₪ ", "").Replace(".00", "").Replace(",", ""), out num))
+                        {
+                            NewItemGrid.CancelEdit();
+                            cell.Value = previousValue;
+                            MessageBox.Show("אנא רשום מספר במחיר");
+                        }
+                    }
+                    else if(price.Contains(","))
+                    {
+                        if (!int.TryParse(price.Replace("₪ ", "").Replace(".00", "").Replace(",", ""), out num))
+                        {
+
+                            NewItemGrid.CancelEdit();
+                            cell.Value = previousValue;
+                            MessageBox.Show("אנא רשום מספר במחיר");
+                        }
+                    }
+                    else
+                    {
+                        if(!int.TryParse(price.Replace("₪ ", "").Replace(".00", "") , out num))
+                        {
+                            NewItemGrid.CancelEdit();
+                            cell.Value = previousValue;
+                            MessageBox.Show("אנא רשום מספר במחיר");
+                        }
+                    }
+                }
+                if (e.ColumnIndex == 6)
+                {
+                    int num;
+                    string test = e.FormattedValue.ToString();
+                    if (test.Contains(("-")))
+                    {
+                        string result = Regex.Replace(test, @"[^\d]", "");
+                        if(!int.TryParse(result, out num))
+                        {
+                            NewItemGrid.CancelEdit();
+                            cell.Value = previousValue;
+                            MessageBox.Show("אנא רשום מספר בימי עבודה");
+                        }
+                    }
+                    else if (!int.TryParse(test, out num))
+                    {
+                        NewItemGrid.CancelEdit();
+                        cell.Value = previousValue;
+                        MessageBox.Show("אנא רשום מספר בימי עבודה");
+                    }
+                    
+                }
+            }
+        }
+        private void NewItemGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                previousValue = NewItemGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            }
+        }
+        private void NewItemGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 7 & e.RowIndex >= 0)
+            {
+                NewItemGrid.Rows.RemoveAt(e.RowIndex);
+                updateN();
+                UpdateTotal();
+            }
+                
+        }
+        private void NewItemGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 5)
+            {
+                string price = NewItemGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                int newPrice = 0;
+                if (price.Contains("("))
+                {
+                    newPrice = int.Parse(price.Remove(price.IndexOf(" (")).Replace("₪ ", "").Replace(".00", "").Replace(",", ""));
+                }
+                else if (price.Contains(","))
+                {
+                    newPrice = int.Parse(price.Replace("₪ ", "").Replace(".00", "").Replace(",", ""));
+                }
+                else
+                {
+                    newPrice = int.Parse(price.Replace("₪ ", "").Replace(".00", ""));
+                }
+                UpdatePrice(newPrice, e);
+            }
+            
+            if (e.ColumnIndex == 6)
+            {
+                NewItemGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = NewItemGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() + FindDay(int.Parse(NewItemGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()));
+            }
+        }
+        private void DiscountButton_Click(object sender, EventArgs e)
+        {
+            int discount = 0;
+            int currentPrice = 0;
+            int after = 0;
+            string price;
+            if (!int.TryParse(DiscountBox.Texts, out discount))
+            {
+                MessageBox.Show("אנא רשום מספרים בהנחה");
+            }
+            else if (discount < 0)
+            {
+                MessageBox.Show("הנחה קטנה מאפס");
+            }
+            else
+            {
+                Choose.discount2 = discount;
+                if (NewItemGrid.Rows.Count > 0)
+                {
+                    foreach (DataGridViewRow row in NewItemGrid.Rows)
+                    {
+                        if (discount >= 0)
+                        {
+                            price = row.Cells["Price"].Value.ToString();
+                            if (price.Contains("("))
+                            {
+                                currentPrice = int.Parse(price.Substring(price.IndexOf('(') + 1).Replace(")", ""));
+                            }
+                            else if (discount == 0)
+                                continue;
+                            else if (price.Contains(","))
+                            {
+                                currentPrice = int.Parse(price.Replace("₪ ", "").Replace(".00", "").Replace(",", ""));
+                            }
+                            else
+                            {
+                                currentPrice = int.Parse(price.Replace("₪ ", "").Replace(".00", ""));
+                            }
+                            if (currentPrice >= discount)
+                            {
+                                after = currentPrice - discount;
+                                row.Cells["Price"].Value = String.Format("₪ {0:n}", after + " (" + currentPrice + ")");
+                                discount = 0;
+                                UpdateTotal();
+                                continue;
+                            }
+                            else if (currentPrice < discount)
+                            {
+                                row.Cells["Price"].Value = String.Format("₪ {0:n}", 0 + " (" + currentPrice + ")");
+                                discount = discount - currentPrice;
+                                UpdateTotal();
+                            }
+                        }
+                    }
+                    if (discount > 0)
+                    {
+                        int used = Choose.discount2 - discount;
+                        DiscountBox.Texts = "0";
+                        MessageBox.Show("הנחה רק של " + used);
+                        Choose.discount2 = used;
+                    }
+                }
+            }
+        }
+        private void SetDiscount_Click(object sender, EventArgs e)
+        {
+            string text = DiscountTextBox.Texts.ToString();
+            if(!int.TryParse(text, out int discount))
+            {
+                MessageBox.Show("אנא רשום מספר בהנחה");
+            }
+            else if(discount > 100)
+            {
+                MessageBox.Show("ההנחה גדולה מ100");
+            }
+            else
+            {
+                Discount(discount);
             }
         }
     }

@@ -81,26 +81,16 @@ namespace WindowsFormsApp1
         }
         public void InsertUser(User p)
         {
-            string fname = p.Fname;
-            string ln = p.LName;
-            string street = p.Street;
-            int city = p.City;
-            string pn = p.Phone;
-            string note = p.Note;
-            int dis = p.Discount;
-            string sub = p.Sub;
-            string email = p.Email;
-            double debt = p.Debt;
             try
             {
                 myConnection.Open();
-                string sSql = "INSERT INTO Users(UserName, UserLName, UserStreet, UserCity, UserPhone, UserNote, UserDiscount, UserSub, UserEmail, UserDebt) VALUES('" + fname + "', '" + ln + "', '" + street + "', " + city + ", '" + pn + "', '" + note + "', " + dis + ",'" + sub + "', '" + email + "', '" + debt + "')";
+                string sSql = "INSERT INTO Users(UserName, UserLName, UserStreet, UserCity, UserPhone, UserNote, UserDiscount, UserSub, UserEmail, UserDebt) VALUES('" + p.Fname + "', '" + p.LName + "', '" + p.Street + "', " + p.City + ", '" + p.Phone + "', '" + p.Note + "', " + p.Discount + ",'" + p.Sub + "', '" + p.Email + "', '" + p.Debt + "')";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 myCmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
-                myConnection.Close();
+                throw ex;
             }
             finally
             {
@@ -109,28 +99,17 @@ namespace WindowsFormsApp1
         }
         public void UpdatetUser(User p)
         {
-            int id = p.Id;
-            string fname = p.Fname;
-            string ln = p.LName;
-            string street = p.Street;
-            int city = p.City;
-            string pn = p.Phone;
-            string note = p.Note;
-            int dis = p.Discount;
-            string sub = p.Sub;
-            string email = p.Email;
-            double debt = p.Debt;
             try
             {
                 myConnection.Open();
-                string sSql = "Update Users Set UserName = '" + fname + "', UserLName = '" + ln + "', UserStreet = '" + street + "', UserCity = " + city + ", UserPhone = '" + pn + "', UserNote = '" + note + "', UserDiscount = " + dis
-                    + ", UserSub = '" + sub + "', UserEmail = '" + email + "', UserDebt = " + debt +  " WHERE UserId = " + id;
+                string sSql = "Update Users Set UserName = '" + p.Fname + "', UserLName = '" + p.LName + "', UserStreet = '" + p.Street + "', UserCity = " + p.City + ", UserPhone = '" + p.Phone + "', UserNote = '" + p.Note + "', UserDiscount = " + p.Discount
+                    + ", UserSub = '" + p.Sub + "', UserEmail = '" + p.Email + "', UserDebt = " + p.Debt +  " WHERE UserId = " + p.Id;
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 myCmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
-                myConnection.Close();
+                throw ex;
             }
             finally
             {
@@ -142,15 +121,14 @@ namespace WindowsFormsApp1
             try
             {
                 myConnection.Open();
-                string sSql = "Update Users Set UserDebt = UserDebt + " + debt + " WHERE UserId = " + id;
+                string sSql = $"Update Users Set UserDebt = {debt} WHERE UserId = {id}";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 myCmd.ExecuteNonQuery();
             }
 
             catch (Exception ex)
-
             {
-                myConnection.Close();
+                throw ex;
             }
             finally
             {
@@ -186,7 +164,7 @@ namespace WindowsFormsApp1
             try
             {
                 myConnection.Open();
-                string sSql = "select * from Users WHERE UserDebt > 0";
+                string sSql = "select * from Users, Cities WHERE UserDebt > 0 AND Cities.CityId = Users.UserCity";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 OleDbDataAdapter adapter = new OleDbDataAdapter();
                 adapter.SelectCommand = myCmd;

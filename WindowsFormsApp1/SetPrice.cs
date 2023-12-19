@@ -31,7 +31,7 @@ namespace WindowsFormsApp1
         {
             this.ActiveControl = AmountBox;
         }
-        public void l(int x)
+        public void newPrice(int x)
         {
             Price.Text = "המחיר המקורי הוא: " + String.Format("₪ {0:n}", x);       
         }

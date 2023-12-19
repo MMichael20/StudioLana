@@ -14,10 +14,10 @@ namespace WindowsFormsApp1
         public static int item;
         public static int color;
         public static int amount;
-        public static string note;
         public static int price;
         public static int discount;
         public static int debt;
+        public static int discount2;
         public static string worker = "אורח";
         // public static string location;
     }

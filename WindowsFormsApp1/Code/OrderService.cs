@@ -91,7 +91,55 @@ namespace WindowsFormsApp1
             try
             {
                 myConnection.Open();
-                string sSql = $"select * from Orders where OrderO = {id} and OrderFull = false";
+                string sSql = $"select * from Orders where OrderO = {id} and OrderFull = false and OrderStatus <> 'בוטל'";
+                
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                OleDbDataAdapter adapter = new OleDbDataAdapter();
+                adapter.SelectCommand = myCmd;
+                adapter.Fill(dataset, "Orders");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return dataset;
+        }
+        public DataSet GetOrderPrint(int id)
+        {
+            DataSet dataset = new DataSet();
+            try
+            {
+                myConnection.Open();
+                string sSql = $"select Orders.*, Colors.*, Users.UserName, Users.UserId, Items.* from Orders, Colors, Users, Items where OrderO = {id} and OrderDate >= #{DateTime.Now.AddSeconds(-30)}# and OrderDate <= #{DateTime.Now}# AND OrderStatus = 'בטיפול' AND Colors.ColorId = Orders.OrderColor AND Users.UserId = Orders.OrderO AND Items.ItemId = Orders.OrderName";
+                //string sSql = $"select * from Orders, Users, Colors, Items WHERE OrderO = {id} AND OrderDate >= #{DateTime.Now.AddSeconds(-30)}# and OrderDate <= #{DateTime.Now}# AND OrderStatus = 'בטיפול' and Colors.ColorId = Orders.OrderColor AND Users.UserId = Orders.OrderO AND Items.ItemId = Orders.OrderName";
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                OleDbDataAdapter adapter = new OleDbDataAdapter();
+                adapter.SelectCommand = myCmd;
+                adapter.Fill(dataset, "Orders");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return dataset;
+        }
+        public DataSet GetOrderPrintByIds(List<int> ids)
+        {
+            string stringIds = string.Join(",", ids);
+            DataSet dataset = new DataSet();
+            try
+            {
+                myConnection.Open();
+                string sSql = $"select Orders.*, Colors.*, Users.UserName, Users.UserId, Items.* from Orders, Colors, Users, Items where OrderId IN ({stringIds}) AND Colors.ColorId = Orders.OrderColor AND Users.UserId = Orders.OrderO AND Items.ItemId = Orders.OrderName";
+                //string sSql = $"select * from Orders, Users, Colors, Items WHERE OrderO = {id} AND OrderDate >= #{DateTime.Now.AddSeconds(-30)}# and OrderDate <= #{DateTime.Now}# AND OrderStatus = 'בטיפול' and Colors.ColorId = Orders.OrderColor AND Users.UserId = Orders.OrderO AND Items.ItemId = Orders.OrderName";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 OleDbDataAdapter adapter = new OleDbDataAdapter();
                 adapter.SelectCommand = myCmd;
@@ -119,19 +167,15 @@ namespace WindowsFormsApp1
                 // sSql = $"({p.O}, {p.Desc}, {p.Color}, #{p.Date}#, {p.Amount}, {p.Price}, '{p.Cab}', '{p.Status}', #{p.Finish}#, {p.Paid}, {p.Full})";
                 try
                 {
-                    
                     OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                     myCmd.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
-
+                    throw ex;
                 }
-                
             }
                 myConnection.Close();
-            
-
         }
         public void UpdateStatus(List<int> ids, string status)
         {
@@ -149,7 +193,7 @@ namespace WindowsFormsApp1
                 }
                 catch (Exception ex)
                 {
-
+                    throw ex;
                 }
             }
             myConnection.Close();
@@ -165,13 +209,48 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                myConnection.Close();
+                throw ex;
             }
             finally
             {
                 myConnection.Close();
             }
         }
+        public void Pay(List<int[]> listId)
+        {
+            myConnection.Open();
+            int orderId = 0;
+            int paid = 0;
+            bool full = false;
+            for (int i = 0; i < listId.Count; i++)
+            {
+                foreach (int[] item in listId)
+                {
+                    orderId = item[0];
+                    paid = item[1];
+                    if (item[2] == 1)
+                    {
+                        full = true;
+                    }
+                    else
+                    {
+                        full = false;
+                    }
+                    string sSql = $"Update Orders set OrderPaid = {paid}, OrderFull = {full} where OrderId = {orderId} and OrderStatus <> 'בוטל'";
+                    try
+                    {
+                        OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                        myCmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+            myConnection.Close();
+        }
+
         public void CloseDebt(int id, int amount)
         {
             try
@@ -183,7 +262,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                myConnection.Close();
+                throw ex;
             }
             finally
             {
@@ -201,7 +280,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                myConnection.Close();
+                throw ex;
             }
             finally
             {
@@ -269,7 +348,7 @@ namespace WindowsFormsApp1
                 }
                 catch (Exception ex)
                 {
-
+                    throw ex;
                 }
 
             }
@@ -314,7 +393,7 @@ namespace WindowsFormsApp1
                 }
                 catch (Exception ex)
                 {
-
+                    throw ex;
                 }
             }
             myConnection.Close();

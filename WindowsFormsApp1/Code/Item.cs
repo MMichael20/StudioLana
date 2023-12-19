@@ -20,6 +20,12 @@ namespace WindowsFormsApp1
             this.price = price;
             this.length = length;
         }
+        public Item(string name, int price, int length)
+        {
+            this.name = name;
+            this.price = price;
+            this.length = length;
+        }
         public int Id
         {
             get { return this.id; }

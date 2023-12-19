@@ -40,17 +40,18 @@
             this.WorkersList.FormattingEnabled = true;
             this.WorkersList.Items.AddRange(new object[] {
             "אינה"});
-            this.WorkersList.Location = new System.Drawing.Point(261, 165);
+            this.WorkersList.Location = new System.Drawing.Point(129, 154);
             this.WorkersList.Name = "WorkersList";
             this.WorkersList.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.WorkersList.Size = new System.Drawing.Size(238, 38);
             this.WorkersList.TabIndex = 0;
+            this.WorkersList.Click += new System.EventHandler(this.WorkersList_Click);
             // 
             // label26
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(505, 169);
+            this.label26.Location = new System.Drawing.Point(373, 158);
             this.label26.Name = "label26";
             this.label26.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label26.Size = new System.Drawing.Size(56, 27);
@@ -62,7 +63,7 @@
             // EndButton
             // 
             this.EndButton.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EndButton.Location = new System.Drawing.Point(276, 232);
+            this.EndButton.Location = new System.Drawing.Point(144, 221);
             this.EndButton.Name = "EndButton";
             this.EndButton.Size = new System.Drawing.Size(96, 50);
             this.EndButton.TabIndex = 54;
@@ -74,7 +75,7 @@
             // 
             this.StartButton.BackColor = System.Drawing.Color.Transparent;
             this.StartButton.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StartButton.Location = new System.Drawing.Point(391, 232);
+            this.StartButton.Location = new System.Drawing.Point(259, 221);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(96, 50);
             this.StartButton.TabIndex = 55;
@@ -87,12 +88,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(532, 387);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.EndButton);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.WorkersList);
             this.Name = "Clock";
+            this.ShowIcon = false;
             this.Text = "Clock";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -111,15 +111,7 @@ namespace WindowsFormsApp1
         }
         private void PaymentStats_Load(object sender, EventArgs e)
         {
-            if (Choose.u == null)
-            {
-                Populate();
-            }
-            else
-            {
-                PopulateById(Choose.id);
-            }
-            
+            Populate();
         }
 
         private void Submit_Click(object sender, EventArgs e)

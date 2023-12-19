@@ -5,6 +5,8 @@ namespace WindowsFormsApp1
 {
     public partial class Clock : Form
     {
+
+        FunctionService function = new FunctionService();
         public Clock()
         {
             InitializeComponent();
@@ -29,6 +31,14 @@ namespace WindowsFormsApp1
             if(WorkersList.SelectedItem == null)
             {
                 MessageBox.Show("בחר עובד מן הרשימה!");
+            }
+            else if (IsThereEntry(WorkersList.SelectedItem.ToString()) > 0)
+            {
+                DialogResult result = MessageBox.Show("סומנה כניסה ללא יציאה, האם רוצה לעדכן יציאה?", "Confirmation", MessageBoxButtons.YesNo);
+                if(result == DialogResult.Yes)
+                {
+                    
+                }
             }
             else
             {
@@ -59,6 +69,11 @@ namespace WindowsFormsApp1
                 Program.play.SetText();
                 this.Close();
             }
+        }
+
+        private void WorkersList_Click(object sender, EventArgs e)
+        {
+            WorkersList.DroppedDown = true;
         }
     }
 }

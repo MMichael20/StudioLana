@@ -28,10 +28,8 @@ namespace WindowsFormsApp1
         {
             if (e.ColumnIndex == 2)
             {
-                int x = int.Parse(this.CityGrid.CurrentRow.Cells[0].Value.ToString());
-                Choose.city = x;
-                Program.play.UpdateCity(x);
-                this.Hide();
+                int cityId = int.Parse(this.CityGrid.CurrentRow.Cells[0].Value.ToString());
+                SetCity(cityId);
 
             }
         }
@@ -47,6 +45,18 @@ namespace WindowsFormsApp1
         private void CityGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+        private void SetCity(int cityId)
+        {
+            Choose.city = cityId;
+            Program.play.UpdateCity(cityId);
+            this.Hide();
+        }
+
+        private void CityGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int cityId = int.Parse(this.CityGrid.CurrentRow.Cells[0].Value.ToString());
+            SetCity(cityId);
         }
     }
 }

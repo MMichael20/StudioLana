@@ -19,13 +19,13 @@ namespace WindowsFormsApp1
             {
                 myConnection.Open();
                 
-                string sSql = string.Format("INSERT INTO Clock(ClockName, ClockEntry) VALUES('{0}', #{1}#)", name, dateTime);
+                string sSql = $"INSERT INTO Clock(ClockName, ClockEntry) VALUES('{name}', #{dateTime}#)";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 myCmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
-                myConnection.Close();
+                throw ex;
             }
             finally
             {
@@ -38,22 +38,20 @@ namespace WindowsFormsApp1
             {
                 myConnection.Open();
 
-                string sSql = $"UPDATE Clock SET ClockExit = #{dateTime}# , ClockDiff =DATEDIFF('n', ClockEntry, #{dateTime}#)   WHERE ClockName = '{name}' And ClockExit IS NULL";
+                string sSql = $"UPDATE Clock SET ClockExit = #{dateTime}# , ClockDiff =DATEDIFF('n', ClockEntry, #{dateTime}#) WHERE ClockName = '{name}' And ClockExit IS NULL";
                 
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 myCmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
-                myConnection.Close();
+                throw ex;
             }
             finally
             {
                 myConnection.Close();
             }
         }
-        
-
         public DataSet GetClocks()
         {
             DataSet dataset = new DataSet();
@@ -144,5 +142,6 @@ namespace WindowsFormsApp1
             }
             return count;
         }
+        
     }
 }

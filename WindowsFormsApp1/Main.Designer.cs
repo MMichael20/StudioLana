@@ -90,8 +90,17 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle55 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle56 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle57 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle61 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle62 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle65 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle66 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle67 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle63 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle64 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Mname = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.GoEdit = new System.Windows.Forms.Label();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.Id = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Fname = new System.Windows.Forms.Label();
@@ -113,7 +122,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.AddCust = new System.Windows.Forms.Label();
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.label22 = new System.Windows.Forms.Label();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.UserGrid = new System.Windows.Forms.DataGridView();
@@ -155,12 +163,18 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.Box = new System.Windows.Forms.TabPage();
+            this.PrintChecks = new WindowsFormsApp1.MyButton();
+            this.ItemIcons = new System.Windows.Forms.ImageList(this.components);
+            this.HistoryButton = new WindowsFormsApp1.MyButton();
+            this.DeliveryButton = new WindowsFormsApp1.MyButton();
+            this.ReturnB = new WindowsFormsApp1.MyButton();
+            this.PayDebt = new WindowsFormsApp1.MyButton();
+            this.CancelOrder = new WindowsFormsApp1.MyButton();
+            this.ReadyB = new WindowsFormsApp1.MyButton();
             this.SelectAllReady = new WindowsFormsApp1.MyButton();
             this.small = new System.Windows.Forms.ImageList(this.components);
             this.SelectAllOrder = new WindowsFormsApp1.MyButton();
             this.NewItemB = new WindowsFormsApp1.MyButton();
-            this.ItemIcons = new System.Windows.Forms.ImageList(this.components);
-            this.DeliveryButton = new System.Windows.Forms.Button();
             this.ReadyGrid = new System.Windows.Forms.DataGridView();
             this.CheckBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -170,16 +184,10 @@
             this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn29 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.History = new System.Windows.Forms.Button();
-            this.TestBox = new System.Windows.Forms.Button();
-            this.ReturnB = new System.Windows.Forms.Button();
             this.TotalM2 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.TotalA2 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.ReadyB = new System.Windows.Forms.Button();
-            this.PayDebt = new System.Windows.Forms.Button();
-            this.CancelOrder = new System.Windows.Forms.Button();
             this.TotalA = new System.Windows.Forms.Label();
             this.TotalM = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -205,7 +213,7 @@
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.PaymentButton = new System.Windows.Forms.Button();
+            this.PaymentButton = new WindowsFormsApp1.MyButton();
             this.ThisYearText = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.ThisMonthText = new System.Windows.Forms.Label();
@@ -242,24 +250,40 @@
             this.DelButton = new System.Windows.Forms.Button();
             this.Disselect = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.SelectShop = new WindowsFormsApp1.MyButton();
+            this.ShopAmountBox = new WindowsFormsApp1.MyControls.RoundedTextBox();
+            this.ShopNoteBox = new WindowsFormsApp1.MyControls.RoundedTextBox();
+            this.ShopNameBox = new WindowsFormsApp1.MyControls.RoundedTextBox();
+            this.SubmitShop = new WindowsFormsApp1.MyButton();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.PrintShop = new WindowsFormsApp1.MyButton();
+            this.ShopGrid = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.GreetText = new System.Windows.Forms.Label();
             this.MovingPanel = new System.Windows.Forms.Panel();
             this.XIcon = new System.Windows.Forms.PictureBox();
             this.PrintWork = new System.Drawing.Printing.PrintDocument();
-            this.PrintWorkPreview = new System.Windows.Forms.PrintPreviewDialog();
+            this.PrintPreview = new System.Windows.Forms.PrintPreviewDialog();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.RefreshBox = new System.Windows.Forms.PictureBox();
             this.LoginButton = new System.Windows.Forms.PictureBox();
             this.HomeButton = new WindowsFormsApp1.MyButton();
             this.CheckListButton = new WindowsFormsApp1.MyButton();
             this.OweButton = new WindowsFormsApp1.MyButton();
+            this.PrintSelected = new System.Drawing.Printing.PrintDocument();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.PrintShopList = new System.Drawing.Printing.PrintDocument();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -279,6 +303,8 @@
             this.tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UnfinishedItems)).BeginInit();
             this.tabPage9.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ShopGrid)).BeginInit();
             this.MovingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.XIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RefreshBox)).BeginInit();
@@ -299,6 +325,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.GoEdit);
             this.groupBox1.Controls.Add(this.Id);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.Fname);
@@ -326,6 +353,29 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "נתוני לקוח:";
+            // 
+            // GoEdit
+            // 
+            this.GoEdit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GoEdit.ImageKey = "pencil.png";
+            this.GoEdit.ImageList = this.imageList2;
+            this.GoEdit.Location = new System.Drawing.Point(53, 0);
+            this.GoEdit.Name = "GoEdit";
+            this.GoEdit.Size = new System.Drawing.Size(43, 30);
+            this.GoEdit.TabIndex = 24;
+            this.ToolTip.SetToolTip(this.GoEdit, "ערוך");
+            this.GoEdit.Click += new System.EventHandler(this.GoEdit_Click);
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "pencil.png");
+            this.imageList2.Images.SetKeyName(1, "plus.png");
+            this.imageList2.Images.SetKeyName(2, "search.png");
+            this.imageList2.Images.SetKeyName(3, "trash.png");
+            this.imageList2.Images.SetKeyName(4, "leave.png");
+            this.imageList2.Images.SetKeyName(5, "V-icon.png");
             // 
             // Id
             // 
@@ -606,17 +656,6 @@
             this.ToolTip.SetToolTip(this.AddCust, "הוסף");
             this.AddCust.Click += new System.EventHandler(this.AddCust_Click);
             // 
-            // imageList2
-            // 
-            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList2.Images.SetKeyName(0, "pencil.png");
-            this.imageList2.Images.SetKeyName(1, "plus.png");
-            this.imageList2.Images.SetKeyName(2, "search.png");
-            this.imageList2.Images.SetKeyName(3, "trash.png");
-            this.imageList2.Images.SetKeyName(4, "leave.png");
-            this.imageList2.Images.SetKeyName(5, "V-icon.png");
-            // 
             // label22
             // 
             this.label22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -757,6 +796,7 @@
             this.SelectB.HeaderText = "בחר";
             this.SelectB.Image = global::WindowsFormsApp1.Properties.Resources.V_icon;
             this.SelectB.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.SelectB.MinimumWidth = 55;
             this.SelectB.Name = "SelectB";
             this.SelectB.ReadOnly = true;
             this.SelectB.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -1178,21 +1218,21 @@
             // Box
             // 
             this.Box.AutoScroll = true;
+            this.Box.Controls.Add(this.PrintChecks);
+            this.Box.Controls.Add(this.HistoryButton);
+            this.Box.Controls.Add(this.DeliveryButton);
+            this.Box.Controls.Add(this.ReturnB);
+            this.Box.Controls.Add(this.PayDebt);
+            this.Box.Controls.Add(this.CancelOrder);
+            this.Box.Controls.Add(this.ReadyB);
             this.Box.Controls.Add(this.SelectAllReady);
             this.Box.Controls.Add(this.SelectAllOrder);
             this.Box.Controls.Add(this.NewItemB);
-            this.Box.Controls.Add(this.DeliveryButton);
             this.Box.Controls.Add(this.ReadyGrid);
-            this.Box.Controls.Add(this.History);
-            this.Box.Controls.Add(this.TestBox);
-            this.Box.Controls.Add(this.ReturnB);
             this.Box.Controls.Add(this.TotalM2);
             this.Box.Controls.Add(this.label25);
             this.Box.Controls.Add(this.TotalA2);
             this.Box.Controls.Add(this.label23);
-            this.Box.Controls.Add(this.ReadyB);
-            this.Box.Controls.Add(this.PayDebt);
-            this.Box.Controls.Add(this.CancelOrder);
             this.Box.Controls.Add(this.TotalA);
             this.Box.Controls.Add(this.TotalM);
             this.Box.Controls.Add(this.label21);
@@ -1211,6 +1251,169 @@
             this.Box.TabIndex = 1;
             this.Box.UseVisualStyleBackColor = true;
             // 
+            // PrintChecks
+            // 
+            this.PrintChecks.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.PrintChecks.BackgroundColor = System.Drawing.Color.LightSkyBlue;
+            this.PrintChecks.BorderColor = System.Drawing.Color.LightSkyBlue;
+            this.PrintChecks.BorderRadius = 20;
+            this.PrintChecks.BorderSize = 0;
+            this.PrintChecks.FlatAppearance.BorderSize = 0;
+            this.PrintChecks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PrintChecks.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.PrintChecks.ImageKey = "printicon.png";
+            this.PrintChecks.ImageList = this.ItemIcons;
+            this.PrintChecks.Location = new System.Drawing.Point(852, 433);
+            this.PrintChecks.Name = "PrintChecks";
+            this.PrintChecks.Size = new System.Drawing.Size(54, 52);
+            this.PrintChecks.TabIndex = 65;
+            this.PrintChecks.TextColor = System.Drawing.Color.LightSkyBlue;
+            this.ToolTip.SetToolTip(this.PrintChecks, "הדפסה");
+            this.PrintChecks.UseVisualStyleBackColor = false;
+            this.PrintChecks.Click += new System.EventHandler(this.PrintChecks_Click);
+            // 
+            // ItemIcons
+            // 
+            this.ItemIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ItemIcons.ImageStream")));
+            this.ItemIcons.TransparentColor = System.Drawing.Color.Transparent;
+            this.ItemIcons.Images.SetKeyName(0, "CancelItem.png");
+            this.ItemIcons.Images.SetKeyName(1, "GetItems.png");
+            this.ItemIcons.Images.SetKeyName(2, "GetMoney.png");
+            this.ItemIcons.Images.SetKeyName(3, "History.png");
+            this.ItemIcons.Images.SetKeyName(4, "PutItem2.png");
+            this.ItemIcons.Images.SetKeyName(5, "ReturnItem.png");
+            this.ItemIcons.Images.SetKeyName(6, "PutItems.png");
+            this.ItemIcons.Images.SetKeyName(7, "deliver2.png");
+            this.ItemIcons.Images.SetKeyName(8, "money.png");
+            this.ItemIcons.Images.SetKeyName(9, "history3.png");
+            this.ItemIcons.Images.SetKeyName(10, "printicon.png");
+            // 
+            // HistoryButton
+            // 
+            this.HistoryButton.BackColor = System.Drawing.Color.LightSalmon;
+            this.HistoryButton.BackgroundColor = System.Drawing.Color.LightSalmon;
+            this.HistoryButton.BorderColor = System.Drawing.Color.LightSalmon;
+            this.HistoryButton.BorderRadius = 20;
+            this.HistoryButton.BorderSize = 0;
+            this.HistoryButton.FlatAppearance.BorderSize = 0;
+            this.HistoryButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HistoryButton.ForeColor = System.Drawing.Color.LightSalmon;
+            this.HistoryButton.ImageKey = "history3.png";
+            this.HistoryButton.ImageList = this.ItemIcons;
+            this.HistoryButton.Location = new System.Drawing.Point(852, 366);
+            this.HistoryButton.Name = "HistoryButton";
+            this.HistoryButton.Size = new System.Drawing.Size(54, 52);
+            this.HistoryButton.TabIndex = 64;
+            this.HistoryButton.TextColor = System.Drawing.Color.LightSalmon;
+            this.ToolTip.SetToolTip(this.HistoryButton, "הסטוריה");
+            this.HistoryButton.UseVisualStyleBackColor = false;
+            this.HistoryButton.Click += new System.EventHandler(this.History_Click);
+            // 
+            // DeliveryButton
+            // 
+            this.DeliveryButton.BackColor = System.Drawing.Color.LawnGreen;
+            this.DeliveryButton.BackgroundColor = System.Drawing.Color.LawnGreen;
+            this.DeliveryButton.BorderColor = System.Drawing.Color.LawnGreen;
+            this.DeliveryButton.BorderRadius = 20;
+            this.DeliveryButton.BorderSize = 0;
+            this.DeliveryButton.FlatAppearance.BorderSize = 0;
+            this.DeliveryButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeliveryButton.ForeColor = System.Drawing.Color.LawnGreen;
+            this.DeliveryButton.ImageKey = "deliver2.png";
+            this.DeliveryButton.ImageList = this.ItemIcons;
+            this.DeliveryButton.Location = new System.Drawing.Point(852, 302);
+            this.DeliveryButton.Name = "DeliveryButton";
+            this.DeliveryButton.Size = new System.Drawing.Size(54, 50);
+            this.DeliveryButton.TabIndex = 63;
+            this.DeliveryButton.TextColor = System.Drawing.Color.LawnGreen;
+            this.ToolTip.SetToolTip(this.DeliveryButton, "מסירה ללקוח");
+            this.DeliveryButton.UseVisualStyleBackColor = false;
+            this.DeliveryButton.Click += new System.EventHandler(this.DeliveryButton_Click);
+            // 
+            // ReturnB
+            // 
+            this.ReturnB.BackColor = System.Drawing.Color.Khaki;
+            this.ReturnB.BackgroundColor = System.Drawing.Color.Khaki;
+            this.ReturnB.BorderColor = System.Drawing.Color.Khaki;
+            this.ReturnB.BorderRadius = 20;
+            this.ReturnB.BorderSize = 0;
+            this.ReturnB.FlatAppearance.BorderSize = 0;
+            this.ReturnB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReturnB.ForeColor = System.Drawing.Color.Khaki;
+            this.ReturnB.ImageKey = "ReturnItem.png";
+            this.ReturnB.ImageList = this.ItemIcons;
+            this.ReturnB.Location = new System.Drawing.Point(852, 235);
+            this.ReturnB.Name = "ReturnB";
+            this.ReturnB.Size = new System.Drawing.Size(54, 56);
+            this.ReturnB.TabIndex = 62;
+            this.ReturnB.TextColor = System.Drawing.Color.Khaki;
+            this.ToolTip.SetToolTip(this.ReturnB, "החזרה");
+            this.ReturnB.UseVisualStyleBackColor = false;
+            this.ReturnB.Click += new System.EventHandler(this.ReturnB_Click);
+            // 
+            // PayDebt
+            // 
+            this.PayDebt.BackColor = System.Drawing.Color.LimeGreen;
+            this.PayDebt.BackgroundColor = System.Drawing.Color.LimeGreen;
+            this.PayDebt.BorderColor = System.Drawing.Color.LimeGreen;
+            this.PayDebt.BorderRadius = 20;
+            this.PayDebt.BorderSize = 0;
+            this.PayDebt.FlatAppearance.BorderSize = 0;
+            this.PayDebt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PayDebt.ForeColor = System.Drawing.Color.LimeGreen;
+            this.PayDebt.ImageKey = "money.png";
+            this.PayDebt.ImageList = this.ItemIcons;
+            this.PayDebt.Location = new System.Drawing.Point(1096, 34);
+            this.PayDebt.Name = "PayDebt";
+            this.PayDebt.Size = new System.Drawing.Size(54, 50);
+            this.PayDebt.TabIndex = 61;
+            this.PayDebt.TextColor = System.Drawing.Color.LimeGreen;
+            this.ToolTip.SetToolTip(this.PayDebt, "תשלום");
+            this.PayDebt.UseVisualStyleBackColor = false;
+            this.PayDebt.Click += new System.EventHandler(this.PayDebt_Click);
+            // 
+            // CancelOrder
+            // 
+            this.CancelOrder.BackColor = System.Drawing.Color.LightPink;
+            this.CancelOrder.BackgroundColor = System.Drawing.Color.LightPink;
+            this.CancelOrder.BorderColor = System.Drawing.Color.LightPink;
+            this.CancelOrder.BorderRadius = 20;
+            this.CancelOrder.BorderSize = 0;
+            this.CancelOrder.FlatAppearance.BorderSize = 0;
+            this.CancelOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CancelOrder.ForeColor = System.Drawing.Color.LightPink;
+            this.CancelOrder.ImageKey = "CancelItem.png";
+            this.CancelOrder.ImageList = this.ItemIcons;
+            this.CancelOrder.Location = new System.Drawing.Point(852, 142);
+            this.CancelOrder.Name = "CancelOrder";
+            this.CancelOrder.Size = new System.Drawing.Size(54, 50);
+            this.CancelOrder.TabIndex = 60;
+            this.CancelOrder.TextColor = System.Drawing.Color.LightPink;
+            this.ToolTip.SetToolTip(this.CancelOrder, "ביטול פריט");
+            this.CancelOrder.UseVisualStyleBackColor = false;
+            this.CancelOrder.Click += new System.EventHandler(this.CancelOrder_Click);
+            // 
+            // ReadyB
+            // 
+            this.ReadyB.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.ReadyB.BackgroundColor = System.Drawing.Color.LightSkyBlue;
+            this.ReadyB.BorderColor = System.Drawing.Color.LightSkyBlue;
+            this.ReadyB.BorderRadius = 20;
+            this.ReadyB.BorderSize = 0;
+            this.ReadyB.FlatAppearance.BorderSize = 0;
+            this.ReadyB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReadyB.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.ReadyB.ImageKey = "PutItem2.png";
+            this.ReadyB.ImageList = this.ItemIcons;
+            this.ReadyB.Location = new System.Drawing.Point(852, 86);
+            this.ReadyB.Name = "ReadyB";
+            this.ReadyB.Size = new System.Drawing.Size(54, 50);
+            this.ReadyB.TabIndex = 59;
+            this.ReadyB.TextColor = System.Drawing.Color.LightSkyBlue;
+            this.ToolTip.SetToolTip(this.ReadyB, "העמסה");
+            this.ReadyB.UseVisualStyleBackColor = false;
+            this.ReadyB.Click += new System.EventHandler(this.ReadyB_Click);
+            // 
             // SelectAllReady
             // 
             this.SelectAllReady.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
@@ -1228,7 +1431,7 @@
             this.SelectAllReady.Size = new System.Drawing.Size(36, 22);
             this.SelectAllReady.TabIndex = 58;
             this.SelectAllReady.TextColor = System.Drawing.Color.Lime;
-            this.ToolTip.SetToolTip(this.SelectAllReady, "חייבים");
+            this.ToolTip.SetToolTip(this.SelectAllReady, "בחר");
             this.SelectAllReady.UseVisualStyleBackColor = false;
             this.SelectAllReady.Click += new System.EventHandler(this.SelectAllReady_Click);
             // 
@@ -1255,7 +1458,7 @@
             this.SelectAllOrder.Size = new System.Drawing.Size(36, 22);
             this.SelectAllOrder.TabIndex = 57;
             this.SelectAllOrder.TextColor = System.Drawing.Color.Lime;
-            this.ToolTip.SetToolTip(this.SelectAllOrder, "חייבים");
+            this.ToolTip.SetToolTip(this.SelectAllOrder, "בחר");
             this.SelectAllOrder.UseVisualStyleBackColor = false;
             this.SelectAllOrder.Click += new System.EventHandler(this.SelectAllOrder_Click);
             // 
@@ -1263,46 +1466,22 @@
             // 
             this.NewItemB.BackColor = System.Drawing.Color.LightSeaGreen;
             this.NewItemB.BackgroundColor = System.Drawing.Color.LightSeaGreen;
-            this.NewItemB.BorderColor = System.Drawing.Color.LavenderBlush;
-            this.NewItemB.BorderRadius = 15;
+            this.NewItemB.BorderColor = System.Drawing.Color.LightSeaGreen;
+            this.NewItemB.BorderRadius = 20;
             this.NewItemB.BorderSize = 0;
             this.NewItemB.FlatAppearance.BorderSize = 0;
             this.NewItemB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NewItemB.ForeColor = System.Drawing.Color.Lime;
+            this.NewItemB.ForeColor = System.Drawing.Color.LightSeaGreen;
             this.NewItemB.ImageKey = "GetItems.png";
             this.NewItemB.ImageList = this.ItemIcons;
             this.NewItemB.Location = new System.Drawing.Point(852, 33);
             this.NewItemB.Name = "NewItemB";
             this.NewItemB.Size = new System.Drawing.Size(54, 50);
             this.NewItemB.TabIndex = 56;
-            this.NewItemB.TextColor = System.Drawing.Color.Lime;
-            this.ToolTip.SetToolTip(this.NewItemB, "חייבים");
+            this.NewItemB.TextColor = System.Drawing.Color.LightSeaGreen;
+            this.ToolTip.SetToolTip(this.NewItemB, "הזמנה חדשה");
             this.NewItemB.UseVisualStyleBackColor = false;
             this.NewItemB.Click += new System.EventHandler(this.NewItemB_Click);
-            // 
-            // ItemIcons
-            // 
-            this.ItemIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ItemIcons.ImageStream")));
-            this.ItemIcons.TransparentColor = System.Drawing.Color.Transparent;
-            this.ItemIcons.Images.SetKeyName(0, "CancelItem.png");
-            this.ItemIcons.Images.SetKeyName(1, "GetItems.png");
-            this.ItemIcons.Images.SetKeyName(2, "GetMoney.png");
-            this.ItemIcons.Images.SetKeyName(3, "History.png");
-            this.ItemIcons.Images.SetKeyName(4, "PutItem2.png");
-            this.ItemIcons.Images.SetKeyName(5, "ReturnItem.png");
-            this.ItemIcons.Images.SetKeyName(6, "PutItems.png");
-            // 
-            // DeliveryButton
-            // 
-            this.DeliveryButton.ImageKey = "PutItems.png";
-            this.DeliveryButton.ImageList = this.ItemIcons;
-            this.DeliveryButton.Location = new System.Drawing.Point(852, 349);
-            this.DeliveryButton.Name = "DeliveryButton";
-            this.DeliveryButton.Size = new System.Drawing.Size(54, 50);
-            this.DeliveryButton.TabIndex = 55;
-            this.ToolTip.SetToolTip(this.DeliveryButton, "מסירת פריט");
-            this.DeliveryButton.UseVisualStyleBackColor = true;
-            this.DeliveryButton.Click += new System.EventHandler(this.DeliveryButton_Click);
             // 
             // ReadyGrid
             // 
@@ -1368,7 +1547,7 @@
             this.CheckBox.HeaderText = "";
             this.CheckBox.MinimumWidth = 50;
             this.CheckBox.Name = "CheckBox";
-            this.CheckBox.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CheckBox.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.CheckBox.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.CheckBox.Width = 50;
             // 
@@ -1429,7 +1608,8 @@
             // dataGridViewTextBoxColumn28
             // 
             this.dataGridViewTextBoxColumn28.DataPropertyName = "OrderPrice";
-            dataGridViewCellStyle12.Format = "₪ 0,0";
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Aharoni", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.Format = "0,0 ₪";
             dataGridViewCellStyle12.NullValue = null;
             this.dataGridViewTextBoxColumn28.DefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridViewTextBoxColumn28.HeaderText = "מחיר";
@@ -1445,41 +1625,6 @@
             this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
             this.dataGridViewTextBoxColumn29.ReadOnly = true;
             this.dataGridViewTextBoxColumn29.Width = 75;
-            // 
-            // History
-            // 
-            this.History.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.History.ImageKey = "History.png";
-            this.History.ImageList = this.ItemIcons;
-            this.History.Location = new System.Drawing.Point(810, 441);
-            this.History.Name = "History";
-            this.History.Size = new System.Drawing.Size(96, 50);
-            this.History.TabIndex = 52;
-            this.ToolTip.SetToolTip(this.History, "הסטוריה");
-            this.History.UseVisualStyleBackColor = true;
-            this.History.Click += new System.EventHandler(this.History_Click);
-            // 
-            // TestBox
-            // 
-            this.TestBox.Location = new System.Drawing.Point(681, 441);
-            this.TestBox.Name = "TestBox";
-            this.TestBox.Size = new System.Drawing.Size(114, 50);
-            this.TestBox.TabIndex = 51;
-            this.TestBox.Text = "קבלה";
-            this.TestBox.UseVisualStyleBackColor = true;
-            this.TestBox.Click += new System.EventHandler(this.TestBox_Click);
-            // 
-            // ReturnB
-            // 
-            this.ReturnB.ImageKey = "ReturnItem.png";
-            this.ReturnB.ImageList = this.ItemIcons;
-            this.ReturnB.Location = new System.Drawing.Point(852, 293);
-            this.ReturnB.Name = "ReturnB";
-            this.ReturnB.Size = new System.Drawing.Size(54, 50);
-            this.ReturnB.TabIndex = 50;
-            this.ToolTip.SetToolTip(this.ReturnB, "החזרת פריט");
-            this.ReturnB.UseVisualStyleBackColor = true;
-            this.ReturnB.Click += new System.EventHandler(this.ReturnB_Click);
             // 
             // TotalM2
             // 
@@ -1525,41 +1670,6 @@
             this.label23.TabIndex = 46;
             this.label23.Text = "סה\"כ פריטים מוכנים:";
             this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ReadyB
-            // 
-            this.ReadyB.ImageKey = "PutItem2.png";
-            this.ReadyB.ImageList = this.ItemIcons;
-            this.ReadyB.Location = new System.Drawing.Point(852, 88);
-            this.ReadyB.Name = "ReadyB";
-            this.ReadyB.Size = new System.Drawing.Size(54, 50);
-            this.ReadyB.TabIndex = 45;
-            this.ToolTip.SetToolTip(this.ReadyB, "העמסת פריט");
-            this.ReadyB.UseVisualStyleBackColor = true;
-            this.ReadyB.Click += new System.EventHandler(this.ReadyB_Click);
-            // 
-            // PayDebt
-            // 
-            this.PayDebt.ImageKey = "GetMoney.png";
-            this.PayDebt.ImageList = this.ItemIcons;
-            this.PayDebt.Location = new System.Drawing.Point(1102, 49);
-            this.PayDebt.Name = "PayDebt";
-            this.PayDebt.Size = new System.Drawing.Size(54, 50);
-            this.PayDebt.TabIndex = 44;
-            this.ToolTip.SetToolTip(this.PayDebt, "תשלום חוב");
-            this.PayDebt.UseVisualStyleBackColor = true;
-            this.PayDebt.Click += new System.EventHandler(this.PayDebt_Click);
-            // 
-            // CancelOrder
-            // 
-            this.CancelOrder.ImageKey = "CancelItem.png";
-            this.CancelOrder.ImageList = this.ItemIcons;
-            this.CancelOrder.Location = new System.Drawing.Point(852, 145);
-            this.CancelOrder.Name = "CancelOrder";
-            this.CancelOrder.Size = new System.Drawing.Size(54, 50);
-            this.CancelOrder.TabIndex = 43;
-            this.CancelOrder.UseVisualStyleBackColor = true;
-            this.CancelOrder.Click += new System.EventHandler(this.CancelOrder_Click);
             // 
             // TotalA
             // 
@@ -1621,10 +1731,11 @@
             // Debt
             // 
             this.Debt.AutoSize = true;
-            this.Debt.Font = new System.Drawing.Font("Secular One", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Debt.Font = new System.Drawing.Font("Aharoni", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Debt.Location = new System.Drawing.Point(922, 50);
             this.Debt.MinimumSize = new System.Drawing.Size(200, 40);
             this.Debt.Name = "Debt";
+            this.Debt.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Debt.Size = new System.Drawing.Size(200, 40);
             this.Debt.TabIndex = 36;
             this.Debt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1692,7 +1803,7 @@
             // 
             this.Checks.HeaderText = "";
             this.Checks.Name = "Checks";
-            this.Checks.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Checks.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Checks.Width = 50;
             // 
             // OrderId
@@ -1704,6 +1815,7 @@
             this.OrderId.MinimumWidth = 40;
             this.OrderId.Name = "OrderId";
             this.OrderId.ReadOnly = true;
+            this.OrderId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.OrderId.Width = 40;
             // 
             // OrderDesc
@@ -1716,6 +1828,7 @@
             this.OrderDesc.MinimumWidth = 110;
             this.OrderDesc.Name = "OrderDesc";
             this.OrderDesc.ReadOnly = true;
+            this.OrderDesc.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // OrderColor
             // 
@@ -1726,6 +1839,7 @@
             this.OrderColor.MinimumWidth = 120;
             this.OrderColor.Name = "OrderColor";
             this.OrderColor.ReadOnly = true;
+            this.OrderColor.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.OrderColor.Width = 120;
             // 
             // OrderDate
@@ -1738,6 +1852,7 @@
             this.OrderDate.HeaderText = "תאריך";
             this.OrderDate.Name = "OrderDate";
             this.OrderDate.ReadOnly = true;
+            this.OrderDate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // OrderAmount
             // 
@@ -1747,17 +1862,20 @@
             this.OrderAmount.HeaderText = "יח\'";
             this.OrderAmount.Name = "OrderAmount";
             this.OrderAmount.ReadOnly = true;
+            this.OrderAmount.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.OrderAmount.Width = 50;
             // 
             // OrderPrice
             // 
             this.OrderPrice.DataPropertyName = "OrderPrice";
-            dataGridViewCellStyle24.Format = "₪ 0,0";
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Aharoni", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle24.Format = "0,0 ₪";
             dataGridViewCellStyle24.NullValue = null;
             this.OrderPrice.DefaultCellStyle = dataGridViewCellStyle24;
             this.OrderPrice.HeaderText = "מחיר";
             this.OrderPrice.Name = "OrderPrice";
             this.OrderPrice.ReadOnly = true;
+            this.OrderPrice.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // OrderCab
             // 
@@ -1767,6 +1885,7 @@
             this.OrderCab.HeaderText = "תא";
             this.OrderCab.Name = "OrderCab";
             this.OrderCab.ReadOnly = true;
+            this.OrderCab.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.OrderCab.Width = 75;
             // 
             // tabPage3
@@ -1789,6 +1908,7 @@
             this.tabControl2.Controls.Add(this.tabPage8);
             this.tabControl2.Controls.Add(this.tabPage9);
             this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Controls.Add(this.tabPage10);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl2.ItemSize = new System.Drawing.Size(150, 50);
@@ -1800,6 +1920,7 @@
             this.tabControl2.Size = new System.Drawing.Size(1163, 525);
             this.tabControl2.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl2.TabIndex = 0;
+            this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.tabControl2_SelectedIndexChanged);
             // 
             // tabPage4
             // 
@@ -1905,7 +2026,7 @@
             // 
             // dataGridViewTextBoxColumn17
             // 
-            this.dataGridViewTextBoxColumn17.DataPropertyName = "UserCity";
+            this.dataGridViewTextBoxColumn17.DataPropertyName = "CityName";
             dataGridViewCellStyle34.Format = "d";
             dataGridViewCellStyle34.NullValue = null;
             this.dataGridViewTextBoxColumn17.DefaultCellStyle = dataGridViewCellStyle34;
@@ -1948,13 +2069,24 @@
             // 
             // PaymentButton
             // 
-            this.PaymentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PaymentButton.Location = new System.Drawing.Point(421, 54);
+            this.PaymentButton.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.PaymentButton.BackgroundColor = System.Drawing.Color.LightSkyBlue;
+            this.PaymentButton.BorderColor = System.Drawing.Color.LightSkyBlue;
+            this.PaymentButton.BorderRadius = 20;
+            this.PaymentButton.BorderSize = 0;
+            this.PaymentButton.FlatAppearance.BorderSize = 0;
+            this.PaymentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PaymentButton.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.PaymentButton.ImageKey = "money.png";
+            this.PaymentButton.ImageList = this.topIcons;
+            this.PaymentButton.Location = new System.Drawing.Point(859, 365);
             this.PaymentButton.Name = "PaymentButton";
-            this.PaymentButton.Size = new System.Drawing.Size(96, 50);
-            this.PaymentButton.TabIndex = 54;
-            this.PaymentButton.Text = "תשלומים";
-            this.PaymentButton.UseVisualStyleBackColor = true;
+            this.PaymentButton.Size = new System.Drawing.Size(162, 43);
+            this.PaymentButton.TabIndex = 19;
+            this.PaymentButton.TextColor = System.Drawing.Color.LightSkyBlue;
+            this.ToolTip.SetToolTip(this.PaymentButton, "חייבים");
+            this.PaymentButton.UseVisualStyleBackColor = false;
+            this.PaymentButton.Click += new System.EventHandler(this.PaymentButton_Click);
             // 
             // ThisYearText
             // 
@@ -2081,14 +2213,14 @@
             this.YesIcon.BorderSize = 0;
             this.YesIcon.FlatAppearance.BorderSize = 0;
             this.YesIcon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.YesIcon.ForeColor = System.Drawing.Color.Lime;
+            this.YesIcon.ForeColor = System.Drawing.Color.LightSalmon;
             this.YesIcon.ImageKey = "YesIcon.png";
             this.YesIcon.ImageList = this.topIcons;
-            this.YesIcon.Location = new System.Drawing.Point(139, 368);
+            this.YesIcon.Location = new System.Drawing.Point(151, 381);
             this.YesIcon.Name = "YesIcon";
             this.YesIcon.Size = new System.Drawing.Size(118, 43);
             this.YesIcon.TabIndex = 25;
-            this.YesIcon.TextColor = System.Drawing.Color.Lime;
+            this.YesIcon.TextColor = System.Drawing.Color.LightSalmon;
             this.ToolTip.SetToolTip(this.YesIcon, "אישור");
             this.YesIcon.UseVisualStyleBackColor = false;
             this.YesIcon.Click += new System.EventHandler(this.YesIcon_Click);
@@ -2097,7 +2229,7 @@
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(630, 375);
+            this.label29.Location = new System.Drawing.Point(630, 388);
             this.label29.Name = "label29";
             this.label29.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label29.Size = new System.Drawing.Size(51, 27);
@@ -2121,16 +2253,17 @@
             "2030",
             "2031",
             "2032"});
-            this.YearSelect.Location = new System.Drawing.Point(525, 370);
+            this.YearSelect.Location = new System.Drawing.Point(525, 383);
             this.YearSelect.Name = "YearSelect";
             this.YearSelect.Size = new System.Drawing.Size(100, 38);
             this.YearSelect.TabIndex = 23;
+            this.YearSelect.Click += new System.EventHandler(this.YearSelect_Click);
             // 
             // label28
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(833, 375);
+            this.label28.Location = new System.Drawing.Point(833, 388);
             this.label28.Name = "label28";
             this.label28.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label28.Size = new System.Drawing.Size(61, 27);
@@ -2157,16 +2290,17 @@
             "11",
             "12",
             "כל השנה"});
-            this.MonthSelect.Location = new System.Drawing.Point(705, 370);
+            this.MonthSelect.Location = new System.Drawing.Point(705, 383);
             this.MonthSelect.Name = "MonthSelect";
             this.MonthSelect.Size = new System.Drawing.Size(127, 38);
             this.MonthSelect.TabIndex = 21;
+            this.MonthSelect.Click += new System.EventHandler(this.MonthSelect_Click);
             // 
             // label33
             // 
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.Location = new System.Drawing.Point(1087, 375);
+            this.label33.Location = new System.Drawing.Point(1087, 388);
             this.label33.Name = "label33";
             this.label33.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label33.Size = new System.Drawing.Size(56, 27);
@@ -2181,10 +2315,11 @@
             this.WorkersList.FormattingEnabled = true;
             this.WorkersList.Items.AddRange(new object[] {
             "אינה"});
-            this.WorkersList.Location = new System.Drawing.Point(912, 370);
+            this.WorkersList.Location = new System.Drawing.Point(912, 383);
             this.WorkersList.Name = "WorkersList";
             this.WorkersList.Size = new System.Drawing.Size(172, 38);
             this.WorkersList.TabIndex = 19;
+            this.WorkersList.Click += new System.EventHandler(this.WorkersList_Click);
             // 
             // WorkText
             // 
@@ -2192,7 +2327,7 @@
             this.WorkText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.WorkText.Font = new System.Drawing.Font("M PLUS 1p", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.WorkText.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.WorkText.Location = new System.Drawing.Point(279, 357);
+            this.WorkText.Location = new System.Drawing.Point(279, 370);
             this.WorkText.Margin = new System.Windows.Forms.Padding(0);
             this.WorkText.MinimumSize = new System.Drawing.Size(100, 50);
             this.WorkText.Name = "WorkText";
@@ -2323,7 +2458,7 @@
             this.PrintWorkButton.ForeColor = System.Drawing.Color.Lime;
             this.PrintWorkButton.ImageKey = "printicon.png";
             this.PrintWorkButton.ImageList = this.topIcons;
-            this.PrintWorkButton.Location = new System.Drawing.Point(6, 368);
+            this.PrintWorkButton.Location = new System.Drawing.Point(18, 381);
             this.PrintWorkButton.Name = "PrintWorkButton";
             this.PrintWorkButton.Size = new System.Drawing.Size(118, 43);
             this.PrintWorkButton.TabIndex = 18;
@@ -2528,7 +2663,17 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tabPage5.Controls.Add(this.SelectShop);
+            this.tabPage5.Controls.Add(this.ShopAmountBox);
+            this.tabPage5.Controls.Add(this.ShopNoteBox);
+            this.tabPage5.Controls.Add(this.ShopNameBox);
+            this.tabPage5.Controls.Add(this.SubmitShop);
+            this.tabPage5.Controls.Add(this.label31);
+            this.tabPage5.Controls.Add(this.label34);
+            this.tabPage5.Controls.Add(this.label35);
+            this.tabPage5.Controls.Add(this.PrintShop);
+            this.tabPage5.Controls.Add(this.ShopGrid);
+            this.tabPage5.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage5.Location = new System.Drawing.Point(4, 4);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
@@ -2536,6 +2681,283 @@
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "רשימת קניות";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // SelectShop
+            // 
+            this.SelectShop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(137)))), ((int)(((byte)(207)))), ((int)(((byte)(240)))));
+            this.SelectShop.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(137)))), ((int)(((byte)(207)))), ((int)(((byte)(240)))));
+            this.SelectShop.BorderColor = System.Drawing.Color.LavenderBlush;
+            this.SelectShop.BorderRadius = 0;
+            this.SelectShop.BorderSize = 0;
+            this.SelectShop.FlatAppearance.BorderSize = 0;
+            this.SelectShop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SelectShop.ForeColor = System.Drawing.Color.Lime;
+            this.SelectShop.ImageKey = "checkbox.png";
+            this.SelectShop.ImageList = this.small;
+            this.SelectShop.Location = new System.Drawing.Point(18, 3);
+            this.SelectShop.Name = "SelectShop";
+            this.SelectShop.Size = new System.Drawing.Size(85, 29);
+            this.SelectShop.TabIndex = 58;
+            this.SelectShop.TextColor = System.Drawing.Color.Lime;
+            this.ToolTip.SetToolTip(this.SelectShop, "בחר");
+            this.SelectShop.UseVisualStyleBackColor = false;
+            this.SelectShop.Click += new System.EventHandler(this.SelectShop_Click);
+            // 
+            // ShopAmountBox
+            // 
+            this.ShopAmountBox.BackColor = System.Drawing.SystemColors.Window;
+            this.ShopAmountBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(137)))), ((int)(((byte)(207)))), ((int)(((byte)(240)))));
+            this.ShopAmountBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.ShopAmountBox.BorderRadius = 10;
+            this.ShopAmountBox.BorderSize = 2;
+            this.ShopAmountBox.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ShopAmountBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ShopAmountBox.Location = new System.Drawing.Point(353, 393);
+            this.ShopAmountBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ShopAmountBox.Multiline = false;
+            this.ShopAmountBox.Name = "ShopAmountBox";
+            this.ShopAmountBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.ShopAmountBox.PasswordChar = false;
+            this.ShopAmountBox.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.ShopAmountBox.PlaceholderText = "";
+            this.ShopAmountBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ShopAmountBox.Size = new System.Drawing.Size(93, 38);
+            this.ShopAmountBox.TabIndex = 38;
+            this.ShopAmountBox.Texts = "";
+            this.ShopAmountBox.UnderlinedStyle = false;
+            // 
+            // ShopNoteBox
+            // 
+            this.ShopNoteBox.BackColor = System.Drawing.SystemColors.Window;
+            this.ShopNoteBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(137)))), ((int)(((byte)(207)))), ((int)(((byte)(240)))));
+            this.ShopNoteBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.ShopNoteBox.BorderRadius = 10;
+            this.ShopNoteBox.BorderSize = 2;
+            this.ShopNoteBox.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ShopNoteBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ShopNoteBox.Location = new System.Drawing.Point(510, 393);
+            this.ShopNoteBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ShopNoteBox.Multiline = false;
+            this.ShopNoteBox.Name = "ShopNoteBox";
+            this.ShopNoteBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.ShopNoteBox.PasswordChar = false;
+            this.ShopNoteBox.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.ShopNoteBox.PlaceholderText = "";
+            this.ShopNoteBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ShopNoteBox.Size = new System.Drawing.Size(250, 38);
+            this.ShopNoteBox.TabIndex = 37;
+            this.ShopNoteBox.Texts = "";
+            this.ShopNoteBox.UnderlinedStyle = false;
+            // 
+            // ShopNameBox
+            // 
+            this.ShopNameBox.BackColor = System.Drawing.SystemColors.Window;
+            this.ShopNameBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(137)))), ((int)(((byte)(207)))), ((int)(((byte)(240)))));
+            this.ShopNameBox.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.ShopNameBox.BorderRadius = 10;
+            this.ShopNameBox.BorderSize = 2;
+            this.ShopNameBox.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ShopNameBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ShopNameBox.Location = new System.Drawing.Point(823, 393);
+            this.ShopNameBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ShopNameBox.Multiline = false;
+            this.ShopNameBox.Name = "ShopNameBox";
+            this.ShopNameBox.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.ShopNameBox.PasswordChar = false;
+            this.ShopNameBox.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.ShopNameBox.PlaceholderText = "";
+            this.ShopNameBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ShopNameBox.Size = new System.Drawing.Size(243, 38);
+            this.ShopNameBox.TabIndex = 36;
+            this.ShopNameBox.Texts = "";
+            this.ShopNameBox.UnderlinedStyle = false;
+            // 
+            // SubmitShop
+            // 
+            this.SubmitShop.BackColor = System.Drawing.Color.LightSalmon;
+            this.SubmitShop.BackgroundColor = System.Drawing.Color.LightSalmon;
+            this.SubmitShop.BorderColor = System.Drawing.Color.LavenderBlush;
+            this.SubmitShop.BorderRadius = 20;
+            this.SubmitShop.BorderSize = 0;
+            this.SubmitShop.FlatAppearance.BorderSize = 0;
+            this.SubmitShop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SubmitShop.ForeColor = System.Drawing.Color.LightSalmon;
+            this.SubmitShop.ImageKey = "YesIcon.png";
+            this.SubmitShop.ImageList = this.topIcons;
+            this.SubmitShop.Location = new System.Drawing.Point(141, 391);
+            this.SubmitShop.Name = "SubmitShop";
+            this.SubmitShop.Size = new System.Drawing.Size(118, 43);
+            this.SubmitShop.TabIndex = 34;
+            this.SubmitShop.TextColor = System.Drawing.Color.LightSalmon;
+            this.ToolTip.SetToolTip(this.SubmitShop, "אישור");
+            this.SubmitShop.UseVisualStyleBackColor = false;
+            this.SubmitShop.Click += new System.EventHandler(this.SubmitShop_Click);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(449, 399);
+            this.label31.Name = "label31";
+            this.label31.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label31.Size = new System.Drawing.Size(59, 27);
+            this.label31.TabIndex = 33;
+            this.label31.Text = "כמות:";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label31.UseMnemonic = false;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Location = new System.Drawing.Point(763, 398);
+            this.label34.Name = "label34";
+            this.label34.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label34.Size = new System.Drawing.Size(61, 27);
+            this.label34.TabIndex = 31;
+            this.label34.Text = "הערה:";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label34.UseMnemonic = false;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.Location = new System.Drawing.Point(1066, 398);
+            this.label35.Name = "label35";
+            this.label35.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label35.Size = new System.Drawing.Size(86, 27);
+            this.label35.TabIndex = 29;
+            this.label35.Text = "שם פריט:";
+            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label35.UseMnemonic = false;
+            // 
+            // PrintShop
+            // 
+            this.PrintShop.BackColor = System.Drawing.Color.LightGreen;
+            this.PrintShop.BackgroundColor = System.Drawing.Color.LightGreen;
+            this.PrintShop.BorderColor = System.Drawing.Color.LavenderBlush;
+            this.PrintShop.BorderRadius = 20;
+            this.PrintShop.BorderSize = 0;
+            this.PrintShop.FlatAppearance.BorderSize = 0;
+            this.PrintShop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PrintShop.ForeColor = System.Drawing.Color.Lime;
+            this.PrintShop.ImageKey = "printicon.png";
+            this.PrintShop.ImageList = this.topIcons;
+            this.PrintShop.Location = new System.Drawing.Point(8, 391);
+            this.PrintShop.Name = "PrintShop";
+            this.PrintShop.Size = new System.Drawing.Size(118, 43);
+            this.PrintShop.TabIndex = 27;
+            this.PrintShop.TextColor = System.Drawing.Color.Lime;
+            this.ToolTip.SetToolTip(this.PrintShop, "הדפסה");
+            this.PrintShop.UseVisualStyleBackColor = false;
+            this.PrintShop.Click += new System.EventHandler(this.PrintShop_Click);
+            // 
+            // ShopGrid
+            // 
+            this.ShopGrid.AllowUserToAddRows = false;
+            this.ShopGrid.AllowUserToDeleteRows = false;
+            this.ShopGrid.AllowUserToResizeColumns = false;
+            this.ShopGrid.AllowUserToResizeRows = false;
+            dataGridViewCellStyle61.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ShopGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle61;
+            this.ShopGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(244)))), ((int)(((byte)(235)))));
+            this.ShopGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ShopGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.ShopGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle62.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle62.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(137)))), ((int)(((byte)(207)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle62.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle62.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle62.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(137)))), ((int)(((byte)(207)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle62.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(137)))), ((int)(((byte)(207)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle62.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ShopGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle62;
+            this.ShopGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ShopGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn18,
+            this.dataGridViewTextBoxColumn19,
+            this.dataGridViewTextBoxColumn20,
+            this.dataGridViewTextBoxColumn21});
+            dataGridViewCellStyle65.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle65.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(244)))), ((int)(((byte)(235)))));
+            dataGridViewCellStyle65.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle65.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle65.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(196)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle65.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle65.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ShopGrid.DefaultCellStyle = dataGridViewCellStyle65;
+            this.ShopGrid.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ShopGrid.EnableHeadersVisualStyles = false;
+            this.ShopGrid.Location = new System.Drawing.Point(3, 3);
+            this.ShopGrid.MultiSelect = false;
+            this.ShopGrid.Name = "ShopGrid";
+            dataGridViewCellStyle66.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle66.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle66.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle66.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle66.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle66.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle66.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ShopGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle66;
+            this.ShopGrid.RowHeadersVisible = false;
+            dataGridViewCellStyle67.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ShopGrid.RowsDefaultCellStyle = dataGridViewCellStyle67;
+            this.ShopGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ShopGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.ShopGrid.Size = new System.Drawing.Size(1149, 362);
+            this.ShopGrid.TabIndex = 8;
+            // 
+            // dataGridViewTextBoxColumn18
+            // 
+            this.dataGridViewTextBoxColumn18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn18.DataPropertyName = "ShopName";
+            dataGridViewCellStyle63.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTextBoxColumn18.DefaultCellStyle = dataGridViewCellStyle63;
+            this.dataGridViewTextBoxColumn18.HeaderText = "שם פריט";
+            this.dataGridViewTextBoxColumn18.MinimumWidth = 120;
+            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            this.dataGridViewTextBoxColumn18.ReadOnly = true;
+            this.dataGridViewTextBoxColumn18.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // dataGridViewTextBoxColumn19
+            // 
+            this.dataGridViewTextBoxColumn19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn19.DataPropertyName = "ShopNote";
+            dataGridViewCellStyle64.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTextBoxColumn19.DefaultCellStyle = dataGridViewCellStyle64;
+            this.dataGridViewTextBoxColumn19.HeaderText = "הערה";
+            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
+            this.dataGridViewTextBoxColumn19.ReadOnly = true;
+            this.dataGridViewTextBoxColumn19.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // dataGridViewTextBoxColumn20
+            // 
+            this.dataGridViewTextBoxColumn20.DataPropertyName = "ShopAmount";
+            this.dataGridViewTextBoxColumn20.HeaderText = "כמות";
+            this.dataGridViewTextBoxColumn20.MinimumWidth = 80;
+            this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
+            this.dataGridViewTextBoxColumn20.ReadOnly = true;
+            this.dataGridViewTextBoxColumn20.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn20.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn21
+            // 
+            this.dataGridViewTextBoxColumn21.HeaderText = "";
+            this.dataGridViewTextBoxColumn21.MinimumWidth = 120;
+            this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
+            this.dataGridViewTextBoxColumn21.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn21.Width = 120;
+            // 
+            // tabPage10
+            // 
+            this.tabPage10.Location = new System.Drawing.Point(4, 4);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage10.Size = new System.Drawing.Size(1155, 467);
+            this.tabPage10.TabIndex = 6;
+            this.tabPage10.Text = "tabPage10";
+            this.tabPage10.UseVisualStyleBackColor = true;
             // 
             // imageList1
             // 
@@ -2558,28 +2980,18 @@
             // 
             this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
             // 
-            // printPreviewDialog1
-            // 
-            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
-            this.printPreviewDialog1.Enabled = true;
-            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
-            this.printPreviewDialog1.Name = "printPreviewDialog1";
-            this.printPreviewDialog1.Visible = false;
-            // 
             // GreetText
             // 
             this.GreetText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(236)))), ((int)(((byte)(245)))));
             this.GreetText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.GreetText.Font = new System.Drawing.Font("M PLUS 1p", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.GreetText.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.GreetText.Location = new System.Drawing.Point(274, 110);
+            this.GreetText.Location = new System.Drawing.Point(267, 110);
             this.GreetText.Margin = new System.Windows.Forms.Padding(0);
             this.GreetText.MinimumSize = new System.Drawing.Size(100, 50);
             this.GreetText.Name = "GreetText";
             this.GreetText.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.GreetText.Size = new System.Drawing.Size(897, 58);
+            this.GreetText.Size = new System.Drawing.Size(904, 58);
             this.GreetText.TabIndex = 11;
             this.GreetText.Text = "צהריים טובים, אורח";
             this.GreetText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2612,15 +3024,15 @@
             // 
             this.PrintWork.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintWork_PrintPage);
             // 
-            // PrintWorkPreview
+            // PrintPreview
             // 
-            this.PrintWorkPreview.AutoScrollMargin = new System.Drawing.Size(0, 0);
-            this.PrintWorkPreview.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            this.PrintWorkPreview.ClientSize = new System.Drawing.Size(400, 300);
-            this.PrintWorkPreview.Enabled = true;
-            this.PrintWorkPreview.Icon = ((System.Drawing.Icon)(resources.GetObject("PrintWorkPreview.Icon")));
-            this.PrintWorkPreview.Name = "PrintWorkPreview";
-            this.PrintWorkPreview.Visible = false;
+            this.PrintPreview.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.PrintPreview.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.PrintPreview.ClientSize = new System.Drawing.Size(400, 300);
+            this.PrintPreview.Enabled = true;
+            this.PrintPreview.Icon = ((System.Drawing.Icon)(resources.GetObject("PrintPreview.Icon")));
+            this.PrintPreview.Name = "PrintWorkPreview";
+            this.PrintPreview.Visible = false;
             // 
             // RefreshBox
             // 
@@ -2712,11 +3124,16 @@
             this.OweButton.UseVisualStyleBackColor = false;
             this.OweButton.Click += new System.EventHandler(this.OweButton_Click);
             // 
+            // PrintSelected
+            // 
+            this.PrintSelected.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintSelected_PrintPage);
+            // 
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.HeaderText = "בחר";
             this.dataGridViewImageColumn1.Image = global::WindowsFormsApp1.Properties.Resources.V_icon;
             this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.dataGridViewImageColumn1.MinimumWidth = 55;
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -2731,6 +3148,10 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 12;
             this.pictureBox2.TabStop = false;
+            // 
+            // PrintShopList
+            // 
+            this.PrintShopList.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintShopList_PrintPage);
             // 
             // Main
             // 
@@ -2748,6 +3169,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.MovingPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.Text = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
@@ -2775,6 +3197,9 @@
             this.tabPage8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.UnfinishedItems)).EndInit();
             this.tabPage9.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ShopGrid)).EndInit();
             this.MovingPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.XIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RefreshBox)).EndInit();
@@ -2836,8 +3261,6 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label TotalM;
         private System.Windows.Forms.Label TotalA;
-        private System.Windows.Forms.Button PayDebt;
-        private System.Windows.Forms.Button CancelOrder;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
@@ -2846,17 +3269,13 @@
         private System.Windows.Forms.TabPage tabPage8;
         private System.Windows.Forms.TabPage tabPage9;
         private System.Windows.Forms.DataGridView UnfinishedItems;
-        private System.Windows.Forms.Button ReadyB;
         private System.Windows.Forms.DataGridView OrderGrid;
         private System.Windows.Forms.Label TotalM2;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label TotalA2;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Button ReturnB;
         private System.Windows.Forms.Button CityBox;
         private System.Drawing.Printing.PrintDocument printDocument1;
-        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
-        private System.Windows.Forms.Button History;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox XIcon;
         private System.Windows.Forms.ImageList imageList1;
@@ -2873,12 +3292,6 @@
         private MyButton OweButton;
         private System.Windows.Forms.ImageList topIcons;
         private MyButton CheckListButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UserId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UserName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UserLname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CityName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UserPhone;
-        private System.Windows.Forms.DataGridViewImageColumn SelectB;
         private MyButton EditB;
         private MyButton UserS;
         private MyButton AddUser;
@@ -2896,11 +3309,6 @@
         private System.Windows.Forms.DataGridView ReadyGrid;
         private System.Windows.Forms.DataGridView WorkersGrid;
         private System.Windows.Forms.DataGridView UserOwe;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -2909,7 +3317,7 @@
         private System.Windows.Forms.Label WorkText;
         private System.Drawing.Printing.PrintDocument PrintWork;
         private MyButton PrintWorkButton;
-        private System.Windows.Forms.PrintPreviewDialog PrintWorkPreview;
+        private System.Windows.Forms.PrintPreviewDialog PrintPreview;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox WorkersList;
         private System.Windows.Forms.Label label29;
@@ -2919,8 +3327,6 @@
         private MyButton YesIcon;
         private System.Windows.Forms.Label AddCust;
         private System.Windows.Forms.Button Disselect;
-        private System.Windows.Forms.Button DeliveryButton;
-        private System.Windows.Forms.Button TestBox;
         private System.Windows.Forms.PictureBox RefreshBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewTextBoxColumn FullName;
@@ -2931,22 +3337,33 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private System.Windows.Forms.ToolTip ToolTip;
-        private System.Windows.Forms.Button PaymentButton;
         private MyButton SaveB;
         private System.Windows.Forms.Button DelButton;
         private System.Windows.Forms.ImageList ItemIcons;
         private MyButton NewItemB;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Checks;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OrderId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OrderDesc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OrderColor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OrderDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OrderAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OrderPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OrderCab;
         private MyButton SelectAllOrder;
         private System.Windows.Forms.ImageList small;
         private MyButton SelectAllReady;
+        private MyButton CancelOrder;
+        private MyButton ReadyB;
+        private MyButton PayDebt;
+        private MyButton DeliveryButton;
+        private MyButton ReturnB;
+        private MyButton HistoryButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserLname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CityName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserPhone;
+        private System.Windows.Forms.DataGridViewImageColumn SelectB;
+        private MyButton PaymentButton;
+        private MyButton PrintChecks;
+        private System.Drawing.Printing.PrintDocument PrintSelected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CheckBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
@@ -2955,6 +3372,31 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn28;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn29;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Checks;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderDesc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderColor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderCab;
+        private System.Windows.Forms.TabPage tabPage10;
+        private System.Windows.Forms.DataGridView ShopGrid;
+        private MyButton SubmitShop;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label35;
+        private MyButton PrintShop;
+        private MyControls.RoundedTextBox ShopAmountBox;
+        private MyControls.RoundedTextBox ShopNoteBox;
+        private System.Drawing.Printing.PrintDocument PrintShopList;
+        private System.Windows.Forms.Label GoEdit;
+        private MyButton SelectShop;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewTextBoxColumn21;
+        private MyControls.RoundedTextBox ShopNameBox;
     }
 }
 
