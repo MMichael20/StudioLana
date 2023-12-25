@@ -260,7 +260,7 @@
             this.SetDiscount.Size = new System.Drawing.Size(46, 45);
             this.SetDiscount.TabIndex = 97;
             this.SetDiscount.TextColor = System.Drawing.Color.Transparent;
-            this.toolTip1.SetToolTip(this.SetDiscount, "אקספרס");
+            this.toolTip1.SetToolTip(this.SetDiscount, "הנחנה בשקלים");
             this.SetDiscount.UseVisualStyleBackColor = false;
             this.SetDiscount.Click += new System.EventHandler(this.SetDiscount_Click);
             // 
@@ -281,7 +281,7 @@
             this.DiscountButton.Size = new System.Drawing.Size(46, 45);
             this.DiscountButton.TabIndex = 93;
             this.DiscountButton.TextColor = System.Drawing.Color.Transparent;
-            this.toolTip1.SetToolTip(this.DiscountButton, "אקספרס");
+            this.toolTip1.SetToolTip(this.DiscountButton, "הנחנה בשקלים");
             this.DiscountButton.UseVisualStyleBackColor = false;
             this.DiscountButton.Click += new System.EventHandler(this.DiscountButton_Click);
             // 
@@ -448,6 +448,7 @@
             this.SubmitOrder.Size = new System.Drawing.Size(154, 60);
             this.SubmitOrder.TabIndex = 88;
             this.SubmitOrder.TextColor = System.Drawing.Color.Lime;
+            this.toolTip1.SetToolTip(this.SubmitOrder, "סיום הזמנה");
             this.SubmitOrder.UseVisualStyleBackColor = false;
             this.SubmitOrder.Click += new System.EventHandler(this.SubmitOrder_Click);
             // 

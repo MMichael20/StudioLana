@@ -68,6 +68,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -97,6 +101,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle67 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle63 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle64 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle68 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle69 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle70 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.Mname = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.GoEdit = new System.Windows.Forms.Label();
@@ -213,6 +224,7 @@
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.MonthGraff = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.PaymentButton = new WindowsFormsApp1.MyButton();
             this.ThisYearText = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
@@ -260,11 +272,30 @@
             this.label35 = new System.Windows.Forms.Label();
             this.PrintShop = new WindowsFormsApp1.MyButton();
             this.ShopGrid = new System.Windows.Forms.DataGridView();
+            this.ShopId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.ToDate = new System.Windows.Forms.DateTimePicker();
+            this.label36 = new System.Windows.Forms.Label();
+            this.Submit = new System.Windows.Forms.Button();
+            this.FromDate = new System.Windows.Forms.DateTimePicker();
+            this.label37 = new System.Windows.Forms.Label();
+            this.CashLabel = new System.Windows.Forms.Label();
+            this.CreditLabel = new System.Windows.Forms.Label();
+            this.BitLabel = new System.Windows.Forms.Label();
+            this.Total = new System.Windows.Forms.Label();
+            this.CheckTable = new System.Windows.Forms.DataGridView();
+            this.CheckId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
@@ -298,6 +329,7 @@
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UserOwe)).BeginInit();
             this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MonthGraff)).BeginInit();
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WorkersGrid)).BeginInit();
             this.tabPage8.SuspendLayout();
@@ -305,6 +337,9 @@
             this.tabPage9.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ShopGrid)).BeginInit();
+            this.tabPage10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CheckTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chart1)).BeginInit();
             this.MovingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.XIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RefreshBox)).BeginInit();
@@ -381,7 +416,7 @@
             // 
             this.Id.AutoSize = true;
             this.Id.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Id.Location = new System.Drawing.Point(61, 56);
+            this.Id.Location = new System.Drawing.Point(61, 55);
             this.Id.Name = "Id";
             this.Id.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Id.Size = new System.Drawing.Size(0, 23);
@@ -393,7 +428,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(141, 56);
+            this.label2.Location = new System.Drawing.Point(141, 55);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label2.Size = new System.Drawing.Size(52, 23);
@@ -406,7 +441,7 @@
             // 
             this.Fname.AutoSize = true;
             this.Fname.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Fname.Location = new System.Drawing.Point(45, 93);
+            this.Fname.Location = new System.Drawing.Point(45, 90);
             this.Fname.Name = "Fname";
             this.Fname.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Fname.Size = new System.Drawing.Size(0, 23);
@@ -548,7 +583,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(144, 297);
+            this.label7.Location = new System.Drawing.Point(144, 300);
             this.label7.Name = "label7";
             this.label7.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label7.Size = new System.Drawing.Size(50, 23);
@@ -574,7 +609,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(141, 227);
+            this.label5.Location = new System.Drawing.Point(141, 230);
             this.label5.Name = "label5";
             this.label5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label5.Size = new System.Drawing.Size(52, 23);
@@ -587,7 +622,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(143, 262);
+            this.label4.Location = new System.Drawing.Point(143, 265);
             this.label4.Name = "label4";
             this.label4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label4.Size = new System.Drawing.Size(50, 23);
@@ -2051,6 +2086,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.MonthGraff);
             this.tabPage6.Controls.Add(this.PaymentButton);
             this.tabPage6.Controls.Add(this.ThisYearText);
             this.tabPage6.Controls.Add(this.label32);
@@ -2066,6 +2102,31 @@
             this.tabPage6.TabIndex = 2;
             this.tabPage6.Text = "הכנסות";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // MonthGraff
+            // 
+            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisX2.TitleFont = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisY2.TitleFont = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.Name = "ChartArea1";
+            this.MonthGraff.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.MonthGraff.Legends.Add(legend1);
+            this.MonthGraff.Location = new System.Drawing.Point(6, 6);
+            this.MonthGraff.Name = "MonthGraff";
+            this.MonthGraff.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
+            series1.ChartArea = "ChartArea1";
+            series1.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.MonthGraff.Series.Add(series1);
+            this.MonthGraff.Size = new System.Drawing.Size(579, 455);
+            this.MonthGraff.TabIndex = 25;
+            title1.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title1.Name = "Title1";
+            title1.Text = "תשלומים לפי חודשים";
+            this.MonthGraff.Titles.Add(title1);
             // 
             // PaymentButton
             // 
@@ -2875,6 +2936,7 @@
             this.ShopGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle62;
             this.ShopGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ShopGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ShopId,
             this.dataGridViewTextBoxColumn18,
             this.dataGridViewTextBoxColumn19,
             this.dataGridViewTextBoxColumn20,
@@ -2907,6 +2969,14 @@
             this.ShopGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ShopGrid.Size = new System.Drawing.Size(1149, 362);
             this.ShopGrid.TabIndex = 8;
+            // 
+            // ShopId
+            // 
+            this.ShopId.DataPropertyName = "ShopId";
+            this.ShopId.HeaderText = "מס";
+            this.ShopId.MinimumWidth = 70;
+            this.ShopId.Name = "ShopId";
+            this.ShopId.Width = 70;
             // 
             // dataGridViewTextBoxColumn18
             // 
@@ -2951,6 +3021,18 @@
             // 
             // tabPage10
             // 
+            this.tabPage10.Controls.Add(this.button1);
+            this.tabPage10.Controls.Add(this.ToDate);
+            this.tabPage10.Controls.Add(this.label36);
+            this.tabPage10.Controls.Add(this.Submit);
+            this.tabPage10.Controls.Add(this.FromDate);
+            this.tabPage10.Controls.Add(this.label37);
+            this.tabPage10.Controls.Add(this.CashLabel);
+            this.tabPage10.Controls.Add(this.CreditLabel);
+            this.tabPage10.Controls.Add(this.BitLabel);
+            this.tabPage10.Controls.Add(this.Total);
+            this.tabPage10.Controls.Add(this.CheckTable);
+            this.tabPage10.Controls.Add(this.Chart1);
             this.tabPage10.Location = new System.Drawing.Point(4, 4);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
@@ -2958,6 +3040,245 @@
             this.tabPage10.TabIndex = 6;
             this.tabPage10.Text = "tabPage10";
             this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(24, 66);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 23;
+            this.button1.Text = "מיין";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // ToDate
+            // 
+            this.ToDate.Location = new System.Drawing.Point(96, 67);
+            this.ToDate.Name = "ToDate";
+            this.ToDate.Size = new System.Drawing.Size(200, 31);
+            this.ToDate.TabIndex = 22;
+            // 
+            // label36
+            // 
+            this.label36.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Secular One", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label36.Location = new System.Drawing.Point(205, 63);
+            this.label36.MinimumSize = new System.Drawing.Size(200, 0);
+            this.label36.Name = "label36";
+            this.label36.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label36.Size = new System.Drawing.Size(200, 30);
+            this.label36.TabIndex = 21;
+            this.label36.Text = "עד לתאריך:";
+            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Submit
+            // 
+            this.Submit.Location = new System.Drawing.Point(24, 27);
+            this.Submit.Name = "Submit";
+            this.Submit.Size = new System.Drawing.Size(75, 23);
+            this.Submit.TabIndex = 20;
+            this.Submit.Text = "מיין";
+            this.Submit.UseVisualStyleBackColor = true;
+            // 
+            // FromDate
+            // 
+            this.FromDate.Location = new System.Drawing.Point(96, 28);
+            this.FromDate.Name = "FromDate";
+            this.FromDate.Size = new System.Drawing.Size(200, 31);
+            this.FromDate.TabIndex = 19;
+            // 
+            // label37
+            // 
+            this.label37.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Secular One", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.Location = new System.Drawing.Point(205, 24);
+            this.label37.MinimumSize = new System.Drawing.Size(200, 0);
+            this.label37.Name = "label37";
+            this.label37.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label37.Size = new System.Drawing.Size(200, 30);
+            this.label37.TabIndex = 18;
+            this.label37.Text = "לפי תאריך:";
+            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // CashLabel
+            // 
+            this.CashLabel.AutoSize = true;
+            this.CashLabel.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CashLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CashLabel.Location = new System.Drawing.Point(576, 140);
+            this.CashLabel.MinimumSize = new System.Drawing.Size(200, 0);
+            this.CashLabel.Name = "CashLabel";
+            this.CashLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.CashLabel.Size = new System.Drawing.Size(200, 27);
+            this.CashLabel.TabIndex = 17;
+            this.CashLabel.Text = "מספר תשלומים בביט";
+            this.CashLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // CreditLabel
+            // 
+            this.CreditLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.CreditLabel.AutoSize = true;
+            this.CreditLabel.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CreditLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CreditLabel.Location = new System.Drawing.Point(576, 100);
+            this.CreditLabel.MinimumSize = new System.Drawing.Size(200, 0);
+            this.CreditLabel.Name = "CreditLabel";
+            this.CreditLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.CreditLabel.Size = new System.Drawing.Size(200, 27);
+            this.CreditLabel.TabIndex = 16;
+            this.CreditLabel.Text = "מספר תשלומים באשראי";
+            this.CreditLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // BitLabel
+            // 
+            this.BitLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.BitLabel.AutoSize = true;
+            this.BitLabel.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BitLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BitLabel.Location = new System.Drawing.Point(576, 62);
+            this.BitLabel.MinimumSize = new System.Drawing.Size(200, 0);
+            this.BitLabel.Name = "BitLabel";
+            this.BitLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.BitLabel.Size = new System.Drawing.Size(200, 27);
+            this.BitLabel.TabIndex = 15;
+            this.BitLabel.Text = "מספר תשלומים בביט";
+            this.BitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Total
+            // 
+            this.Total.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Total.AutoSize = true;
+            this.Total.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Total.Location = new System.Drawing.Point(576, 21);
+            this.Total.MinimumSize = new System.Drawing.Size(200, 0);
+            this.Total.Name = "Total";
+            this.Total.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.Total.Size = new System.Drawing.Size(200, 27);
+            this.Total.TabIndex = 14;
+            this.Total.Text = "מספר תשלומים כולל";
+            this.Total.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // CheckTable
+            // 
+            this.CheckTable.AllowUserToAddRows = false;
+            this.CheckTable.AllowUserToDeleteRows = false;
+            this.CheckTable.AllowUserToResizeColumns = false;
+            this.CheckTable.AllowUserToResizeRows = false;
+            dataGridViewCellStyle68.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.CheckTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle68;
+            this.CheckTable.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(244)))), ((int)(((byte)(235)))));
+            this.CheckTable.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.CheckTable.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.CheckTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle69.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle69.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
+            dataGridViewCellStyle69.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle69.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle69.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
+            dataGridViewCellStyle69.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
+            dataGridViewCellStyle69.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.CheckTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle69;
+            this.CheckTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CheckTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CheckId,
+            this.CheckName,
+            this.dataGridViewTextBoxColumn10,
+            this.CheckPrice,
+            this.CheckDate,
+            this.TypeName});
+            dataGridViewCellStyle70.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle70.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(244)))), ((int)(((byte)(235)))));
+            dataGridViewCellStyle70.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle70.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle70.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(196)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle70.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle70.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.CheckTable.DefaultCellStyle = dataGridViewCellStyle70;
+            this.CheckTable.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.CheckTable.EnableHeadersVisualStyles = false;
+            this.CheckTable.Location = new System.Drawing.Point(3, 232);
+            this.CheckTable.MultiSelect = false;
+            this.CheckTable.Name = "CheckTable";
+            this.CheckTable.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.CheckTable.RowHeadersVisible = false;
+            this.CheckTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.CheckTable.Size = new System.Drawing.Size(1149, 232);
+            this.CheckTable.TabIndex = 13;
+            // 
+            // CheckId
+            // 
+            this.CheckId.DataPropertyName = "CheckId";
+            this.CheckId.HeaderText = "מס\'";
+            this.CheckId.MinimumWidth = 20;
+            this.CheckId.Name = "CheckId";
+            this.CheckId.ReadOnly = true;
+            // 
+            // CheckName
+            // 
+            this.CheckName.DataPropertyName = "CheckName";
+            this.CheckName.HeaderText = "שם הקבלה";
+            this.CheckName.Name = "CheckName";
+            this.CheckName.ReadOnly = true;
+            this.CheckName.Width = 250;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "FullName";
+            this.dataGridViewTextBoxColumn10.HeaderText = "שם הלקוח";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Width = 200;
+            // 
+            // CheckPrice
+            // 
+            this.CheckPrice.DataPropertyName = "CheckPrice";
+            this.CheckPrice.HeaderText = "תשלום";
+            this.CheckPrice.Name = "CheckPrice";
+            this.CheckPrice.ReadOnly = true;
+            // 
+            // CheckDate
+            // 
+            this.CheckDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.CheckDate.DataPropertyName = "CheckDate";
+            this.CheckDate.FillWeight = 200F;
+            this.CheckDate.HeaderText = "תאריך";
+            this.CheckDate.Name = "CheckDate";
+            this.CheckDate.ReadOnly = true;
+            // 
+            // TypeName
+            // 
+            this.TypeName.DataPropertyName = "TypeName";
+            this.TypeName.HeaderText = "סוג";
+            this.TypeName.Name = "TypeName";
+            this.TypeName.ReadOnly = true;
+            // 
+            // Chart1
+            // 
+            this.Chart1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            chartArea2.AxisX.TitleFont = new System.Drawing.Font("Secular One", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea2.Name = "ChartArea1";
+            this.Chart1.ChartAreas.Add(chartArea2);
+            legend2.Font = new System.Drawing.Font("Secular One", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend2.IsTextAutoFit = false;
+            legend2.Name = "Legend1";
+            this.Chart1.Legends.Add(legend2);
+            this.Chart1.Location = new System.Drawing.Point(814, 7);
+            this.Chart1.Name = "Chart1";
+            this.Chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Chocolate;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series2.Legend = "Legend1";
+            series2.Name = "s1";
+            this.Chart1.Series.Add(series2);
+            this.Chart1.Size = new System.Drawing.Size(302, 219);
+            this.Chart1.TabIndex = 12;
+            this.Chart1.Text = "chart1";
+            title2.Font = new System.Drawing.Font("Secular One", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title2.Name = "Title1";
+            title2.Text = "סוגי תשלומים";
+            this.Chart1.Titles.Add(title2);
             // 
             // imageList1
             // 
@@ -2986,12 +3307,12 @@
             this.GreetText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.GreetText.Font = new System.Drawing.Font("M PLUS 1p", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.GreetText.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.GreetText.Location = new System.Drawing.Point(267, 110);
+            this.GreetText.Location = new System.Drawing.Point(271, 110);
             this.GreetText.Margin = new System.Windows.Forms.Padding(0);
             this.GreetText.MinimumSize = new System.Drawing.Size(100, 50);
             this.GreetText.Name = "GreetText";
             this.GreetText.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.GreetText.Size = new System.Drawing.Size(904, 58);
+            this.GreetText.Size = new System.Drawing.Size(900, 58);
             this.GreetText.TabIndex = 11;
             this.GreetText.Text = "צהריים טובים, אורח";
             this.GreetText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -3052,7 +3373,7 @@
             // 
             this.LoginButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LoginButton.Image = global::WindowsFormsApp1.Properties.Resources.login_icon;
-            this.LoginButton.Location = new System.Drawing.Point(120, 46);
+            this.LoginButton.Location = new System.Drawing.Point(106, 46);
             this.LoginButton.Name = "LoginButton";
             this.LoginButton.Size = new System.Drawing.Size(34, 36);
             this.LoginButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -3142,7 +3463,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::WindowsFormsApp1.Properties.Resources.Lana;
-            this.pictureBox2.Location = new System.Drawing.Point(26, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(12, 13);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(66, 94);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -3191,6 +3512,7 @@
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.UserOwe)).EndInit();
             this.tabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.MonthGraff)).EndInit();
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WorkersGrid)).EndInit();
@@ -3200,6 +3522,10 @@
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ShopGrid)).EndInit();
+            this.tabPage10.ResumeLayout(false);
+            this.tabPage10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CheckTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chart1)).EndInit();
             this.MovingPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.XIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RefreshBox)).EndInit();
@@ -3392,11 +3718,31 @@
         private System.Drawing.Printing.PrintDocument PrintShopList;
         private System.Windows.Forms.Label GoEdit;
         private MyButton SelectShop;
+        private MyControls.RoundedTextBox ShopNameBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShopId;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewTextBoxColumn21;
-        private MyControls.RoundedTextBox ShopNameBox;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DateTimePicker ToDate;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Button Submit;
+        private System.Windows.Forms.DateTimePicker FromDate;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label CashLabel;
+        private System.Windows.Forms.Label CreditLabel;
+        private System.Windows.Forms.Label BitLabel;
+        private System.Windows.Forms.Label Total;
+        private System.Windows.Forms.DataGridView CheckTable;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeName;
+        private System.Windows.Forms.DataVisualization.Charting.Chart Chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart MonthGraff;
     }
 }
 

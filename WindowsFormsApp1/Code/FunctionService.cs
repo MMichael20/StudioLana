@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WindowsFormsApp1
 {
@@ -176,9 +177,20 @@ namespace WindowsFormsApp1
             CheckService os = new CheckService();
             return os.GetAllPrices();
         }
-        public void UpIndex(ComboBox box)
+        //public void UpIndex(ComboBox box)
+        //{
+        //    box.SelectedIndex = (box.SelectedIndex + 1) % box.Items.Count;
+        //}
+        public void isBought(List<int> ids)
         {
-            box.SelectedIndex = (box.SelectedIndex + 1) % box.Items.Count;
+            ShopService os = new ShopService();
+            os.isBought(ids);
         }
+        public void SortChecks()
+        {
+            CheckService cs = new CheckService();
+            cs.SortChecks();
+        }
+
     }
 }

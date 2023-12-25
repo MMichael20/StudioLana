@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 
@@ -51,6 +52,26 @@ namespace WindowsFormsApp1
             {
                 myConnection.Close();
             }
+        }
+        public void isBought(List<int> ids)
+        {
+            myConnection.Open();
+            for (int i = 0; i < ids.Count; i++)
+            {
+                string sSql = "Update Shop set ShopBought = true where ShopId = " + ids[i];
+                try
+                {
+
+                    OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                    myCmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            myConnection.Close();
+           
         }
     }
 }

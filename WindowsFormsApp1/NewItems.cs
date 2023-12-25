@@ -221,11 +221,11 @@ namespace WindowsFormsApp1
                 UpdateTotal();
             }
         }
-        public string FindDay(int x)
+        public string FindDay(int x) // x is how many days it takes for the work
         {
             DateTime today = DateTime.Today;
             int day = (int)today.DayOfWeek;
-            int f = day + x;
+            int f = day + x; // f is the day the work supposed to be finished (without saturday)
             if (f > 6)
             {
                 f = f - 6;
@@ -332,13 +332,15 @@ namespace WindowsFormsApp1
         }
         private void Color10_Click(object sender, EventArgs e)
         {
-            //Ncolor(8);
-            ColorList cl = new ColorList();
-            if (cl.ShowDialog() == DialogResult.OK)
+            if(NewItemGrid.Rows.Count > 0)
             {
-                DataSet ds = function.GetColorById(Choose.color);
-                ColorType c = new ColorType(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString());
-                NewItemGrid.CurrentRow.Cells[3].Value = c.Cname.ToString();
+                ColorList cl = new ColorList();
+                if (cl.ShowDialog() == DialogResult.OK)
+                {
+                    DataSet ds = function.GetColorById(Choose.color);
+                    ColorType c = new ColorType(int.Parse(ds.Tables[0].Rows[0][0].ToString()), ds.Tables[0].Rows[0][1].ToString());
+                    NewItemGrid.CurrentRow.Cells[3].Value = c.Cname.ToString();
+                }
             }
         }
         public void Ncolor(int id)
@@ -489,7 +491,11 @@ namespace WindowsFormsApp1
         }
         private void SubmitOrder_Click(object sender, EventArgs e)
         {
+            int owed = Choose.u.Debt;
+            int newDebt = Choose.u.Debt;
             int total = 0;
+            int paid = 0;
+            bool isPaid = false;
             if (Check())
             {
                 List<Order> orders = new List<Order>();
@@ -516,15 +522,28 @@ namespace WindowsFormsApp1
                         final = final - 5;
                     DateTime finish = today.AddDays(final);
                     //finish = today.AddDays(work);
-                    Order newOrder = new Order(Choose.u.Id, id, color, DateTime.Now, amount, price, "ללא", "בטיפול", finish, 0, false);
+                    if(owed < 0)
+                    {
+                        if(Math.Abs(owed) >= price)
+                        {
+                            owed += price;
+                            isPaid = true;
+                            paid = price;
+                        }
+                        else if(Math.Abs(owed) < price)
+                        {
+                            paid = Math.Abs(owed);
+                            owed = 0;
+                        }
+                    }
+                    Order newOrder = new Order(Choose.u.Id, id, color, DateTime.Now, amount, price, "ללא", "בטיפול", finish, paid, isPaid);
                     orders.Add(newOrder);
-                    //OrderService os = new OrderService();
-                    //os.NewOrder(newOrder);
-                    //UserService us = new UserService();
-                    //us.SetDebt(userId, price); Need to fix the thing with the debt setter
                     total += price;
+                    isPaid = false;
+                    paid = 0;
                 }
-                int newDebt = Choose.u.Debt + total;
+                
+                newDebt = newDebt + total;
                 Choose.u.Debt = newDebt;
                 function.SetDebt(Choose.id, newDebt);
                 function.NewOrder(orders);
