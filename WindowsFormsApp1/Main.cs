@@ -4,9 +4,10 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
 
 namespace WindowsFormsApp1
 {
@@ -1660,5 +1661,88 @@ namespace WindowsFormsApp1
         {
             YearSelect.DroppedDown = true;
         }
-    }    
+
+        private void monthIncome_Click(object sender, EventArgs e)
+        {
+            DataSet dataSet = function.GetO(); // Replace this with your method to retrieve the DataSet
+
+            // Create a new PDF document
+            PdfDocument document = new PdfDocument();
+
+            // Add a page to the document
+            PdfPage page = document.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+
+            // Title
+            string titleText = "Your Big Title";
+            XFont titleFont = new XFont("Verdana", 28, XFontStyle.Bold);
+            XSize titleSize = gfx.MeasureString(titleText, titleFont);
+            gfx.DrawString(titleText, titleFont, XBrushes.Black,
+                new XRect(0, 50, page.Width, titleSize.Height), XStringFormats.Center);
+
+            // Subtitles (5 rows)
+            string[] subtitles = { "Subtitle 1", "Subtitle 2", "Subtitle 3", "Subtitle 4", "Subtitle 5" };
+            XFont subtitleFont = new XFont("Verdana", 12, XFontStyle.Bold);
+            double yOffset = titleSize.Height + 60;
+
+            foreach (string subtitle in subtitles)
+            {
+                XSize subTitleSize = gfx.MeasureString(subtitle, subtitleFont);
+                gfx.DrawString(subtitle, subtitleFont, XBrushes.Black,
+                    new XRect(0, yOffset, page.Width, subTitleSize.Height), XStringFormats.Center);
+                yOffset += subTitleSize.Height + 10;
+            }
+
+            // Get the selected columns and custom headers
+            List<string> selectedColumns = new List<string> { "ColumnName1", "ColumnName2", "ColumnName3" }; // Replace with selected column names
+            List<string> customHeaders = new List<string> { "Header1", "Header2", "Header3" }; // Replace with custom header names
+
+            // Draw the table using selected columns and custom headers
+            DataTable table = dataSet.Tables["Checks"]; // Assuming "Checks" is the table name
+            string[,] tableData = ConvertDataTableToStringArray(table, selectedColumns, customHeaders);
+
+            DrawTable(gfx, page, tableData, subtitleFont, yOffset + 20);
+
+            // Save the document
+            const string filename = "YourReport.pdf";
+            document.Save(filename);
+        }
+        static string[,] ConvertDataTableToStringArray(DataTable table, List<string> selectedColumns, List<string> customHeaders)
+        {
+            string[,] result = new string[table.Rows.Count + 1, selectedColumns.Count]; // +1 for headers
+
+            // Add headers
+            for (int i = 0; i < selectedColumns.Count; i++)
+            {
+                result[0, i] = customHeaders[i]; // Use custom header names
+            }
+
+            // Add data rows for selected columns
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                for (int j = 0; j < selectedColumns.Count; j++)
+                {
+                    result[i + 1, j] = table.Rows[i][selectedColumns[j]].ToString();
+                }
+            }
+
+            return result;
+        }
+        static void DrawTable(XGraphics gfx, PdfPage page, string[,] data, XFont font, double topY)
+        {
+            double leftX = 50;
+            double cellWidth = (page.Width - 100) / data.GetLength(1);
+            XFont tableFont = new XFont("Verdana", 10, XFontStyle.Regular);
+
+            for (int i = 0; i < data.GetLength(0); i++)
+            {
+                for (int j = 0; j < data.GetLength(1); j++)
+                {
+                    gfx.DrawString(data[i, j], tableFont, XBrushes.Black,
+                        new XRect(leftX + j * cellWidth, topY + i * 20, cellWidth, 20),
+                        XStringFormats.TopLeft);
+                }
+            }
+        }
+    }
 }

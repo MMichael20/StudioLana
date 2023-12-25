@@ -27,6 +27,10 @@ namespace WindowsFormsApp1
             this.date = DateTime.Now;
             this.type = type;
         }
+        public Check()
+        {
+
+        }
         public int Id
         {
             get { return this.id; }
