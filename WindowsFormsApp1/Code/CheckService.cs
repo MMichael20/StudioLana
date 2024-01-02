@@ -195,10 +195,7 @@ namespace WindowsFormsApp1
                                   "GROUP BY Year(CheckDate), Month(CheckDate)";
 
                 OleDbCommand command = new OleDbCommand(sSql, connection);
-                chart.Series.Add("Values");
-                int pastMonth = pastDate.Month;
-                int pastYear = pastDate.Year - 2000;
-                
+                chart.Series.Add("Values");                
                 try
                 {
                     connection.Open();

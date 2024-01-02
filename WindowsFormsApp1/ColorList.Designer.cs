@@ -37,9 +37,9 @@
             this.CityId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColorName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AddItem = new System.Windows.Forms.Label();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.label22 = new System.Windows.Forms.Label();
             this.SearchText = new System.Windows.Forms.TextBox();
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ColorGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -121,6 +121,13 @@
             this.AddItem.Size = new System.Drawing.Size(49, 30);
             this.AddItem.TabIndex = 52;
             // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "plus.png");
+            this.imageList2.Images.SetKeyName(1, "search.png");
+            // 
             // label22
             // 
             this.label22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -143,13 +150,6 @@
             this.SearchText.TabIndex = 50;
             this.SearchText.TextChanged += new System.EventHandler(this.SearchText_TextChanged);
             // 
-            // imageList2
-            // 
-            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList2.Images.SetKeyName(0, "plus.png");
-            this.imageList2.Images.SetKeyName(1, "search.png");
-            // 
             // ColorList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -164,6 +164,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ColorList";
             this.Load += new System.EventHandler(this.ColorList_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ColorList_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.ColorGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

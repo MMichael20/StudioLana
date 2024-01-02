@@ -6,8 +6,10 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
+using System.Diagnostics;
+using System.Text;
+using SelectPdf;
+using System.Data.OleDb;
 
 namespace WindowsFormsApp1
 {
@@ -107,7 +109,7 @@ namespace WindowsFormsApp1
             int month = 0;
             int day = 0;
             DataTable data = function.GetAllPrices().Tables[0];
-            foreach(DataRow row in data.Rows)
+            foreach (DataRow row in data.Rows)
             {
                 price = int.Parse(row["CheckPrice"].ToString());
                 DateTime date = row.Field<DateTime>("CheckDate");
@@ -115,7 +117,7 @@ namespace WindowsFormsApp1
                 {
                     day += price;
                 }
-                if(date.Year == today.Year && date.Month == today.Month)
+                if (date.Year == today.Year && date.Month == today.Month)
                 {
                     month += price;
                 }
@@ -184,7 +186,7 @@ namespace WindowsFormsApp1
             //Clock w = new Clock();
             //w.Show();
             //function.SortChecks();
-            
+
         }
         private void UserS_Click(object sender, EventArgs e)
         {
@@ -530,7 +532,7 @@ namespace WindowsFormsApp1
         }
         private void CancelOrder_Click(object sender, EventArgs e)
         {
-            
+
             List<int> ids = IdSelected(OrderGrid, 0, 1);
             if (Choose.id == 0)
             {
@@ -600,6 +602,39 @@ namespace WindowsFormsApp1
                 Calculate();
             }
         }
+        private void SendMessage(string message)
+        {
+            string number = "{+}972" + Choose.u.Phone.Substring(1);
+            //string programPath = @"G:\_PROJECT_\Extra\main.exe"; // Replace this with the path to your program
+            string programPath = @"Extra\main.exe"; // Replace this with the path to your program
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = programPath,
+                UseShellExecute = true // Set to true if you want to use the shell
+            };
+
+            Process process = new Process
+            {
+                StartInfo = startInfo
+            };
+
+            try
+            {
+                process.Start();
+
+                // Delay for a moment to ensure the application has started
+                System.Threading.Thread.Sleep(5000); // Adjust this delay as needed
+                SendKeys.SendWait(number); // Replace this with the keys you want to send
+                SendKeys.SendWait("{ENTER}");
+                SendKeys.SendWait(message); 
+                SendKeys.SendWait("{ENTER}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+    
         private void PayDebt_Click(object sender, EventArgs e)
         {
             if (Id.Text == "")
@@ -697,7 +732,7 @@ namespace WindowsFormsApp1
             {
                 PrintPreview.Document = printDocument1;
                 PrintPreview.ShowDialog();
-                
+
             }
         }
         private static decimal CalculateTotal(DataSet dataSet)
@@ -944,6 +979,10 @@ namespace WindowsFormsApp1
             tabControl1.SelectedIndex = 0;
 
         }
+        private void ToItemsButton_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 2;
+        }
         private void MovingPanel_MouseDown(object sender, MouseEventArgs e)
         {
             mouseLocation = new Point(-e.X, -e.Y);
@@ -1180,6 +1219,7 @@ namespace WindowsFormsApp1
                 Populate(Choose.u);
             }
             PopulateGrids();
+            CalculateProfit();
         }
         private void UserOwe_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1258,7 +1298,7 @@ namespace WindowsFormsApp1
         private void PrintChecks_Click(object sender, EventArgs e)
         {
             List<int> ids = IdSelected(OrderGrid, 0, 1);
-            ids.AddRange(IdSelected(ReadyGrid, 0 , 1));
+            ids.AddRange(IdSelected(ReadyGrid, 0, 1));
             if (ids.Count == 0)
             {
                 MessageBox.Show("בחר הזמנות");
@@ -1426,7 +1466,7 @@ namespace WindowsFormsApp1
         private void SubmitShop_Click(object sender, EventArgs e)
         {
             List<int> ids = IdSelected(ShopGrid, 4, 0);
-            if(ids.Count == 0)
+            if (ids.Count == 0)
             {
                 int amount = 0;
                 if (!int.TryParse(ShopAmountBox.Texts.ToString(), out amount))
@@ -1451,19 +1491,19 @@ namespace WindowsFormsApp1
                 MessageBox.Show("הרשימה התעדכנה");
                 PopulateShop();
             }
-            
+
         }
 
         private void PrintShop_Click(object sender, EventArgs e)
         {
-            PrintPreview.Document = PrintShopList ;
+            PrintPreview.Document = PrintShopList;
             PrintPreview.ShowDialog();
         }
 
         private void PrintShopList_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             DataSet dataSet = function.ShopList();
-            string[] selectedColumns = { "ShopDate","ShopAmount", "ShopNote", "ShopName"};
+            string[] selectedColumns = { "ShopDate", "ShopAmount", "ShopNote", "ShopName" };
             Dictionary<string, string> columnTitleMap = new Dictionary<string, string>
                 {
                     { "ShopId", "מס'" },
@@ -1603,10 +1643,9 @@ namespace WindowsFormsApp1
                 topMargin += (int)messageSize.Height;
             }
         }
-
         private void GoEdit_Click(object sender, EventArgs e)
         {
-            
+
             if (Choose.id == 0)
             {
                 MessageBox.Show("עלייך לשלוף תיק לקוח!");
@@ -1664,85 +1703,260 @@ namespace WindowsFormsApp1
 
         private void monthIncome_Click(object sender, EventArgs e)
         {
-            DataSet dataSet = function.GetO(); // Replace this with your method to retrieve the DataSet
 
-            // Create a new PDF document
-            PdfDocument document = new PdfDocument();
-
-            // Add a page to the document
-            PdfPage page = document.AddPage();
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-
-            // Title
-            string titleText = "Your Big Title";
-            XFont titleFont = new XFont("Verdana", 28, XFontStyle.Bold);
-            XSize titleSize = gfx.MeasureString(titleText, titleFont);
-            gfx.DrawString(titleText, titleFont, XBrushes.Black,
-                new XRect(0, 50, page.Width, titleSize.Height), XStringFormats.Center);
-
-            // Subtitles (5 rows)
-            string[] subtitles = { "Subtitle 1", "Subtitle 2", "Subtitle 3", "Subtitle 4", "Subtitle 5" };
-            XFont subtitleFont = new XFont("Verdana", 12, XFontStyle.Bold);
-            double yOffset = titleSize.Height + 60;
-
-            foreach (string subtitle in subtitles)
-            {
-                XSize subTitleSize = gfx.MeasureString(subtitle, subtitleFont);
-                gfx.DrawString(subtitle, subtitleFont, XBrushes.Black,
-                    new XRect(0, yOffset, page.Width, subTitleSize.Height), XStringFormats.Center);
-                yOffset += subTitleSize.Height + 10;
-            }
-
-            // Get the selected columns and custom headers
-            List<string> selectedColumns = new List<string> { "ColumnName1", "ColumnName2", "ColumnName3" }; // Replace with selected column names
-            List<string> customHeaders = new List<string> { "Header1", "Header2", "Header3" }; // Replace with custom header names
-
-            // Draw the table using selected columns and custom headers
-            DataTable table = dataSet.Tables["Checks"]; // Assuming "Checks" is the table name
-            string[,] tableData = ConvertDataTableToStringArray(table, selectedColumns, customHeaders);
-
-            DrawTable(gfx, page, tableData, subtitleFont, yOffset + 20);
-
-            // Save the document
-            const string filename = "YourReport.pdf";
-            document.Save(filename);
+            CreateReport();
         }
-        static string[,] ConvertDataTableToStringArray(DataTable table, List<string> selectedColumns, List<string> customHeaders)
+        private void CreateReport()
         {
-            string[,] result = new string[table.Rows.Count + 1, selectedColumns.Count]; // +1 for headers
+            LoadingScreen loading = new LoadingScreen();
+            loading.Show();
+            OleDbDataReader reader = function.GetAllUsersPhones();
+            HtmlToPdf converter = new HtmlToPdf();
+            PdfDocument pdf = converter.ConvertHtmlString(AddHtml(reader));
 
-            // Add headers
-            for (int i = 0; i < selectedColumns.Count; i++)
-            {
-                result[0, i] = customHeaders[i]; // Use custom header names
-            }
+            // Save PDF to a file
+            string pdfFilePath = "Reports/report.pdf";
+            pdf.Save(pdfFilePath);
+            pdf.Close();
 
-            // Add data rows for selected columns
-            for (int i = 0; i < table.Rows.Count; i++)
+            loading.Close();
+            MessageBox.Show("Operation completed!");
+
+            MessageBox.Show($"PDF created successfully. Path: {Path.GetFullPath(pdfFilePath)}");
+        }
+        public string AddHtml(OleDbDataReader reader)
+        {
+            StringBuilder htmlContent = new StringBuilder();
+            htmlContent.Append($@"
+           <!DOCTYPE html>
+            <html lang='he'>
+            <head>
+                <meta charset='UTF-8'>
+                <style>
+                    body {{
+                        font-family: 'Arial Hebrew', Arial, sans-serif; /* Use your preferred Hebrew-supported font */
+                        text-align: center;
+                        margin: 40px;
+                        direction: rtl;
+                    }}
+                    h1 {{
+                        font-size: 24px;
+                        margin-bottom: 10px;
+                    }}
+                    h2 {{
+                        font-size: 18px;
+                        margin-top: 30px;
+                        margin-bottom: 5px;
+                    }}
+                    .container {{
+                        width: 70%;
+                        margin: 0 auto; /* Center the container */
+                        text-align: right; /* Align text to the right */
+                    }}
+                    .row {{
+                        display: flex;
+                        justify-content: space-between;
+                        border-bottom: 1px solid #ccc;
+                        padding: 5px 0;
+                    }}
+                    .cell {{
+                        width: 30%;
+                        direction: ; /* Set text direction to right-to-left */
+                    }}
+                    .cell2{{
+                        width: 30%;
+                        direction: ltr; /* Set text direction to right-to-left */
+                    }}
+                    .h11{{
+                        font-size: 32px;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class='container'>
+                    <center><h1 class='h11'>Studio Lana</h1></center>
+                    <h2>רשימת משתמשים</h2> ");
+            if(reader != null)
             {
-                for (int j = 0; j < selectedColumns.Count; j++)
+                while (reader.Read())
                 {
-                    result[i + 1, j] = table.Rows[i][selectedColumns[j]].ToString();
+                    string name = reader["FullName"].ToString();
+                    string phone = reader["UserPhone"].ToString();
+                    string debt = reader["UserDebt"].ToString();
+                    htmlContent.Append($@"<div class='row'>
+                        <div class='cell'>{name}</div>
+                        <div class='cell2'>{phone}</div>
+                        <div class='cell2'>{debt}</div>
+                    </div> ");
                 }
             }
-
-            return result;
+            htmlContent.Append($@" 
+                </div>
+            </body>
+            </html>
+        ");
+            return htmlContent.ToString();
         }
-        static void DrawTable(XGraphics gfx, PdfPage page, string[,] data, XFont font, double topY)
+        public string AddHtmlReport()
         {
-            double leftX = 50;
-            double cellWidth = (page.Width - 100) / data.GetLength(1);
-            XFont tableFont = new XFont("Verdana", 10, XFontStyle.Regular);
+            StringBuilder htmlContent = new StringBuilder();
+            htmlContent.Append(@"<!DOCTYPE html>
+            <html lang='he'>
+            <head>
+                <meta charset='UTF-8'>
+                <title>Financial Report</title>
+                <style>
+                    body {
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        direction: rtl;
+                        text-align: center;
+                        color: #333;
+                    }
+                    .container {
+                        max-width: 800px;
+                        margin: 0 auto;
+                        padding: 20px;
+                        text-align: right;
+                    }
+                    .title {
+                        font-size: 36px;
+                        margin-bottom: 20px;
+                        color: #333;
+                        text-align: center;
+                    }
+                    .right-side {
+                        display: inline-block;
+                        width: 40%;
+                        vertical-align: top;
+                    }
+                    .line {
+                        margin-bottom: 5px;
+                        color: #888;
+                        font-size: 12px;
+                    }
+                    .sentences {
+                        margin-top: 10px;
+                        font-size: 14px;
+                    }
+                    /* Decoration for the row */
+                    .row {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 20px;
+                    }
+                    .column {
+                        flex: 1;
+                        padding: 10px;
+                        background-color: #f2f2f2;
+                        border-radius: 20px;
+                        font-size: 14px;
+                    }
+                    .divider {
+                        border-bottom: 1px solid #ccc;
+                        margin-bottom: 20px;
+                    }
+                    /* Headers for sentence sections */
+                    h2 {
+                        margin-bottom: 5px;
+                        font-size: 16px;
+                    }
+                </style>
+            </head>
+            <body>
+            <div class='container'>
+                <div class='title'>
+                    STUDIO LANA
+                </div>");
 
-            for (int i = 0; i < data.GetLength(0); i++)
+            // Continue appending the rest of the HTML content here...
+            decimal amountSum = 0;
+            decimal paidSum = 0;
+            decimal priceSum = 0;
+            Dictionary<string, decimal> results = function.OrderMonthReport(DateTime.Now.Month, DateTime.Now.Year);
+            if (results != null)
             {
-                for (int j = 0; j < data.GetLength(1); j++)
-                {
-                    gfx.DrawString(data[i, j], tableFont, XBrushes.Black,
-                        new XRect(leftX + j * cellWidth, topY + i * 20, cellWidth, 20),
-                        XStringFormats.TopLeft);
-                }
+                amountSum = results["AmountSum"];
+                 paidSum = results["PaidSum"];
+                priceSum = results["PriceSum"];
+            }
+            htmlContent.Append($@"
+                        <div class='right-side'>
+                          <div class='line'>עין חנוך 15 דירה 26 קרית אונו</div>
+                          <div class='line'>054-5606832</div>
+                          <div class='line'>מספר ע.מ \ ח.פ 323608935</div>
+                          <div class='line'>דוח סוף חודש לתאריך - {DateTime.Now.Month}\{DateTime.Now.Year}</div>
+	                      <div class='line'>תאריך הפקה - {DateTime.Now}</div>
+                        </div>
+                        <div class='divider'></div>
+                        <div class='row'>
+                          <div class='column'><center>סה'כ פריטים: {amountSum} </center></div>
+                          <div class='column'><center>סה'כ הכנסות: {priceSum}</center></div>
+                          <div class='column'><center>נפרע: {paidSum}</center></div>
+                        </div>
+
+                        <div class='sentences'>
+                          <h2>סה'כ סכום הזמנות חודשי: {priceSum}</h2>
+	                      <h2>סה'כ סכום הזמנות ביטול\זיכוי מחדש: 0</h2>
+                          <p>סה'כ הזמנות: {amountSum}</p>
+                          <p>סכום הזמנות שטרם שולמו: {priceSum - paidSum}</p>
+                          <p>סכום הזמנות ששולמו: {paidSum}</p>
+                          <h2>פירוט לצרכי מס:</h2>
+	                      <div class='divider'></div>
+                          <p>סכום חשבוניות מס: 1500, כמות: 0</p>
+                          <p>סכום חשבוניות מס\קבלה: 1000, כמות: 0</p>
+                          <p>סכום קבלות: 1000</p>
+                          <p>סכום זיכויים במס - החזר כסף: 1500, כמות: 0</p>
+                          <p>סכום זיכויים במס - קיזוז חשבוניות: 0 , כמות: 0</p>
+                          <p>סה'כ חיוב במס: 15000</p>
+                          <p>סה'כ זיכוי במס: 0</p>
+                          <p>סה'כ מס לדיווח: 15000</p>
+                          <div class='divider'></div>
+                          <center><h2>תכולת קופה:</h2></center>
+	                      <div class='row'>
+                          <div class='column'><center>מזומן: 15000</center></div>
+                          <div class='column'><center>אשראי: 0</center></div>
+                          <div class='column'><center>אחר: 24550</center></div>
+                        </div>
+                        </div>
+                      </div>
+                    </body>
+                    </html>");
+            return htmlContent.ToString();
+        }
+
+
+        private void SendButton_Click(object sender, EventArgs e)
+        {
+            List<int> ids = IdSelected(ReadyGrid, 0, 1);
+            if(ids.Count == 0)
+            {
+                MessageBox.Show("אנא בחר פריט");
+            }
+            else if(ids.Count == 1)
+            {
+                string message = "היי " + Choose.u.Fname + " " +Choose.u.LName + ", פריט מספר: "+ string.Join(", ", ids) + " מוזמנים להגיע לאסוף בשעות הפעילות, תודה!";
+                SendMessage(message);
+            }
+            else
+            {
+                string message = "היי " + Choose.u.Fname + " " + Choose.u.LName + ", פריטים מספר: " + string.Join(", ", ids) + " מוזמנים להגיע לאסוף בשעות הפעילות, תודה!";
+                SendMessage(message);
             }
         }
-    }
+
+        private void ReportMonth_Click(object sender, EventArgs e)
+        {
+            LoadingScreen loading = new LoadingScreen();
+            loading.Show();
+            HtmlToPdf converter = new HtmlToPdf();
+            PdfDocument pdf = converter.ConvertHtmlString(AddHtmlReport());
+            // Save PDF to a file
+            string pdfFilePath = "Reports/report.pdf";
+            pdf.Save(pdfFilePath);
+            pdf.Close();
+            loading.Close();
+            MessageBox.Show($"PDF created successfully. Path: {Path.GetFullPath(pdfFilePath)}");
+            Process.Start(Path.GetFullPath(pdfFilePath));
+        }
+    }   
 }

@@ -42,6 +42,7 @@ namespace WindowsFormsApp1
         }
         private void NewItems_Load(object sender, EventArgs e)
         {
+            this.KeyPreview = true;
             CenterAll();
             UpdateTotal();
             if(Choose.u.Discount > 0 & Choose.u.Discount <= 100)
@@ -472,10 +473,12 @@ namespace WindowsFormsApp1
                 if (NewItemGrid.CurrentRow.Cells[5].Value.ToString().Contains("("))
                 {
                     NewItemGrid.CurrentRow.Cells[5].Value = DiscountOne(-50, double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Remove(NewItemGrid.CurrentRow.Cells[5].Value.ToString().IndexOf(" (")).Replace("₪ ", "").Replace(".00", "").Replace(",", "")));
+                    UpdateTotal();
                 }
                 else
                 {
                     NewItemGrid.CurrentRow.Cells[5].Value = DiscountOne(-50, double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Replace("₪ ", "").Replace(".00", "").Replace(",", "")));
+                    UpdateTotal();
                 }
             }           
         }
@@ -691,6 +694,10 @@ namespace WindowsFormsApp1
         }
         private void DiscountButton_Click(object sender, EventArgs e)
         {
+            discountInShekel();
+        }
+        private void discountInShekel()
+        {
             int discount = 0;
             int currentPrice = 0;
             int after = 0;
@@ -755,12 +762,16 @@ namespace WindowsFormsApp1
         }
         private void SetDiscount_Click(object sender, EventArgs e)
         {
+            getDiscountProccents();
+        }
+        private void getDiscountProccents()
+        {
             string text = DiscountTextBox.Texts.ToString();
-            if(!int.TryParse(text, out int discount))
+            if (!int.TryParse(text, out int discount))
             {
                 MessageBox.Show("אנא רשום מספר בהנחה");
             }
-            else if(discount > 100)
+            else if (discount > 100)
             {
                 MessageBox.Show("ההנחה גדולה מ100");
             }

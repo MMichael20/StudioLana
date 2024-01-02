@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
+using System.Data.OleDb;
 
 namespace WindowsFormsApp1
 {
@@ -72,10 +71,20 @@ namespace WindowsFormsApp1
             OrderService os = new OrderService();
             return os.GetUnfinished();
         }
+        public Dictionary<string, decimal> OrderMonthReport(int month, int year)
+        {
+            OrderService os = new OrderService();
+            return os.OrderMonthReport(month, year);
+        }
         public DataSet GetUserDebts()
         {
             UserService us = new UserService();
             return us.GetUserDebts();
+        }
+        public OleDbDataReader GetAllUsersPhones()
+        {
+            UserService us = new UserService();
+            return us.GetAllUsersPhones();
         }
         public DataSet GetClocks()
         {
@@ -190,6 +199,32 @@ namespace WindowsFormsApp1
         {
             CheckService cs = new CheckService();
             cs.SortChecks();
+        }
+        public DataSet GetAllChecks()
+        {
+            CheckService cs = new CheckService();
+            return cs.GetAllChecks();
+        }
+        public DataSet GetAllOrdersById(int i)
+        {
+            //UserService us = new UserService();
+            //return us.GetUsers();
+            OrderService os = new OrderService();
+            return os.GetAllOrdersById(i);
+        }
+        public DataSet GetAllSent()
+        {
+            //UserService us = new UserService();
+            //return us.GetUsers();
+            OrderService os = new OrderService();
+            return os.GetAllSent();
+        }
+        public DataSet GetAllSentById(int id)
+        {
+            //UserService us = new UserService();
+            //return us.GetUsers();
+            OrderService os = new OrderService();
+            return os.GetAllSentById(id);
         }
 
     }

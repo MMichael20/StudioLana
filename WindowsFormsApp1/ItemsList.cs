@@ -46,57 +46,43 @@ namespace WindowsFormsApp1
 
         private void SubmitButton_Click(object sender, EventArgs e)
         {
-            if (isEdit)
+            Submit();
+        }
+        private void Submit()
+        {
+            string name = NameBox.Texts;
+            int price = 0;
+            int length = 0;
+            if (NameBox.Texts == "")
             {
-                string name = NameBox.Texts;
-                int price = 0;
-                int length = 0;
-                if (NameBox.Texts == "")
-                {
-                    MessageBox.Show("שם הפריט ריק");
-                }
-                else if (!int.TryParse(PriceBox.Texts, out price))
-                {
-                    MessageBox.Show("אנא רשום מספר במחיר");
-                }
-                else if (!int.TryParse(LengthBox.Texts, out length))
-                {
-                    MessageBox.Show("אנא רשום מספר במשך עבודה");
-                }
-                else
-                {
-                    Item item = new Item(name, price, length);
-                    function.NewItem(item);
-                    MessageBox.Show("נוסף פריט בהצלחה");
-                    Populate();
-                }
+                MessageBox.Show("שם הפריט ריק");
+            }
+            else if (!int.TryParse(PriceBox.Texts, out price))
+            {
+                MessageBox.Show("אנא רשום מספר במחיר");
+            }
+            else if (!int.TryParse(LengthBox.Texts, out length))
+            {
+                MessageBox.Show("אנא רשום מספר במשך עבודה");
             }
             else
             {
-
-            }
-        }
-        private void EditItemsButton_Click(object sender, EventArgs e)
-        {
-            
-        }
-        private void ItemsGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            {
-                MessageBox.Show("Hi");
+                Item item = new Item(name, price, length);
+                function.NewItem(item);
+                MessageBox.Show("נוסף פריט בהצלחה");
+                Populate();
             }
         }
         private void ItemsGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 4 && e.RowIndex >= 0)
-            {
-                isEdit = true;
-                ItemsGrid.Rows[e.RowIndex].Cells["ItemName"].ReadOnly = false;
-                ItemsGrid.Rows[e.RowIndex].Cells["ItemPrice"].ReadOnly = false;
-                ItemsGrid.Rows[e.RowIndex].Cells["ItemLength"].ReadOnly = false;
+            //if (e.ColumnIndex == 4 && e.RowIndex >= 0)
+            //{
+            //    isEdit = true;
+            //    ItemsGrid.Rows[e.RowIndex].Cells["ItemName"].ReadOnly = false;
+            //    ItemsGrid.Rows[e.RowIndex].Cells["ItemPrice"].ReadOnly = false;
+            //    ItemsGrid.Rows[e.RowIndex].Cells["ItemLength"].ReadOnly = false;
 
-            }
+            //}
         }
         private void MovingPanel_MouseDown(object sender, MouseEventArgs e)
         {
@@ -205,6 +191,23 @@ namespace WindowsFormsApp1
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 previousValue = ItemsGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            }
+        }
+
+        private void ItemsList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                if (!isEdit)
+                {
+                    int x = int.Parse(this.ItemsGrid.CurrentRow.Cells[0].Value.ToString());
+                    Choose.item = x;
+                    this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                }
+                else
+                {
+                    Submit();
+                }
             }
         }
     }

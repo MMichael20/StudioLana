@@ -443,6 +443,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ItemsList";
             this.Load += new System.EventHandler(this.ItemsList_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ItemsList_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.ItemsGrid)).EndInit();
             this.MovingPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ClosingButton)).EndInit();

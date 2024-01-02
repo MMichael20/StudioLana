@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.OleDb;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
@@ -34,6 +35,25 @@ namespace WindowsFormsApp1
             }
             return dataset;
         }
+        public OleDbDataReader GetAllUsersPhones()
+        {
+
+            string sSql = "select UserName & ' ' & UserLName AS FullName, UserPhone, UserDebt from Users";
+            OleDbCommand command = new OleDbCommand(sSql, myConnection);
+            OleDbDataReader reader = null;
+
+            try
+            {
+                myConnection.Open();
+                reader = command.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+               MessageBox.Show($"Error: {ex.Message}");
+            }
+
+            return reader;
+        }
 
         public DataSet GetUsers()
         {
@@ -49,7 +69,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show($"Error: {ex.Message}");
             }
             finally
             {
@@ -71,7 +91,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show($"Error: {ex.Message}");
             }
             finally
             {
@@ -90,7 +110,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show($"Error: {ex.Message}");
             }
             finally
             {
@@ -109,7 +129,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show($"Error: {ex.Message}");
             }
             finally
             {
@@ -128,7 +148,7 @@ namespace WindowsFormsApp1
 
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show($"Error: {ex.Message}");
             }
             finally
             {
@@ -149,7 +169,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show($"Error: {ex.Message}");
             }
             finally
             {
@@ -172,7 +192,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show($"Error: {ex.Message}");
             }
             finally
             {

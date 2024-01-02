@@ -36,5 +36,16 @@ namespace WindowsFormsApp1
             dv.RowFilter = string.Format("colorname like '%{0}%' or Convert([colorid] , System.String) like '{0}'", SearchText.Text);
             ColorGrid.DataSource = dv.ToTable();
         }
+
+        private void ColorList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                int x = int.Parse(this.ColorGrid.CurrentRow.Cells[0].Value.ToString());
+                Choose.color = x;
+                this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            }
+           
+        }
     }
 }

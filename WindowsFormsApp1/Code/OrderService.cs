@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.OleDb;
-
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
@@ -33,7 +33,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.ToString());
             }
             finally
             {
@@ -55,7 +55,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.ToString());
             }
             finally
             {
@@ -77,7 +77,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.ToString());
             }
             finally
             {
@@ -100,7 +100,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.ToString());
             }
             finally
             {
@@ -123,7 +123,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.ToString());
             }
             finally
             {
@@ -147,7 +147,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.ToString());
             }
             finally
             {
@@ -155,7 +155,45 @@ namespace WindowsFormsApp1
             }
             return dataset;
         }
+        public Dictionary<string, decimal> OrderMonthReport(int month, int year)
+        {
+            Dictionary<string, decimal> results = new Dictionary<string, decimal>();
+            OleDbDataReader reader = null;
+            string query = $"SELECT " +
+                         $"SUM(IIF(Month(OrderDate) = {month} AND Year(OrderDate) = {year}, OrderAmount, 0)) AS AmountSum, " +
+                         $"SUM(IIF(Month(OrderDate) = {month} AND Year(OrderDate) = {year}, OrderPaid, 0)) AS PaidSum, " +
+                         $"SUM(IIF(Month(OrderDate) = {month} AND Year(OrderDate) = {year}, OrderPrice, 0)) AS PriceSum " +
+                         $"FROM Orders";
+            OleDbCommand cmd = new OleDbCommand(query, myConnection);
+            try
+            {
+                myConnection.Open();
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    decimal amountSum = Convert.ToDecimal(reader["AmountSum"] != DBNull.Value ? reader["AmountSum"] : 0);
+                    decimal paidSum = Convert.ToDecimal(reader["PaidSum"] != DBNull.Value ? reader["PaidSum"] : 0);
+                    decimal priceSum = Convert.ToDecimal(reader["PriceSum"] != DBNull.Value ? reader["PriceSum"] : 0);
 
+                    results.Add("AmountSum", amountSum);
+                    results.Add("PaidSum", paidSum);
+                    results.Add("PriceSum", priceSum);
+
+                }
+                return results;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return results;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            
+            
+        }
         public void NewOrder(List<Order> orders)
         {
             myConnection.Open();
