@@ -14,8 +14,8 @@ namespace WindowsFormsApp1
         const string FileName = "Sveta.accdb";
         public static string GetConnectionString()
         {
-            string ConnectionString = @"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =DataBase\Sveta.accdb; Persist Security Info = False;";
-            //string ConnectionString = @"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =G:\_PROJECT_\DataBase\Sveta.accdb; Persist Security Info = False;";
+            //string ConnectionString = @"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =DataBase\Sveta.accdb; Persist Security Info = False;";
+            string ConnectionString = @"Provider = Microsoft.ACE.OLEDB.12.0; Data Source =G:\_PROJECT_\DataBase\Sveta.accdb; Persist Security Info = False;";
             //try
             //{
             //    OleDbConnectionStringBuilder builder = new OleDbConnectionStringBuilder(ConnectionString);

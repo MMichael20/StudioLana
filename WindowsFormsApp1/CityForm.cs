@@ -24,16 +24,6 @@ namespace WindowsFormsApp1
             CityGrid.DataMember = "Cities";
         }
 
-        private void CityGrid_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 2)
-            {
-                int cityId = int.Parse(this.CityGrid.CurrentRow.Cells[0].Value.ToString());
-                SetCity(cityId);
-
-            }
-        }
-
         private void SearchText_TextChanged(object sender, EventArgs e)
         {
             DataTable dt = GetCities().Tables[0];
@@ -42,10 +32,6 @@ namespace WindowsFormsApp1
             CityGrid.DataSource = dv.ToTable();
         }
 
-        private void CityGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
         private void SetCity(int cityId)
         {
             Choose.city = cityId;

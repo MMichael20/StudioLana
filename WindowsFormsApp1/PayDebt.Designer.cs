@@ -33,10 +33,12 @@
             this.AmountBox = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.AmountText = new System.Windows.Forms.Label();
-            this.Listbox = new System.Windows.Forms.ComboBox();
+            this.TypeBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Icons = new System.Windows.Forms.ImageList(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.printCheck = new System.Drawing.Printing.PrintDocument();
+            this.printPreview = new System.Windows.Forms.PrintPreviewDialog();
             this.myButton11 = new WindowsFormsApp1.MyButton();
             this.myButton10 = new WindowsFormsApp1.MyButton();
             this.myButton9 = new WindowsFormsApp1.MyButton();
@@ -87,21 +89,24 @@
             this.AmountText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.AmountText.UseMnemonic = false;
             // 
-            // Listbox
+            // TypeBox
             // 
-            this.Listbox.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Listbox.FormattingEnabled = true;
-            this.Listbox.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.Listbox.Items.AddRange(new object[] {
+            this.TypeBox.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TypeBox.FormattingEnabled = true;
+            this.TypeBox.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.TypeBox.Items.AddRange(new object[] {
             "ביט",
+            "פייבוקס",
+            "מזומן",
+            "צ\'ק",
             "כרטיס אשראי",
-            "מזומן"});
-            this.Listbox.Location = new System.Drawing.Point(35, 388);
-            this.Listbox.Name = "Listbox";
-            this.Listbox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Listbox.Size = new System.Drawing.Size(322, 35);
-            this.Listbox.TabIndex = 18;
-            this.Listbox.Click += new System.EventHandler(this.Listbox_Click);
+            "אחר"});
+            this.TypeBox.Location = new System.Drawing.Point(35, 388);
+            this.TypeBox.Name = "TypeBox";
+            this.TypeBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.TypeBox.Size = new System.Drawing.Size(322, 35);
+            this.TypeBox.TabIndex = 18;
+            this.TypeBox.Click += new System.EventHandler(this.Listbox_Click);
             // 
             // label1
             // 
@@ -126,6 +131,16 @@
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "CancelItem.png");
+            // 
+            // printPreview
+            // 
+            this.printPreview.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreview.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreview.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreview.Enabled = true;
+            this.printPreview.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreview.Icon")));
+            this.printPreview.Name = "printPreview";
+            this.printPreview.Visible = false;
             // 
             // myButton11
             // 
@@ -411,7 +426,7 @@
             this.Controls.Add(this.Submit);
             this.Controls.Add(this.myButton3);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.Listbox);
+            this.Controls.Add(this.TypeBox);
             this.Controls.Add(this.AmountText);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.AmountBox);
@@ -429,7 +444,7 @@
         private System.Windows.Forms.TextBox AmountBox;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label AmountText;
-        private System.Windows.Forms.ComboBox Listbox;
+        private System.Windows.Forms.ComboBox TypeBox;
         private System.Windows.Forms.Label label1;
         private MyButton myButton3;
         private MyButton Submit;
@@ -446,5 +461,7 @@
         private MyButton myButton10;
         private MyButton myButton11;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Drawing.Printing.PrintDocument printCheck;
+        private System.Windows.Forms.PrintPreviewDialog printPreview;
     }
 }

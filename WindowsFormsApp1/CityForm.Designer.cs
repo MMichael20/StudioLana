@@ -33,7 +33,6 @@
             this.CityGrid = new System.Windows.Forms.DataGridView();
             this.CityId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CityName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SelectB = new System.Windows.Forms.DataGridViewButtonColumn();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.CityGrid)).BeginInit();
@@ -60,8 +59,7 @@
             this.CityGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CityGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CityId,
-            this.CityName,
-            this.SelectB});
+            this.CityName});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(244)))), ((int)(((byte)(235)))));
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -72,17 +70,15 @@
             this.CityGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.CityGrid.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.CityGrid.EnableHeadersVisualStyles = false;
-            this.CityGrid.Location = new System.Drawing.Point(0, 65);
+            this.CityGrid.Location = new System.Drawing.Point(0, 88);
             this.CityGrid.MultiSelect = false;
             this.CityGrid.Name = "CityGrid";
             this.CityGrid.ReadOnly = true;
             this.CityGrid.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.CityGrid.RowHeadersVisible = false;
             this.CityGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.CityGrid.Size = new System.Drawing.Size(800, 385);
+            this.CityGrid.Size = new System.Drawing.Size(701, 385);
             this.CityGrid.TabIndex = 0;
-            this.CityGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CityGrid_CellClick);
-            this.CityGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CityGrid_CellContentClick);
             this.CityGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CityGrid_CellDoubleClick);
             // 
             // CityId
@@ -101,22 +97,12 @@
             this.CityName.Name = "CityName";
             this.CityName.ReadOnly = true;
             // 
-            // SelectB
-            // 
-            this.SelectB.HeaderText = "בחר";
-            this.SelectB.Name = "SelectB";
-            this.SelectB.ReadOnly = true;
-            this.SelectB.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.SelectB.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.SelectB.Text = "בחר";
-            this.SelectB.UseColumnTextForButtonValue = true;
-            // 
             // SearchText
             // 
             this.SearchText.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchText.Location = new System.Drawing.Point(72, 19);
+            this.SearchText.Location = new System.Drawing.Point(71, 30);
             this.SearchText.Name = "SearchText";
-            this.SearchText.Size = new System.Drawing.Size(590, 35);
+            this.SearchText.Size = new System.Drawing.Size(467, 35);
             this.SearchText.TabIndex = 19;
             this.SearchText.TextChanged += new System.EventHandler(this.SearchText_TextChanged);
             // 
@@ -124,7 +110,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(668, 22);
+            this.label26.Location = new System.Drawing.Point(542, 34);
             this.label26.Name = "label26";
             this.label26.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label26.Size = new System.Drawing.Size(68, 27);
@@ -137,7 +123,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(701, 473);
             this.Controls.Add(this.SearchText);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.CityGrid);
@@ -158,6 +144,5 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.DataGridViewTextBoxColumn CityId;
         private System.Windows.Forms.DataGridViewTextBoxColumn CityName;
-        private System.Windows.Forms.DataGridViewButtonColumn SelectB;
     }
 }

@@ -19,6 +19,8 @@ namespace WindowsFormsApp1
         public static int debt;
         public static int discount2;
         public static string worker = "אורח";
-        // public static string location;
+        public static List<int> ChecksToPrint = new List<int>();
+        public static List<int> ReceiptsToPrint = new List<int>();
+        public static List<int> InvoicesToPrint = new List<int>();
     }
 }

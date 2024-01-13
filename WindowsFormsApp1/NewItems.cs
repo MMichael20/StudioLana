@@ -465,22 +465,22 @@ namespace WindowsFormsApp1
         }
         private void Exp_Click(object sender, EventArgs e)
         {
-            //int p = NewItemGrid.CurrentRow.Cells[6].Value.ToString().IndexOf("-");
-            //int day = int.Parse(NewItemGrid.CurrentRow.Cells[6].Value.ToString().Remove(p));
-            if(NewItemGrid.Rows.Count != 0)
+            string price = NewItemGrid.CurrentRow.Cells["Price"].Value.ToString();
+            int currentPrice = 0;
+            if (price.Contains("("))
             {
-                NewItemGrid.CurrentRow.Cells[6].Value = "1" + FindDay(1) + " (אקספרס)";
-                if (NewItemGrid.CurrentRow.Cells[5].Value.ToString().Contains("("))
-                {
-                    NewItemGrid.CurrentRow.Cells[5].Value = DiscountOne(-50, double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Remove(NewItemGrid.CurrentRow.Cells[5].Value.ToString().IndexOf(" (")).Replace("₪ ", "").Replace(".00", "").Replace(",", "")));
-                    UpdateTotal();
-                }
-                else
-                {
-                    NewItemGrid.CurrentRow.Cells[5].Value = DiscountOne(-50, double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Replace("₪ ", "").Replace(".00", "").Replace(",", "")));
-                    UpdateTotal();
-                }
-            }           
+                currentPrice = int.Parse(price.Substring(price.IndexOf('(') + 1).Replace(")", ""));
+            }
+            else if (price.Contains(","))
+            {
+                currentPrice = int.Parse(price.Replace("₪ ", "").Replace(".00", "").Replace(",", ""));
+            }
+            else
+            {
+                currentPrice = int.Parse(price.Replace("₪ ", "").Replace(".00", ""));
+            }
+            NewItemGrid.CurrentRow.Cells[5].Value = DiscountOne(-50, currentPrice);
+            UpdateTotal();
         }
         public void UpdateColor()
         {
@@ -499,6 +499,7 @@ namespace WindowsFormsApp1
             int total = 0;
             int paid = 0;
             bool isPaid = false;
+            int invoiceId = 1;
             if (Check())
             {
                 List<Order> orders = new List<Order>();
@@ -527,11 +528,14 @@ namespace WindowsFormsApp1
                     //finish = today.AddDays(work);
                     if(owed < 0)
                     {
-                        if(Math.Abs(owed) >= price)
+                        if(Math.Abs(owed) >= price && price > 0)
                         {
                             owed += price;
                             isPaid = true;
                             paid = price;
+                            invoiceId = function.HighestInvoice() + 1;
+                            createInvoice(price, invoiceId);
+                            Choose.InvoicesToPrint.Add(invoiceId);
                         }
                         else if(Math.Abs(owed) < price)
                         {
@@ -539,13 +543,13 @@ namespace WindowsFormsApp1
                             owed = 0;
                         }
                     }
-                    Order newOrder = new Order(Choose.u.Id, id, color, DateTime.Now, amount, price, "ללא", "בטיפול", finish, paid, isPaid);
+                    Order newOrder = new Order(Choose.u.Id, id, color, DateTime.Now, amount, price, "ללא", "בטיפול", finish, paid, isPaid, invoiceId, 1);
                     orders.Add(newOrder);
                     total += price;
                     isPaid = false;
                     paid = 0;
+                    invoiceId = 1;
                 }
-                
                 newDebt = newDebt + total;
                 Choose.u.Debt = newDebt;
                 function.SetDebt(Choose.id, newDebt);
@@ -554,17 +558,30 @@ namespace WindowsFormsApp1
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
             }
         }
+        private void createInvoice(int price, int id)
+        {
+            Invoice invoice = new Invoice(Choose.id, "חשבונית מספר " + id, price);
+            function.NewInvoice(invoice);
+        }
         private void Exp2_Click(object sender, EventArgs e)
         {
             NewItemGrid.CurrentRow.Cells[6].Value = "0" + FindDay(0) + " (אקספרס)";
-            if (NewItemGrid.CurrentRow.Cells[5].Value.ToString().Contains("("))
+            string price = NewItemGrid.CurrentRow.Cells["Price"].Value.ToString();
+            int currentPrice = 0;
+            if (price.Contains("("))
             {
-                NewItemGrid.CurrentRow.Cells[5].Value = DiscountOne(-100, double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Remove(NewItemGrid.CurrentRow.Cells[5].Value.ToString().IndexOf(" (")).Replace("₪ ", "").Replace(".00", "").Replace(",", "")));
+                currentPrice = int.Parse(price.Substring(price.IndexOf('(') + 1).Replace(")", ""));
+            }
+            else if (price.Contains(","))
+            {
+                currentPrice = int.Parse(price.Replace("₪ ", "").Replace(".00", "").Replace(",", ""));
             }
             else
             {
-                NewItemGrid.CurrentRow.Cells[5].Value = DiscountOne(-100, double.Parse(NewItemGrid.CurrentRow.Cells[5].Value.ToString().Replace("₪ ", "").Replace(".00", "").Replace(",", "")));
+                currentPrice = int.Parse(price.Replace("₪ ", "").Replace(".00", ""));
             }
+            NewItemGrid.CurrentRow.Cells[5].Value = DiscountOne(-100, currentPrice);
+            UpdateTotal();
         }
         private void UpdatePrice(int newPrice, DataGridViewCellEventArgs e)
         {

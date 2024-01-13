@@ -193,8 +193,8 @@
             this.dataGridViewTextBoxColumn24 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn26 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OrderAmount2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OrderPrice2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn29 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalM2 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
@@ -225,15 +225,15 @@
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.income = new System.Windows.Forms.TabPage();
-            this.ReportMonth = new WindowsFormsApp1.MyButton();
             this.MonthGraff = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.PaymentButton = new WindowsFormsApp1.MyButton();
             this.ThisYearText = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.ThisMonthText = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
             this.ThisDayText = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
+            this.ReportMonth = new WindowsFormsApp1.MyButton();
+            this.PaymentButton = new WindowsFormsApp1.MyButton();
             this.clocking = new System.Windows.Forms.TabPage();
             this.YesIcon = new WindowsFormsApp1.MyButton();
             this.label29 = new System.Windows.Forms.Label();
@@ -261,6 +261,9 @@
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.urgent = new System.Windows.Forms.TabPage();
+            this.InvoicesButton = new WindowsFormsApp1.MyButton();
+            this.ChecksButton = new WindowsFormsApp1.MyButton();
+            this.ReceiptsButton = new WindowsFormsApp1.MyButton();
             this.monthIncome = new System.Windows.Forms.Button();
             this.DelButton = new System.Windows.Forms.Button();
             this.Disselect = new System.Windows.Forms.Button();
@@ -273,13 +276,13 @@
             this.label31 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
-            this.PrintShop = new WindowsFormsApp1.MyButton();
             this.ShopGrid = new System.Windows.Forms.DataGridView();
             this.ShopId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.PrintShop = new WindowsFormsApp1.MyButton();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.ToDate = new System.Windows.Forms.DateTimePicker();
@@ -309,15 +312,19 @@
             this.PrintWork = new System.Drawing.Printing.PrintDocument();
             this.PrintPreview = new System.Windows.Forms.PrintPreviewDialog();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.OpenRegister = new System.Windows.Forms.PictureBox();
+            this.ToItemsButton = new WindowsFormsApp1.MyButton();
             this.RefreshBox = new System.Windows.Forms.PictureBox();
-            this.LoginButton = new System.Windows.Forms.PictureBox();
             this.HomeButton = new WindowsFormsApp1.MyButton();
             this.CheckListButton = new WindowsFormsApp1.MyButton();
-            this.ToItemsButton = new WindowsFormsApp1.MyButton();
+            this.LoginButton = new System.Windows.Forms.PictureBox();
             this.PrintSelected = new System.Drawing.Printing.PrintDocument();
+            this.PrintShopList = new System.Drawing.Printing.PrintDocument();
+            this.PrintCheck = new System.Drawing.Printing.PrintDocument();
+            this.PrintReceipt = new System.Drawing.Printing.PrintDocument();
+            this.PrintInvoice = new System.Drawing.Printing.PrintDocument();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.PrintShopList = new System.Drawing.Printing.PrintDocument();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -345,6 +352,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Chart1)).BeginInit();
             this.MovingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.XIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OpenRegister)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RefreshBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoginButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -1572,8 +1580,8 @@
             this.dataGridViewTextBoxColumn24,
             this.dataGridViewTextBoxColumn25,
             this.dataGridViewTextBoxColumn26,
-            this.dataGridViewTextBoxColumn27,
-            this.dataGridViewTextBoxColumn28,
+            this.OrderAmount2,
+            this.OrderPrice2,
             this.dataGridViewTextBoxColumn29});
             dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(244)))), ((int)(((byte)(235)))));
@@ -1657,26 +1665,26 @@
             this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
             this.dataGridViewTextBoxColumn26.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn27
+            // OrderAmount2
             // 
-            this.dataGridViewTextBoxColumn27.DataPropertyName = "OrderAmount";
+            this.OrderAmount2.DataPropertyName = "OrderAmount";
             dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewTextBoxColumn27.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dataGridViewTextBoxColumn27.HeaderText = "יח\'";
-            this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
-            this.dataGridViewTextBoxColumn27.ReadOnly = true;
-            this.dataGridViewTextBoxColumn27.Width = 50;
+            this.OrderAmount2.DefaultCellStyle = dataGridViewCellStyle11;
+            this.OrderAmount2.HeaderText = "יח\'";
+            this.OrderAmount2.Name = "OrderAmount2";
+            this.OrderAmount2.ReadOnly = true;
+            this.OrderAmount2.Width = 50;
             // 
-            // dataGridViewTextBoxColumn28
+            // OrderPrice2
             // 
-            this.dataGridViewTextBoxColumn28.DataPropertyName = "OrderPrice";
+            this.OrderPrice2.DataPropertyName = "OrderPrice";
             dataGridViewCellStyle12.Font = new System.Drawing.Font("Aharoni", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle12.Format = "0,0 ₪";
             dataGridViewCellStyle12.NullValue = null;
-            this.dataGridViewTextBoxColumn28.DefaultCellStyle = dataGridViewCellStyle12;
-            this.dataGridViewTextBoxColumn28.HeaderText = "מחיר";
-            this.dataGridViewTextBoxColumn28.Name = "dataGridViewTextBoxColumn28";
-            this.dataGridViewTextBoxColumn28.ReadOnly = true;
+            this.OrderPrice2.DefaultCellStyle = dataGridViewCellStyle12;
+            this.OrderPrice2.HeaderText = "מחיר";
+            this.OrderPrice2.Name = "OrderPrice2";
+            this.OrderPrice2.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn29
             // 
@@ -2114,15 +2122,15 @@
             // income
             // 
             this.income.BackColor = System.Drawing.Color.White;
-            this.income.Controls.Add(this.ReportMonth);
             this.income.Controls.Add(this.MonthGraff);
-            this.income.Controls.Add(this.PaymentButton);
             this.income.Controls.Add(this.ThisYearText);
             this.income.Controls.Add(this.label32);
             this.income.Controls.Add(this.ThisMonthText);
             this.income.Controls.Add(this.label30);
             this.income.Controls.Add(this.ThisDayText);
             this.income.Controls.Add(this.label24);
+            this.income.Controls.Add(this.ReportMonth);
+            this.income.Controls.Add(this.PaymentButton);
             this.income.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.income.Location = new System.Drawing.Point(4, 4);
             this.income.Name = "income";
@@ -2130,27 +2138,6 @@
             this.income.Size = new System.Drawing.Size(1155, 467);
             this.income.TabIndex = 2;
             this.income.Text = "הכנסות";
-            // 
-            // ReportMonth
-            // 
-            this.ReportMonth.BackColor = System.Drawing.Color.LightCoral;
-            this.ReportMonth.BackgroundColor = System.Drawing.Color.LightCoral;
-            this.ReportMonth.BorderColor = System.Drawing.Color.LightCoral;
-            this.ReportMonth.BorderRadius = 20;
-            this.ReportMonth.BorderSize = 0;
-            this.ReportMonth.FlatAppearance.BorderSize = 0;
-            this.ReportMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ReportMonth.ForeColor = System.Drawing.Color.Black;
-            this.ReportMonth.ImageKey = "money.png";
-            this.ReportMonth.Location = new System.Drawing.Point(889, 343);
-            this.ReportMonth.Name = "ReportMonth";
-            this.ReportMonth.Size = new System.Drawing.Size(162, 43);
-            this.ReportMonth.TabIndex = 26;
-            this.ReportMonth.Text = "דוח חודשי";
-            this.ReportMonth.TextColor = System.Drawing.Color.Black;
-            this.ToolTip.SetToolTip(this.ReportMonth, "חייבים");
-            this.ReportMonth.UseVisualStyleBackColor = false;
-            this.ReportMonth.Click += new System.EventHandler(this.ReportMonth_Click);
             // 
             // MonthGraff
             // 
@@ -2176,27 +2163,6 @@
             title1.Name = "Title1";
             title1.Text = "תשלומים לפי חודשים";
             this.MonthGraff.Titles.Add(title1);
-            // 
-            // PaymentButton
-            // 
-            this.PaymentButton.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.PaymentButton.BackgroundColor = System.Drawing.Color.LightSkyBlue;
-            this.PaymentButton.BorderColor = System.Drawing.Color.LightSkyBlue;
-            this.PaymentButton.BorderRadius = 20;
-            this.PaymentButton.BorderSize = 0;
-            this.PaymentButton.FlatAppearance.BorderSize = 0;
-            this.PaymentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PaymentButton.ForeColor = System.Drawing.Color.LightSkyBlue;
-            this.PaymentButton.ImageKey = "money.png";
-            this.PaymentButton.ImageList = this.topIcons;
-            this.PaymentButton.Location = new System.Drawing.Point(889, 283);
-            this.PaymentButton.Name = "PaymentButton";
-            this.PaymentButton.Size = new System.Drawing.Size(162, 43);
-            this.PaymentButton.TabIndex = 19;
-            this.PaymentButton.TextColor = System.Drawing.Color.LightSkyBlue;
-            this.ToolTip.SetToolTip(this.PaymentButton, "חייבים");
-            this.PaymentButton.UseVisualStyleBackColor = false;
-            this.PaymentButton.Click += new System.EventHandler(this.PaymentButton_Click);
             // 
             // ThisYearText
             // 
@@ -2293,6 +2259,48 @@
             this.label24.TabIndex = 12;
             this.label24.Text = "רווח היום:";
             this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ReportMonth
+            // 
+            this.ReportMonth.BackColor = System.Drawing.Color.LightCoral;
+            this.ReportMonth.BackgroundColor = System.Drawing.Color.LightCoral;
+            this.ReportMonth.BorderColor = System.Drawing.Color.LightCoral;
+            this.ReportMonth.BorderRadius = 20;
+            this.ReportMonth.BorderSize = 0;
+            this.ReportMonth.FlatAppearance.BorderSize = 0;
+            this.ReportMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReportMonth.ForeColor = System.Drawing.Color.Black;
+            this.ReportMonth.ImageKey = "money.png";
+            this.ReportMonth.Location = new System.Drawing.Point(889, 343);
+            this.ReportMonth.Name = "ReportMonth";
+            this.ReportMonth.Size = new System.Drawing.Size(162, 43);
+            this.ReportMonth.TabIndex = 26;
+            this.ReportMonth.Text = "דוח חודשי";
+            this.ReportMonth.TextColor = System.Drawing.Color.Black;
+            this.ToolTip.SetToolTip(this.ReportMonth, "חייבים");
+            this.ReportMonth.UseVisualStyleBackColor = false;
+            this.ReportMonth.Click += new System.EventHandler(this.ReportMonth_Click);
+            // 
+            // PaymentButton
+            // 
+            this.PaymentButton.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.PaymentButton.BackgroundColor = System.Drawing.Color.LightSkyBlue;
+            this.PaymentButton.BorderColor = System.Drawing.Color.LightSkyBlue;
+            this.PaymentButton.BorderRadius = 20;
+            this.PaymentButton.BorderSize = 0;
+            this.PaymentButton.FlatAppearance.BorderSize = 0;
+            this.PaymentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PaymentButton.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.PaymentButton.ImageKey = "money.png";
+            this.PaymentButton.ImageList = this.topIcons;
+            this.PaymentButton.Location = new System.Drawing.Point(889, 283);
+            this.PaymentButton.Name = "PaymentButton";
+            this.PaymentButton.Size = new System.Drawing.Size(162, 43);
+            this.PaymentButton.TabIndex = 19;
+            this.PaymentButton.TextColor = System.Drawing.Color.LightSkyBlue;
+            this.ToolTip.SetToolTip(this.PaymentButton, "חייבים");
+            this.PaymentButton.UseVisualStyleBackColor = false;
+            this.PaymentButton.Click += new System.EventHandler(this.PaymentButton_Click);
             // 
             // clocking
             // 
@@ -2734,6 +2742,9 @@
             // 
             // urgent
             // 
+            this.urgent.Controls.Add(this.InvoicesButton);
+            this.urgent.Controls.Add(this.ChecksButton);
+            this.urgent.Controls.Add(this.ReceiptsButton);
             this.urgent.Controls.Add(this.monthIncome);
             this.urgent.Controls.Add(this.DelButton);
             this.urgent.Controls.Add(this.Disselect);
@@ -2744,6 +2755,69 @@
             this.urgent.Text = "פריטים דחופים";
             this.urgent.UseVisualStyleBackColor = true;
             // 
+            // InvoicesButton
+            // 
+            this.InvoicesButton.BackColor = System.Drawing.Color.Violet;
+            this.InvoicesButton.BackgroundColor = System.Drawing.Color.Violet;
+            this.InvoicesButton.BorderColor = System.Drawing.Color.Violet;
+            this.InvoicesButton.BorderRadius = 20;
+            this.InvoicesButton.BorderSize = 0;
+            this.InvoicesButton.FlatAppearance.BorderSize = 0;
+            this.InvoicesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InvoicesButton.ForeColor = System.Drawing.Color.Black;
+            this.InvoicesButton.ImageKey = "money.png";
+            this.InvoicesButton.Location = new System.Drawing.Point(881, 141);
+            this.InvoicesButton.Name = "InvoicesButton";
+            this.InvoicesButton.Size = new System.Drawing.Size(162, 43);
+            this.InvoicesButton.TabIndex = 48;
+            this.InvoicesButton.Text = "חשבוניות מס";
+            this.InvoicesButton.TextColor = System.Drawing.Color.Black;
+            this.ToolTip.SetToolTip(this.InvoicesButton, "חייבים");
+            this.InvoicesButton.UseVisualStyleBackColor = false;
+            this.InvoicesButton.Click += new System.EventHandler(this.InvoicesButton_Click);
+            // 
+            // ChecksButton
+            // 
+            this.ChecksButton.BackColor = System.Drawing.Color.LightGreen;
+            this.ChecksButton.BackgroundColor = System.Drawing.Color.LightGreen;
+            this.ChecksButton.BorderColor = System.Drawing.Color.LightGreen;
+            this.ChecksButton.BorderRadius = 20;
+            this.ChecksButton.BorderSize = 0;
+            this.ChecksButton.FlatAppearance.BorderSize = 0;
+            this.ChecksButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChecksButton.ForeColor = System.Drawing.Color.Black;
+            this.ChecksButton.ImageKey = "money.png";
+            this.ChecksButton.Location = new System.Drawing.Point(881, 211);
+            this.ChecksButton.Name = "ChecksButton";
+            this.ChecksButton.Size = new System.Drawing.Size(162, 43);
+            this.ChecksButton.TabIndex = 47;
+            this.ChecksButton.Text = "חשבוניות מס\\קבלה";
+            this.ChecksButton.TextColor = System.Drawing.Color.Black;
+            this.ToolTip.SetToolTip(this.ChecksButton, "חייבים");
+            this.ChecksButton.UseVisualStyleBackColor = false;
+            this.ChecksButton.Click += new System.EventHandler(this.ChecksButton_Click);
+            // 
+            // ReceiptsButton
+            // 
+            this.ReceiptsButton.BackColor = System.Drawing.Color.LightCoral;
+            this.ReceiptsButton.BackgroundColor = System.Drawing.Color.LightCoral;
+            this.ReceiptsButton.BorderColor = System.Drawing.Color.LightCoral;
+            this.ReceiptsButton.BorderRadius = 20;
+            this.ReceiptsButton.BorderSize = 0;
+            this.ReceiptsButton.FlatAppearance.BorderSize = 0;
+            this.ReceiptsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReceiptsButton.ForeColor = System.Drawing.Color.Black;
+            this.ReceiptsButton.ImageKey = "money.png";
+            this.ReceiptsButton.Location = new System.Drawing.Point(881, 68);
+            this.ReceiptsButton.Name = "ReceiptsButton";
+            this.ReceiptsButton.Size = new System.Drawing.Size(162, 43);
+            this.ReceiptsButton.TabIndex = 46;
+            this.ReceiptsButton.Text = "קבלות";
+            this.ReceiptsButton.TextColor = System.Drawing.Color.Black;
+            this.ToolTip.SetToolTip(this.ReceiptsButton, "קבלות");
+            this.ReceiptsButton.UseVisualStyleBackColor = false;
+            this.ReceiptsButton.Click += new System.EventHandler(this.ReceiptsButton_Click);
+            // 
             // monthIncome
             // 
             this.monthIncome.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -2751,7 +2825,7 @@
             this.monthIncome.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.monthIncome.ImageKey = "GetItems.png";
             this.monthIncome.ImageList = this.ItemIcons;
-            this.monthIncome.Location = new System.Drawing.Point(564, 81);
+            this.monthIncome.Location = new System.Drawing.Point(777, 136);
             this.monthIncome.Name = "monthIncome";
             this.monthIncome.Size = new System.Drawing.Size(71, 52);
             this.monthIncome.TabIndex = 45;
@@ -2766,12 +2840,13 @@
             this.DelButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.DelButton.ImageIndex = 3;
             this.DelButton.ImageList = this.imageList2;
-            this.DelButton.Location = new System.Drawing.Point(290, 68);
+            this.DelButton.Location = new System.Drawing.Point(28, 26);
             this.DelButton.Name = "DelButton";
             this.DelButton.Size = new System.Drawing.Size(71, 52);
             this.DelButton.TabIndex = 44;
             this.DelButton.UseMnemonic = false;
             this.DelButton.UseVisualStyleBackColor = false;
+            this.DelButton.Click += new System.EventHandler(this.DelButton_Click);
             // 
             // Disselect
             // 
@@ -2780,7 +2855,7 @@
             this.Disselect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Disselect.ImageIndex = 4;
             this.Disselect.ImageList = this.imageList2;
-            this.Disselect.Location = new System.Drawing.Point(389, 81);
+            this.Disselect.Location = new System.Drawing.Point(115, 33);
             this.Disselect.Name = "Disselect";
             this.Disselect.Size = new System.Drawing.Size(44, 39);
             this.Disselect.TabIndex = 43;
@@ -2797,8 +2872,8 @@
             this.shopping.Controls.Add(this.label31);
             this.shopping.Controls.Add(this.label34);
             this.shopping.Controls.Add(this.label35);
-            this.shopping.Controls.Add(this.PrintShop);
             this.shopping.Controls.Add(this.ShopGrid);
+            this.shopping.Controls.Add(this.PrintShop);
             this.shopping.Font = new System.Drawing.Font("Secular One", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.shopping.Location = new System.Drawing.Point(4, 4);
             this.shopping.Name = "shopping";
@@ -2958,27 +3033,6 @@
             this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label35.UseMnemonic = false;
             // 
-            // PrintShop
-            // 
-            this.PrintShop.BackColor = System.Drawing.Color.LightGreen;
-            this.PrintShop.BackgroundColor = System.Drawing.Color.LightGreen;
-            this.PrintShop.BorderColor = System.Drawing.Color.LavenderBlush;
-            this.PrintShop.BorderRadius = 20;
-            this.PrintShop.BorderSize = 0;
-            this.PrintShop.FlatAppearance.BorderSize = 0;
-            this.PrintShop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PrintShop.ForeColor = System.Drawing.Color.Lime;
-            this.PrintShop.ImageKey = "printicon.png";
-            this.PrintShop.ImageList = this.topIcons;
-            this.PrintShop.Location = new System.Drawing.Point(8, 391);
-            this.PrintShop.Name = "PrintShop";
-            this.PrintShop.Size = new System.Drawing.Size(118, 43);
-            this.PrintShop.TabIndex = 27;
-            this.PrintShop.TextColor = System.Drawing.Color.Lime;
-            this.ToolTip.SetToolTip(this.PrintShop, "הדפסה");
-            this.PrintShop.UseVisualStyleBackColor = false;
-            this.PrintShop.Click += new System.EventHandler(this.PrintShop_Click);
-            // 
             // ShopGrid
             // 
             this.ShopGrid.AllowUserToAddRows = false;
@@ -3083,6 +3137,27 @@
             this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
             this.dataGridViewTextBoxColumn21.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTextBoxColumn21.Width = 120;
+            // 
+            // PrintShop
+            // 
+            this.PrintShop.BackColor = System.Drawing.Color.LightGreen;
+            this.PrintShop.BackgroundColor = System.Drawing.Color.LightGreen;
+            this.PrintShop.BorderColor = System.Drawing.Color.LavenderBlush;
+            this.PrintShop.BorderRadius = 20;
+            this.PrintShop.BorderSize = 0;
+            this.PrintShop.FlatAppearance.BorderSize = 0;
+            this.PrintShop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PrintShop.ForeColor = System.Drawing.Color.Lime;
+            this.PrintShop.ImageKey = "printicon.png";
+            this.PrintShop.ImageList = this.topIcons;
+            this.PrintShop.Location = new System.Drawing.Point(8, 391);
+            this.PrintShop.Name = "PrintShop";
+            this.PrintShop.Size = new System.Drawing.Size(118, 43);
+            this.PrintShop.TabIndex = 27;
+            this.PrintShop.TextColor = System.Drawing.Color.Lime;
+            this.ToolTip.SetToolTip(this.PrintShop, "הדפסה");
+            this.PrintShop.UseVisualStyleBackColor = false;
+            this.PrintShop.Click += new System.EventHandler(this.PrintShop_Click);
             // 
             // tabPage10
             // 
@@ -3372,12 +3447,12 @@
             this.GreetText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.GreetText.Font = new System.Drawing.Font("M PLUS 1p", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.GreetText.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.GreetText.Location = new System.Drawing.Point(286, 112);
+            this.GreetText.Location = new System.Drawing.Point(303, 112);
             this.GreetText.Margin = new System.Windows.Forms.Padding(0);
             this.GreetText.MinimumSize = new System.Drawing.Size(100, 50);
             this.GreetText.Name = "GreetText";
             this.GreetText.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.GreetText.Size = new System.Drawing.Size(885, 56);
+            this.GreetText.Size = new System.Drawing.Size(868, 56);
             this.GreetText.TabIndex = 11;
             this.GreetText.Text = "צהריים טובים, אורח";
             this.GreetText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -3420,12 +3495,46 @@
             this.PrintPreview.Name = "PrintWorkPreview";
             this.PrintPreview.Visible = false;
             // 
+            // OpenRegister
+            // 
+            this.OpenRegister.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OpenRegister.Image = global::WindowsFormsApp1.Properties.Resources.cash_register;
+            this.OpenRegister.Location = new System.Drawing.Point(219, 46);
+            this.OpenRegister.Name = "OpenRegister";
+            this.OpenRegister.Size = new System.Drawing.Size(34, 36);
+            this.OpenRegister.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.OpenRegister.TabIndex = 20;
+            this.OpenRegister.TabStop = false;
+            this.ToolTip.SetToolTip(this.OpenRegister, "כניסת עובד");
+            this.OpenRegister.Click += new System.EventHandler(this.OpenRegister_Click);
+            // 
+            // ToItemsButton
+            // 
+            this.ToItemsButton.BackColor = System.Drawing.Color.LightSalmon;
+            this.ToItemsButton.BackgroundColor = System.Drawing.Color.LightSalmon;
+            this.ToItemsButton.BorderColor = System.Drawing.Color.LightSalmon;
+            this.ToItemsButton.BorderRadius = 20;
+            this.ToItemsButton.BorderSize = 0;
+            this.ToItemsButton.FlatAppearance.BorderSize = 0;
+            this.ToItemsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ToItemsButton.ForeColor = System.Drawing.Color.LightSalmon;
+            this.ToItemsButton.ImageKey = "items.png";
+            this.ToItemsButton.ImageList = this.topIcons;
+            this.ToItemsButton.Location = new System.Drawing.Point(470, 39);
+            this.ToItemsButton.Name = "ToItemsButton";
+            this.ToItemsButton.Size = new System.Drawing.Size(162, 43);
+            this.ToItemsButton.TabIndex = 19;
+            this.ToItemsButton.TextColor = System.Drawing.Color.LightSalmon;
+            this.ToolTip.SetToolTip(this.ToItemsButton, "חייבים");
+            this.ToItemsButton.UseVisualStyleBackColor = false;
+            this.ToItemsButton.Click += new System.EventHandler(this.ToItemsButton_Click);
+            // 
             // RefreshBox
             // 
             this.RefreshBox.BackColor = System.Drawing.Color.Transparent;
             this.RefreshBox.Cursor = System.Windows.Forms.Cursors.Hand;
             this.RefreshBox.Image = global::WindowsFormsApp1.Properties.Resources.refresh;
-            this.RefreshBox.Location = new System.Drawing.Point(170, 46);
+            this.RefreshBox.Location = new System.Drawing.Point(161, 46);
             this.RefreshBox.Name = "RefreshBox";
             this.RefreshBox.Size = new System.Drawing.Size(34, 36);
             this.RefreshBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -3433,19 +3542,6 @@
             this.RefreshBox.TabStop = false;
             this.ToolTip.SetToolTip(this.RefreshBox, "רענן");
             this.RefreshBox.Click += new System.EventHandler(this.RefreshBox_Click);
-            // 
-            // LoginButton
-            // 
-            this.LoginButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.LoginButton.Image = global::WindowsFormsApp1.Properties.Resources.login_icon;
-            this.LoginButton.Location = new System.Drawing.Point(106, 46);
-            this.LoginButton.Name = "LoginButton";
-            this.LoginButton.Size = new System.Drawing.Size(34, 36);
-            this.LoginButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.LoginButton.TabIndex = 13;
-            this.LoginButton.TabStop = false;
-            this.ToolTip.SetToolTip(this.LoginButton, "כניסת עובד");
-            this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
             // HomeButton
             // 
@@ -3459,7 +3555,7 @@
             this.HomeButton.ForeColor = System.Drawing.Color.Lime;
             this.HomeButton.ImageKey = "home2.png";
             this.HomeButton.ImageList = this.topIcons;
-            this.HomeButton.Location = new System.Drawing.Point(274, 39);
+            this.HomeButton.Location = new System.Drawing.Point(279, 39);
             this.HomeButton.Name = "HomeButton";
             this.HomeButton.Size = new System.Drawing.Size(162, 43);
             this.HomeButton.TabIndex = 16;
@@ -3480,7 +3576,7 @@
             this.CheckListButton.ForeColor = System.Drawing.Color.White;
             this.CheckListButton.ImageKey = "repair.png";
             this.CheckListButton.ImageList = this.topIcons;
-            this.CheckListButton.Location = new System.Drawing.Point(652, 39);
+            this.CheckListButton.Location = new System.Drawing.Point(657, 39);
             this.CheckListButton.Name = "CheckListButton";
             this.CheckListButton.Size = new System.Drawing.Size(162, 43);
             this.CheckListButton.TabIndex = 15;
@@ -3489,30 +3585,38 @@
             this.CheckListButton.UseVisualStyleBackColor = false;
             this.CheckListButton.Click += new System.EventHandler(this.CheckListButton_Click);
             // 
-            // ToItemsButton
+            // LoginButton
             // 
-            this.ToItemsButton.BackColor = System.Drawing.Color.LightSalmon;
-            this.ToItemsButton.BackgroundColor = System.Drawing.Color.LightSalmon;
-            this.ToItemsButton.BorderColor = System.Drawing.Color.LightSalmon;
-            this.ToItemsButton.BorderRadius = 20;
-            this.ToItemsButton.BorderSize = 0;
-            this.ToItemsButton.FlatAppearance.BorderSize = 0;
-            this.ToItemsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ToItemsButton.ForeColor = System.Drawing.Color.LightSalmon;
-            this.ToItemsButton.ImageKey = "items.png";
-            this.ToItemsButton.ImageList = this.topIcons;
-            this.ToItemsButton.Location = new System.Drawing.Point(465, 39);
-            this.ToItemsButton.Name = "ToItemsButton";
-            this.ToItemsButton.Size = new System.Drawing.Size(162, 43);
-            this.ToItemsButton.TabIndex = 19;
-            this.ToItemsButton.TextColor = System.Drawing.Color.LightSalmon;
-            this.ToolTip.SetToolTip(this.ToItemsButton, "חייבים");
-            this.ToItemsButton.UseVisualStyleBackColor = false;
-            this.ToItemsButton.Click += new System.EventHandler(this.ToItemsButton_Click);
+            this.LoginButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LoginButton.Image = global::WindowsFormsApp1.Properties.Resources.login_icon;
+            this.LoginButton.Location = new System.Drawing.Point(106, 46);
+            this.LoginButton.Name = "LoginButton";
+            this.LoginButton.Size = new System.Drawing.Size(34, 36);
+            this.LoginButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.LoginButton.TabIndex = 13;
+            this.LoginButton.TabStop = false;
+            this.ToolTip.SetToolTip(this.LoginButton, "כניסת עובד");
+            this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
             // PrintSelected
             // 
             this.PrintSelected.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintSelected_PrintPage);
+            // 
+            // PrintShopList
+            // 
+            this.PrintShopList.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintShopList_PrintPage);
+            // 
+            // PrintCheck
+            // 
+            this.PrintCheck.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintCheck_PrintPage);
+            // 
+            // PrintReceipt
+            // 
+            this.PrintReceipt.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintReceipt_PrintPage);
+            // 
+            // PrintInvoice
+            // 
+            this.PrintInvoice.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintInvoice_PrintPage);
             // 
             // dataGridViewImageColumn1
             // 
@@ -3535,16 +3639,13 @@
             this.pictureBox2.TabIndex = 12;
             this.pictureBox2.TabStop = false;
             // 
-            // PrintShopList
-            // 
-            this.PrintShopList.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PrintShopList_PrintPage);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1171, 698);
+            this.Controls.Add(this.OpenRegister);
             this.Controls.Add(this.ToItemsButton);
             this.Controls.Add(this.RefreshBox);
             this.Controls.Add(this.HomeButton);
@@ -3557,6 +3658,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
             this.groupBox1.ResumeLayout(false);
@@ -3593,6 +3695,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Chart1)).EndInit();
             this.MovingPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.XIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OpenRegister)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RefreshBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoginButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -3754,14 +3857,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn CheckBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn26;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn28;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn29;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Checks;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderId;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderDesc;
@@ -3811,6 +3906,21 @@
         private MyButton SendButton;
         private MyButton ToItemsButton;
         private MyButton ReportMonth;
+        private System.Drawing.Printing.PrintDocument PrintCheck;
+        private System.Drawing.Printing.PrintDocument PrintReceipt;
+        private System.Drawing.Printing.PrintDocument PrintInvoice;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn CheckBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn24;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn26;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderAmount2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderPrice2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn29;
+        private MyButton InvoicesButton;
+        private MyButton ChecksButton;
+        private MyButton ReceiptsButton;
+        private System.Windows.Forms.PictureBox OpenRegister;
     }
 }
 

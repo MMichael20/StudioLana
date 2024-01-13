@@ -1,23 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    class InvoiceService
+    class ReceiptService
     {
         OleDbConnection myConnection;
-        public InvoiceService()
+        public ReceiptService()
         {
 
             string connectionString = Connect.GetConnectionString();
 
             myConnection = new OleDbConnection(connectionString);
         }
-        public int HighestInvoice()
+        public int HighestReceipt()
         {
             int id = 0;
-            string query = $"SELECT MAX(InvoiceId) AS MaxValue FROM Invoices"; // Replace YourTable with the actual table name
+            string query = $"SELECT MAX(Id) FROM Receipts"; // Replace YourTable with the actual table name
             OleDbCommand command = new OleDbCommand(query, myConnection);
             try
             {
@@ -37,12 +41,11 @@ namespace WindowsFormsApp1
             {
                 myConnection.Close();
             }
-            
             return id;
         }
-        public void NewInvoice(Invoice i)
+        public void NewReceipt(Receipt i) 
         {
-            string sSql = "INSERT INTO Invoices(InvoiceUser, InvoiceName, InvoicePrice, InvoiceDate) VALUES" + $"({i.User}, '{i.Name}', {i.Price}, Now())";
+            string sSql = "INSERT INTO Receipts([User], [Name], Price, ReceiptDate, Type) VALUES" + $"({i.User}, '{i.Name}', {i.Price}, Now(), {i.Type})";
             try
             {
                 myConnection.Open();
@@ -58,17 +61,17 @@ namespace WindowsFormsApp1
                 myConnection.Close();
             }
         }
-        public DataSet GetInvoiceById(int id)
+        public DataSet GetReceiptById(int id)
         {
             DataSet dataset = new DataSet();
             try
             {
                 myConnection.Open();
-                string sSql = $"select Invoices.InvoiceName, Invoices.InvoicePrice, Invoices.InvoiceDate, Invoices.InvoicePrinted from Invoices Where Invoices.InvoiceId = {id}";
+                string sSql = $"select Types.*, Receipts.Price, Receipts.ReceiptDate, Receipts.Name ,Receipts.Type, Receipts.Printed From Types, Receipts Where Receipts.ID = {id} And Receipts.Type = Types.TypeId";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 OleDbDataAdapter adapter = new OleDbDataAdapter();
                 adapter.SelectCommand = myCmd;
-                adapter.Fill(dataset, "Invoices");
+                adapter.Fill(dataset, "Receipts");
             }
             catch (Exception ex)
             {
@@ -80,9 +83,9 @@ namespace WindowsFormsApp1
             }
             return dataset;
         }
-        public void SetInvoicePrinted(int id)
+        public void SetReceiptPrinted(int id)
         {
-            string sSql = $"Update Invoices SET InvoicePrinted = True Where InvoiceId = {id}";
+            string sSql = $"Update Receipts SET Printed = True Where ID = {id}";
             try
             {
                 myConnection.Open();
@@ -98,17 +101,17 @@ namespace WindowsFormsApp1
                 myConnection.Close();
             }
         }
-        public DataSet GetAllInvoicesByUserId(int id)
+        public DataSet GetAllReceiptsByUserId(int id)
         {
             DataSet dataset = new DataSet();
             try
             {
                 myConnection.Open();
-                string sSql = $"select InvoiceId as IdColumn, InvoiceName as Name, InvoicePrice as Price, InvoiceDate as DateColumn from Invoices where InvoiceUser = {id}";
+                string sSql = $"select [ID] as IdColumn, [Name], Price, ReceiptDate as DateColumn from Receipts where User = {id}";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 OleDbDataAdapter adapter = new OleDbDataAdapter();
                 adapter.SelectCommand = myCmd;
-                adapter.Fill(dataset, "Invoices");
+                adapter.Fill(dataset, "Receipts");
             }
             catch (Exception ex)
             {
@@ -120,17 +123,17 @@ namespace WindowsFormsApp1
             }
             return dataset;
         }
-        public DataSet GetAllInvoicesByIdTable(int id)
+        public DataSet GetReceiptByIdTable(int id)
         {
             DataSet dataset = new DataSet();
             try
             {
                 myConnection.Open();
-                string sSql = $"select InvoiceId as IdColumn, InvoiceName as Name, InvoicePrice as Price, InvoiceDate as DateColumn from Invoices where InvoiceId = {id}";
+                string sSql = $"select [ID] as IdColumn, [Name], Price, ReceiptDate as DateColumn from Receipts where [ID] = {id}";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 OleDbDataAdapter adapter = new OleDbDataAdapter();
                 adapter.SelectCommand = myCmd;
-                adapter.Fill(dataset, "Invoices");
+                adapter.Fill(dataset, "Receipts");
             }
             catch (Exception ex)
             {
@@ -142,6 +145,5 @@ namespace WindowsFormsApp1
             }
             return dataset;
         }
-
     }
 }

@@ -157,6 +157,16 @@
     <Compile Include="Code\CheckService.cs" />
     <Compile Include="Code\Check.cs" />
     <Compile Include="Code\ClockService.cs" />
+    <Compile Include="Code\Receipt.cs" />
+    <Compile Include="Code\ReceiptService.cs" />
+    <Compile Include="Code\Register.cs" />
+    <Compile Include="Code\RegisterService.cs" />
+    <Compile Include="FinancePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinancePage.Designer.cs">
+      <DependentUpon>FinancePage.cs</DependentUpon>
+    </Compile>
     <Compile Include="InputForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,12 +209,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="SetDiscount.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SetDiscount.Designer.cs">
-      <DependentUpon>SetDiscount.cs</DependentUpon>
     </Compile>
     <Compile Include="CityForm.cs">
       <SubType>Form</SubType>
@@ -257,18 +261,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Code\User.cs" />
     <Compile Include="Code\UserService.cs" />
-    <Compile Include="SetAmount.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SetAmount.Designer.cs">
-      <DependentUpon>SetAmount.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SetPrice.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SetPrice.Designer.cs">
-      <DependentUpon>SetPrice.cs</DependentUpon>
-    </Compile>
     <Compile Include="AllOrders.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -295,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ColorList.resx">
       <DependentUpon>ColorList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FinancePage.resx">
+      <DependentUpon>FinancePage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InputForm.resx">
       <DependentUpon>InputForm.cs</DependentUpon>
@@ -327,15 +322,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SetAmount.resx">
-      <DependentUpon>SetAmount.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SetDiscount.resx">
-      <DependentUpon>SetDiscount.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SetPrice.resx">
-      <DependentUpon>SetPrice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllOrders.resx">
       <DependentUpon>AllOrders.cs</DependentUpon>
@@ -385,6 +371,7 @@
     <Content Include="Pics\trash.png" />
     <Content Include="Pics\V-icon.png" />
     <Content Include="Pics\x-icon.png" />
+    <None Include="Resources\cash-register.png" />
     <None Include="Resources\itemsbackground.jpg" />
     <None Include="Resources\Goodtrash.png" />
     <None Include="Resources\Jeans.jpg" />

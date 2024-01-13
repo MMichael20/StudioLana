@@ -21,6 +21,8 @@ namespace WindowsFormsApp1
         private DateTime delivered;
         private int paid;
         private bool full;
+        private int invoice;
+        private int check;
         public Order(int id, int o, int desc, DateTime date, int amount, int price, string cab)
         {
             this.id = id;
@@ -72,6 +74,22 @@ namespace WindowsFormsApp1
             this.finish = finish;
             this.paid = paid;
             this.full = full;
+        }
+        public Order(int o, int desc, int color, DateTime date, int amount, int price, string cab, string status, DateTime finish, int paid, bool full, int invoice, int check)
+        {
+            this.o = o;
+            this.desc = desc;
+            this.color = color;
+            this.date = date;
+            this.amount = amount;
+            this.price = price;
+            this.cab = cab;
+            this.status = status;
+            this.finish = finish;
+            this.paid = paid;
+            this.full = full;
+            this.invoice = invoice;
+            this.check = check;
         }
         public int Id
         {
@@ -138,6 +156,16 @@ namespace WindowsFormsApp1
         {
             get { return this.full; }
             set { this.full = value; }
+        }
+        public int Invoice
+        {
+            get { return this.invoice; }
+            set { this.invoice = value; }
+        }
+        public int Check
+        {
+            get { return this.check; }
+            set { this.check = value; }
         }
     }
 }

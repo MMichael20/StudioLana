@@ -77,27 +77,31 @@ namespace WindowsFormsApp1
             }
             return dataset;
         }
-        public DataSet HighestUser()
+        public int HighestUser()
         {
-            DataSet dataset = new DataSet();
+            int id = 0;
+            string query = "select max(UserId) from Users"; // Replace YourTable with the actual table name
+            OleDbCommand command = new OleDbCommand(query, myConnection);
             try
             {
                 myConnection.Open();
-                string sSql = "select max(UserId) from Users";
-                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
-                OleDbDataAdapter adapter = new OleDbDataAdapter();
-                adapter.SelectCommand = myCmd;
-                adapter.Fill(dataset, "Users");
+                object result = command.ExecuteScalar();
+
+                if (result != DBNull.Value)
+                {
+                    id = Convert.ToInt32(result);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                throw ex;
             }
             finally
             {
                 myConnection.Close();
             }
-            return dataset;
+
+            return id;
         }
         public void InsertUser(User p)
         {

@@ -10,7 +10,7 @@ namespace WindowsFormsApp1
         private int price;
         private DateTime date;
         private int type;
-        public Check(int id, string name, int user , int price, DateTime date, int type)
+        public Check(int id, int user, string name, int price, DateTime date, int type)
         {
             this.id = id;
             this.name = name;
@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
             this.date = date;
             this.type = type;
         }
-        public Check(string name, int user, int price, int type)
+        public Check( int user, string name, int price, int type)
         {
             this.name = name;
             this.user = user;
@@ -60,6 +60,10 @@ namespace WindowsFormsApp1
         {
             get { return this.type; }
             set { this.type = value; }
+        }
+        public override string ToString()
+        {
+            return $"User: {User}, Name: {Name}, Price: {Price}, Type: {Type}";
         }
     }
 }

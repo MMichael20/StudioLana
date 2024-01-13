@@ -46,15 +46,18 @@
             this.Icons = new System.Windows.Forms.ImageList(this.components);
             this.BiggerIcons = new System.Windows.Forms.ImageList(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.SetDiscount = new WindowsFormsApp1.MyButton();
+            this.DiscountButton = new WindowsFormsApp1.MyButton();
+            this.SubmitOrder = new WindowsFormsApp1.MyButton();
+            this.NewC = new WindowsFormsApp1.MyButton();
+            this.Exp2 = new WindowsFormsApp1.MyButton();
+            this.Exp = new WindowsFormsApp1.MyButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.DisBox = new System.Windows.Forms.Label();
-            this.SetDiscount = new WindowsFormsApp1.MyButton();
             this.DiscountTextBox = new WindowsFormsApp1.MyControls.RoundedTextBox();
-            this.DiscountButton = new WindowsFormsApp1.MyButton();
             this.DiscountBox = new WindowsFormsApp1.MyControls.RoundedTextBox();
-            this.SubmitOrder = new WindowsFormsApp1.MyButton();
             this.Color10 = new WindowsFormsApp1.MyButton();
             this.Color9 = new WindowsFormsApp1.MyButton();
             this.Color7 = new WindowsFormsApp1.MyButton();
@@ -72,12 +75,9 @@
             this.Item4 = new WindowsFormsApp1.MyButton();
             this.Item3 = new WindowsFormsApp1.MyButton();
             this.Item2 = new WindowsFormsApp1.MyButton();
-            this.NewC = new WindowsFormsApp1.MyButton();
             this.Item1 = new WindowsFormsApp1.MyButton();
             this.Color1 = new WindowsFormsApp1.MyButton();
             this.Color8 = new WindowsFormsApp1.MyButton();
-            this.Exp2 = new WindowsFormsApp1.MyButton();
-            this.Exp = new WindowsFormsApp1.MyButton();
             ((System.ComponentModel.ISupportInitialize)(this.NewItemGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -243,6 +243,133 @@
             this.BiggerIcons.Images.SetKeyName(0, "plus2.png");
             this.BiggerIcons.Images.SetKeyName(1, "YesIcon.png");
             // 
+            // SetDiscount
+            // 
+            this.SetDiscount.BackColor = System.Drawing.Color.Transparent;
+            this.SetDiscount.BackgroundColor = System.Drawing.Color.Transparent;
+            this.SetDiscount.BorderColor = System.Drawing.Color.Transparent;
+            this.SetDiscount.BorderRadius = 20;
+            this.SetDiscount.BorderSize = 0;
+            this.SetDiscount.FlatAppearance.BorderSize = 0;
+            this.SetDiscount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SetDiscount.ForeColor = System.Drawing.Color.Transparent;
+            this.SetDiscount.ImageKey = "V-icon.png";
+            this.SetDiscount.ImageList = this.Icons;
+            this.SetDiscount.Location = new System.Drawing.Point(604, 543);
+            this.SetDiscount.Name = "SetDiscount";
+            this.SetDiscount.Size = new System.Drawing.Size(46, 45);
+            this.SetDiscount.TabIndex = 97;
+            this.SetDiscount.TextColor = System.Drawing.Color.Transparent;
+            this.toolTip1.SetToolTip(this.SetDiscount, "הנחנה בשקלים");
+            this.SetDiscount.UseVisualStyleBackColor = false;
+            this.SetDiscount.Click += new System.EventHandler(this.SetDiscount_Click);
+            // 
+            // DiscountButton
+            // 
+            this.DiscountButton.BackColor = System.Drawing.Color.Transparent;
+            this.DiscountButton.BackgroundColor = System.Drawing.Color.Transparent;
+            this.DiscountButton.BorderColor = System.Drawing.Color.Transparent;
+            this.DiscountButton.BorderRadius = 20;
+            this.DiscountButton.BorderSize = 0;
+            this.DiscountButton.FlatAppearance.BorderSize = 0;
+            this.DiscountButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DiscountButton.ForeColor = System.Drawing.Color.Transparent;
+            this.DiscountButton.ImageKey = "V-icon.png";
+            this.DiscountButton.ImageList = this.Icons;
+            this.DiscountButton.Location = new System.Drawing.Point(604, 498);
+            this.DiscountButton.Name = "DiscountButton";
+            this.DiscountButton.Size = new System.Drawing.Size(46, 45);
+            this.DiscountButton.TabIndex = 93;
+            this.DiscountButton.TextColor = System.Drawing.Color.Transparent;
+            this.toolTip1.SetToolTip(this.DiscountButton, "הנחנה בשקלים");
+            this.DiscountButton.UseVisualStyleBackColor = false;
+            this.DiscountButton.Click += new System.EventHandler(this.DiscountButton_Click);
+            // 
+            // SubmitOrder
+            // 
+            this.SubmitOrder.BackColor = System.Drawing.Color.LightSalmon;
+            this.SubmitOrder.BackgroundColor = System.Drawing.Color.LightSalmon;
+            this.SubmitOrder.BorderColor = System.Drawing.Color.LavenderBlush;
+            this.SubmitOrder.BorderRadius = 20;
+            this.SubmitOrder.BorderSize = 0;
+            this.SubmitOrder.FlatAppearance.BorderSize = 0;
+            this.SubmitOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SubmitOrder.ForeColor = System.Drawing.Color.Lime;
+            this.SubmitOrder.ImageKey = "YesIcon.png";
+            this.SubmitOrder.ImageList = this.BiggerIcons;
+            this.SubmitOrder.Location = new System.Drawing.Point(103, 537);
+            this.SubmitOrder.Name = "SubmitOrder";
+            this.SubmitOrder.Size = new System.Drawing.Size(154, 60);
+            this.SubmitOrder.TabIndex = 88;
+            this.SubmitOrder.TextColor = System.Drawing.Color.Lime;
+            this.toolTip1.SetToolTip(this.SubmitOrder, "סיום הזמנה");
+            this.SubmitOrder.UseVisualStyleBackColor = false;
+            this.SubmitOrder.Click += new System.EventHandler(this.SubmitOrder_Click);
+            // 
+            // NewC
+            // 
+            this.NewC.BackColor = System.Drawing.Color.Transparent;
+            this.NewC.BackgroundColor = System.Drawing.Color.Transparent;
+            this.NewC.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
+            this.NewC.BorderRadius = 15;
+            this.NewC.BorderSize = 0;
+            this.NewC.FlatAppearance.BorderSize = 0;
+            this.NewC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NewC.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewC.ForeColor = System.Drawing.Color.Black;
+            this.NewC.ImageKey = "plus2.png";
+            this.NewC.ImageList = this.BiggerIcons;
+            this.NewC.Location = new System.Drawing.Point(64, 284);
+            this.NewC.Name = "NewC";
+            this.NewC.Size = new System.Drawing.Size(80, 72);
+            this.NewC.TabIndex = 69;
+            this.NewC.TextColor = System.Drawing.Color.Black;
+            this.toolTip1.SetToolTip(this.NewC, "הוסף שורה");
+            this.NewC.UseVisualStyleBackColor = false;
+            this.NewC.Click += new System.EventHandler(this.NewC_Click);
+            // 
+            // Exp2
+            // 
+            this.Exp2.BackColor = System.Drawing.Color.MediumOrchid;
+            this.Exp2.BackgroundColor = System.Drawing.Color.MediumOrchid;
+            this.Exp2.BorderColor = System.Drawing.Color.LavenderBlush;
+            this.Exp2.BorderRadius = 20;
+            this.Exp2.BorderSize = 0;
+            this.Exp2.FlatAppearance.BorderSize = 0;
+            this.Exp2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Exp2.ForeColor = System.Drawing.Color.Lime;
+            this.Exp2.ImageKey = "ExtraBlack.png";
+            this.Exp2.ImageList = this.Icons;
+            this.Exp2.Location = new System.Drawing.Point(46, 436);
+            this.Exp2.Name = "Exp2";
+            this.Exp2.Size = new System.Drawing.Size(131, 43);
+            this.Exp2.TabIndex = 65;
+            this.Exp2.TextColor = System.Drawing.Color.Lime;
+            this.toolTip1.SetToolTip(this.Exp2, "אקספרססס");
+            this.Exp2.UseVisualStyleBackColor = false;
+            this.Exp2.Click += new System.EventHandler(this.Exp2_Click);
+            // 
+            // Exp
+            // 
+            this.Exp.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.Exp.BackgroundColor = System.Drawing.Color.LightSeaGreen;
+            this.Exp.BorderColor = System.Drawing.Color.LavenderBlush;
+            this.Exp.BorderRadius = 20;
+            this.Exp.BorderSize = 0;
+            this.Exp.FlatAppearance.BorderSize = 0;
+            this.Exp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Exp.ForeColor = System.Drawing.Color.Lime;
+            this.Exp.ImageKey = "Extra.png";
+            this.Exp.ImageList = this.Icons;
+            this.Exp.Location = new System.Drawing.Point(202, 436);
+            this.Exp.Name = "Exp";
+            this.Exp.Size = new System.Drawing.Size(131, 43);
+            this.Exp.TabIndex = 64;
+            this.Exp.TextColor = System.Drawing.Color.Lime;
+            this.toolTip1.SetToolTip(this.Exp, "אקספרס");
+            this.Exp.UseVisualStyleBackColor = false;
+            this.Exp.Click += new System.EventHandler(this.Exp_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::WindowsFormsApp1.Properties.Resources.Lana;
@@ -288,27 +415,6 @@
             this.DisBox.Size = new System.Drawing.Size(0, 27);
             this.DisBox.TabIndex = 98;
             // 
-            // SetDiscount
-            // 
-            this.SetDiscount.BackColor = System.Drawing.Color.Transparent;
-            this.SetDiscount.BackgroundColor = System.Drawing.Color.Transparent;
-            this.SetDiscount.BorderColor = System.Drawing.Color.Transparent;
-            this.SetDiscount.BorderRadius = 20;
-            this.SetDiscount.BorderSize = 0;
-            this.SetDiscount.FlatAppearance.BorderSize = 0;
-            this.SetDiscount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SetDiscount.ForeColor = System.Drawing.Color.Transparent;
-            this.SetDiscount.ImageKey = "V-icon.png";
-            this.SetDiscount.ImageList = this.Icons;
-            this.SetDiscount.Location = new System.Drawing.Point(604, 543);
-            this.SetDiscount.Name = "SetDiscount";
-            this.SetDiscount.Size = new System.Drawing.Size(46, 45);
-            this.SetDiscount.TabIndex = 97;
-            this.SetDiscount.TextColor = System.Drawing.Color.Transparent;
-            this.toolTip1.SetToolTip(this.SetDiscount, "הנחנה בשקלים");
-            this.SetDiscount.UseVisualStyleBackColor = false;
-            this.SetDiscount.Click += new System.EventHandler(this.SetDiscount_Click);
-            // 
             // DiscountTextBox
             // 
             this.DiscountTextBox.BackColor = System.Drawing.SystemColors.Window;
@@ -332,27 +438,6 @@
             this.DiscountTextBox.Texts = "";
             this.DiscountTextBox.UnderlinedStyle = false;
             // 
-            // DiscountButton
-            // 
-            this.DiscountButton.BackColor = System.Drawing.Color.Transparent;
-            this.DiscountButton.BackgroundColor = System.Drawing.Color.Transparent;
-            this.DiscountButton.BorderColor = System.Drawing.Color.Transparent;
-            this.DiscountButton.BorderRadius = 20;
-            this.DiscountButton.BorderSize = 0;
-            this.DiscountButton.FlatAppearance.BorderSize = 0;
-            this.DiscountButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DiscountButton.ForeColor = System.Drawing.Color.Transparent;
-            this.DiscountButton.ImageKey = "V-icon.png";
-            this.DiscountButton.ImageList = this.Icons;
-            this.DiscountButton.Location = new System.Drawing.Point(604, 498);
-            this.DiscountButton.Name = "DiscountButton";
-            this.DiscountButton.Size = new System.Drawing.Size(46, 45);
-            this.DiscountButton.TabIndex = 93;
-            this.DiscountButton.TextColor = System.Drawing.Color.Transparent;
-            this.toolTip1.SetToolTip(this.DiscountButton, "הנחנה בשקלים");
-            this.DiscountButton.UseVisualStyleBackColor = false;
-            this.DiscountButton.Click += new System.EventHandler(this.DiscountButton_Click);
-            // 
             // DiscountBox
             // 
             this.DiscountBox.BackColor = System.Drawing.SystemColors.Window;
@@ -375,27 +460,6 @@
             this.DiscountBox.TabIndex = 91;
             this.DiscountBox.Texts = "";
             this.DiscountBox.UnderlinedStyle = false;
-            // 
-            // SubmitOrder
-            // 
-            this.SubmitOrder.BackColor = System.Drawing.Color.LightSalmon;
-            this.SubmitOrder.BackgroundColor = System.Drawing.Color.LightSalmon;
-            this.SubmitOrder.BorderColor = System.Drawing.Color.LavenderBlush;
-            this.SubmitOrder.BorderRadius = 20;
-            this.SubmitOrder.BorderSize = 0;
-            this.SubmitOrder.FlatAppearance.BorderSize = 0;
-            this.SubmitOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SubmitOrder.ForeColor = System.Drawing.Color.Lime;
-            this.SubmitOrder.ImageKey = "YesIcon.png";
-            this.SubmitOrder.ImageList = this.BiggerIcons;
-            this.SubmitOrder.Location = new System.Drawing.Point(98, 535);
-            this.SubmitOrder.Name = "SubmitOrder";
-            this.SubmitOrder.Size = new System.Drawing.Size(154, 60);
-            this.SubmitOrder.TabIndex = 88;
-            this.SubmitOrder.TextColor = System.Drawing.Color.Lime;
-            this.toolTip1.SetToolTip(this.SubmitOrder, "סיום הזמנה");
-            this.SubmitOrder.UseVisualStyleBackColor = false;
-            this.SubmitOrder.Click += new System.EventHandler(this.SubmitOrder_Click);
             // 
             // Color10
             // 
@@ -746,28 +810,6 @@
             this.Item2.UseVisualStyleBackColor = false;
             this.Item2.Click += new System.EventHandler(this.Item2_Click);
             // 
-            // NewC
-            // 
-            this.NewC.BackColor = System.Drawing.Color.Transparent;
-            this.NewC.BackgroundColor = System.Drawing.Color.Transparent;
-            this.NewC.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
-            this.NewC.BorderRadius = 15;
-            this.NewC.BorderSize = 0;
-            this.NewC.FlatAppearance.BorderSize = 0;
-            this.NewC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NewC.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewC.ForeColor = System.Drawing.Color.Black;
-            this.NewC.ImageKey = "plus2.png";
-            this.NewC.ImageList = this.BiggerIcons;
-            this.NewC.Location = new System.Drawing.Point(64, 284);
-            this.NewC.Name = "NewC";
-            this.NewC.Size = new System.Drawing.Size(80, 72);
-            this.NewC.TabIndex = 69;
-            this.NewC.TextColor = System.Drawing.Color.Black;
-            this.toolTip1.SetToolTip(this.NewC, "הוסף שורה");
-            this.NewC.UseVisualStyleBackColor = false;
-            this.NewC.Click += new System.EventHandler(this.NewC_Click);
-            // 
             // Item1
             // 
             this.Item1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
@@ -830,48 +872,6 @@
             this.Color8.TextColor = System.Drawing.Color.White;
             this.Color8.UseVisualStyleBackColor = false;
             this.Color8.Click += new System.EventHandler(this.Color8_Click);
-            // 
-            // Exp2
-            // 
-            this.Exp2.BackColor = System.Drawing.Color.MediumOrchid;
-            this.Exp2.BackgroundColor = System.Drawing.Color.MediumOrchid;
-            this.Exp2.BorderColor = System.Drawing.Color.LavenderBlush;
-            this.Exp2.BorderRadius = 20;
-            this.Exp2.BorderSize = 0;
-            this.Exp2.FlatAppearance.BorderSize = 0;
-            this.Exp2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Exp2.ForeColor = System.Drawing.Color.Lime;
-            this.Exp2.ImageKey = "ExtraBlack.png";
-            this.Exp2.ImageList = this.Icons;
-            this.Exp2.Location = new System.Drawing.Point(46, 436);
-            this.Exp2.Name = "Exp2";
-            this.Exp2.Size = new System.Drawing.Size(131, 43);
-            this.Exp2.TabIndex = 65;
-            this.Exp2.TextColor = System.Drawing.Color.Lime;
-            this.toolTip1.SetToolTip(this.Exp2, "אקספרססס");
-            this.Exp2.UseVisualStyleBackColor = false;
-            this.Exp2.Click += new System.EventHandler(this.Exp2_Click);
-            // 
-            // Exp
-            // 
-            this.Exp.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.Exp.BackgroundColor = System.Drawing.Color.LightSeaGreen;
-            this.Exp.BorderColor = System.Drawing.Color.LavenderBlush;
-            this.Exp.BorderRadius = 20;
-            this.Exp.BorderSize = 0;
-            this.Exp.FlatAppearance.BorderSize = 0;
-            this.Exp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Exp.ForeColor = System.Drawing.Color.Lime;
-            this.Exp.ImageKey = "Extra.png";
-            this.Exp.ImageList = this.Icons;
-            this.Exp.Location = new System.Drawing.Point(202, 436);
-            this.Exp.Name = "Exp";
-            this.Exp.Size = new System.Drawing.Size(131, 43);
-            this.Exp.TabIndex = 64;
-            this.Exp.TextColor = System.Drawing.Color.Lime;
-            this.toolTip1.SetToolTip(this.Exp, "אקספרס");
-            this.Exp.UseVisualStyleBackColor = false;
-            this.Exp.Click += new System.EventHandler(this.Exp_Click);
             // 
             // NewItems
             // 

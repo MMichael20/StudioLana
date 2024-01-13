@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
@@ -33,7 +30,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                throw ex;
             }
             finally
             {
@@ -55,7 +52,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+               throw ex;
             }
             finally
             {
@@ -77,7 +74,29 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+               throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return dataset;
+        }
+        public DataSet GetAllUnfinishedOrdersById(int id)
+        {
+            DataSet dataset = new DataSet();
+            try
+            {
+                myConnection.Open();
+                string sSql = "select  Orders.*, Users.*, Colors.*, Items.* , Users.UserName + ' ' + Users.UserLName + ' (' + CStr(Users.UserId) + ') ' AS FullName from Orders, Users, Colors, Items where (OrderStatus = 'בטיפול' OR  OrderStatus = 'מוכן') AND OrderO = " + id + " AND Colors.ColorId = Orders.OrderColor AND Users.UserId = Orders.OrderO AND Items.ItemId = Orders.OrderName";
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                OleDbDataAdapter adapter = new OleDbDataAdapter();
+                adapter.SelectCommand = myCmd;
+                adapter.Fill(dataset, "Orders");
+            }
+            catch (Exception ex)
+            {
+               throw ex;
             }
             finally
             {
@@ -91,7 +110,7 @@ namespace WindowsFormsApp1
             try
             {
                 myConnection.Open();
-                string sSql = $"select * from Orders where OrderO = {id} and OrderFull = false and OrderStatus <> 'בוטל'";
+                string sSql = $"select * from Orders where OrderO = {id} and OrderFull = false AND OrderPaid = 0 and OrderStatus <> 'בוטל' And OrderInvoice = 1 and OrderCheck = 1";
                 
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 OleDbDataAdapter adapter = new OleDbDataAdapter();
@@ -100,7 +119,76 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+               throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return dataset;
+        }
+        public DataSet GetCheckPrint(int check)
+        {
+            DataSet dataset = new DataSet();
+            try
+            {
+                myConnection.Open();
+                string sSql = $"select Orders.*, Colors.*, Users.UserName, Users.UserId, Items.* from Orders, Colors, Users, Items where OrderCheck = {check} AND Colors.ColorId = Orders.OrderColor AND Users.UserId = Orders.OrderO AND Items.ItemId = Orders.OrderName";
+
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                OleDbDataAdapter adapter = new OleDbDataAdapter();
+                adapter.SelectCommand = myCmd;
+                adapter.Fill(dataset, "Orders");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return dataset;
+        }
+        public DataSet GetInvoicePrint(int invoice)
+        {
+            DataSet dataset = new DataSet();
+            try
+            {
+                myConnection.Open();
+                string sSql = $"select Orders.*, Colors.*, Users.UserName, Users.UserId, Items.* from Orders, Colors, Users, Items where OrderInvoice = {invoice} AND Colors.ColorId = Orders.OrderColor AND Users.UserId = Orders.OrderO AND Items.ItemId = Orders.OrderName";
+
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                OleDbDataAdapter adapter = new OleDbDataAdapter();
+                adapter.SelectCommand = myCmd;
+                adapter.Fill(dataset, "Orders");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return dataset;
+        }
+        public DataSet GetAllInvoicelessOrdersById(int id)
+        {
+            DataSet dataset = new DataSet();
+            try
+            {
+                myConnection.Open();
+                string sSql = $"select * from Orders where OrderO = {id} and OrderFull = false AND OrderPaid > 0 and OrderStatus <> 'בוטל' And OrderInvoice = 1 and OrderCheck = 1";
+
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                OleDbDataAdapter adapter = new OleDbDataAdapter();
+                adapter.SelectCommand = myCmd;
+                adapter.Fill(dataset, "Orders");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             finally
             {
@@ -114,8 +202,7 @@ namespace WindowsFormsApp1
             try
             {
                 myConnection.Open();
-                string sSql = $"select Orders.*, Colors.*, Users.UserName, Users.UserId, Items.* from Orders, Colors, Users, Items where OrderO = {id} and OrderDate >= #{DateTime.Now.AddSeconds(-30)}# and OrderDate <= #{DateTime.Now}# AND OrderStatus = 'בטיפול' AND Colors.ColorId = Orders.OrderColor AND Users.UserId = Orders.OrderO AND Items.ItemId = Orders.OrderName";
-                //string sSql = $"select * from Orders, Users, Colors, Items WHERE OrderO = {id} AND OrderDate >= #{DateTime.Now.AddSeconds(-30)}# and OrderDate <= #{DateTime.Now}# AND OrderStatus = 'בטיפול' and Colors.ColorId = Orders.OrderColor AND Users.UserId = Orders.OrderO AND Items.ItemId = Orders.OrderName";
+                string sSql = $"select Orders.*, Colors.*, Users.UserName, Users.UserId, Items.* from Orders, Colors, Users, Items where OrderO = {id} and OrderDate >= Now()-#0:0:30# and OrderDate <= Now() AND OrderStatus = 'בטיפול' AND Colors.ColorId = Orders.OrderColor AND Users.UserId = Orders.OrderO AND Items.ItemId = Orders.OrderName";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 OleDbDataAdapter adapter = new OleDbDataAdapter();
                 adapter.SelectCommand = myCmd;
@@ -123,7 +210,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                throw ex;
             }
             finally
             {
@@ -139,7 +226,6 @@ namespace WindowsFormsApp1
             {
                 myConnection.Open();
                 string sSql = $"select Orders.*, Colors.*, Users.UserName, Users.UserId, Items.* from Orders, Colors, Users, Items where OrderId IN ({stringIds}) AND Colors.ColorId = Orders.OrderColor AND Users.UserId = Orders.OrderO AND Items.ItemId = Orders.OrderName";
-                //string sSql = $"select * from Orders, Users, Colors, Items WHERE OrderO = {id} AND OrderDate >= #{DateTime.Now.AddSeconds(-30)}# and OrderDate <= #{DateTime.Now}# AND OrderStatus = 'בטיפול' and Colors.ColorId = Orders.OrderColor AND Users.UserId = Orders.OrderO AND Items.ItemId = Orders.OrderName";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 OleDbDataAdapter adapter = new OleDbDataAdapter();
                 adapter.SelectCommand = myCmd;
@@ -147,7 +233,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                throw ex;
             }
             finally
             {
@@ -184,14 +270,13 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                throw ex;
                 return results;
             }
             finally
             {
                 myConnection.Close();
             }
-            
             
         }
         public void NewOrder(List<Order> orders)
@@ -201,31 +286,9 @@ namespace WindowsFormsApp1
             for (int i = 0; i < orders.Count; i++)
             {
                 Order p = orders[i];
-                string sSql = "INSERT INTO Orders(OrderO, OrderName, OrderColor, OrderDate, OrderAmount, OrderPrice, OrderCab, OrderStatus, OrderFinish, OrderPaid, OrderFull) VALUES" + $"({p.O}, {p.Desc}, {p.Color}, #{p.Date}#, {p.Amount}, {p.Price}, '{p.Cab}', '{p.Status}', #{p.Finish}#, {p.Paid}, {p.Full})";
-                // sSql = $"({p.O}, {p.Desc}, {p.Color}, #{p.Date}#, {p.Amount}, {p.Price}, '{p.Cab}', '{p.Status}', #{p.Finish}#, {p.Paid}, {p.Full})";
+                string sSql = "INSERT INTO Orders(OrderO, OrderName, OrderColor, OrderDate, OrderAmount, OrderPrice, OrderCab, OrderStatus, OrderFinish, OrderPaid, OrderFull, OrderInvoice, OrderCheck) VALUES" + $"({p.O}, {p.Desc}, {p.Color}, Now(), {p.Amount}, {p.Price}, '{p.Cab}', '{p.Status}', #{p.Finish.ToString("MM/dd/yyyy")}#, {p.Paid}, {p.Full}, {p.Invoice}, {p.Check})";
                 try
                 {
-                    OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
-                    myCmd.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-                myConnection.Close();
-        }
-        public void UpdateStatus(List<int> ids, string status)
-        {
-            myConnection.Open();
-            int id = 0;
-            for (int i = 0; i < ids.Count; i++)
-            {
-                id = ids[i];
-                string sSql = "Update Orders set OrderStatus = '" + status + "' where OrderId = " + id;
-                try
-                {
-
                     OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                     myCmd.ExecuteNonQuery();
                 }
@@ -235,6 +298,27 @@ namespace WindowsFormsApp1
                 }
             }
             myConnection.Close();
+            
+        }
+        public void UpdateStatus(List<int> ids, string status)
+        {
+            string listOfIds = string.Join(",", ids);
+            string sSql = $"Update Orders set OrderStatus = '{status}' where OrderId IN ({listOfIds})";
+            try
+            {
+                myConnection.Open();
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                myCmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            
         }
         public void PayForOrders(int id, int amount)
         {
@@ -274,7 +358,7 @@ namespace WindowsFormsApp1
                     {
                         full = false;
                     }
-                    string sSql = $"Update Orders set OrderPaid = {paid}, OrderFull = {full} where OrderId = {orderId} and OrderStatus <> 'בוטל'";
+                    string sSql = $"Update Orders set OrderPaid = {paid}, OrderFull = {full} where OrderId = {orderId}";
                     try
                     {
                         OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
@@ -371,27 +455,22 @@ namespace WindowsFormsApp1
         }
         public void SetCabin(List<int> ids, string cabin)
         {
-            myConnection.Open();
-            int id = 0;
-            for (int i = 0; i < ids.Count; i++)
+            string listOfIds = string.Join(",", ids);
+            string sSql = $"Update Orders set OrderCab = '{cabin}' where  OrderId IN ({listOfIds})";
+            try
             {
-                id = ids[i];
-                string sSql = "Update Orders set OrderCab = '" + cabin + "' where OrderId = " + id;
-                // sSql = $"({p.O}, {p.Desc}, {p.Color}, #{p.Date}#, {p.Amount}, {p.Price}, '{p.Cab}', '{p.Status}', #{p.Finish}#, {p.Paid}, {p.Full})";
-                try
-                {
-
-                    OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
-                    myCmd.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-
+                myConnection.Open();
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                myCmd.ExecuteNonQuery();
             }
-            myConnection.Close();
-
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
         }
         public DataSet GetAllSent()
         {
@@ -417,24 +496,23 @@ namespace WindowsFormsApp1
         }
         public void Deliver(List<int> ids)
         {
-            myConnection.Open();
-            int id = 0;
-            for (int i = 0; i < ids.Count; i++)
+            string listOfIds = string.Join(",", ids);
+            string sSql = $"Update Orders set OrderStatus = 'נמסר' , OrderDelivered = Now() where OrderId IN ({listOfIds})";
+            try
             {
-                id = ids[i];
-                string sSql = "Update Orders set OrderStatus = 'נמסר' , OrderDelivered = #" + DateTime.Now + "# where OrderId = " + id;
-                try
-                {
-
-                    OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
-                    myCmd.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                myConnection.Open();
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                myCmd.ExecuteNonQuery();
             }
-            myConnection.Close();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+
         }
         public DataSet GetAllSentById(int id)
         {
@@ -458,5 +536,122 @@ namespace WindowsFormsApp1
             }
             return dataset;
         }
+        public List<int> ListOfInvoices(List<int> ids)
+        {
+            List<int> listOfInvoices = new List<int>();
+            string listOfIds = string.Join(",", ids);
+            string query = $"SELECT OrderId FROM Orders WHERE OrderId IN ({listOfIds}) AND (OrderInvoice <> 1 or OrderCheck <> 1)";
+            OleDbCommand command = new OleDbCommand(query, myConnection);
+            try
+            {
+                myConnection.Open();
+                OleDbDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int orderId = Convert.ToInt32(reader["OrderId"]);
+                    listOfInvoices.Add(orderId);
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return listOfInvoices;
+        }
+        public int OrdersPriceSum(List<int> ids)
+        {
+            int total = 0;
+            string stringIds = string.Join(",", ids);
+            string query = $"SELECT SUM(OrderPrice) AS TotalPrice FROM Orders WHERE OrderID IN ({stringIds})";
+
+            OleDbCommand command = new OleDbCommand(query, myConnection);
+            try
+            {
+                myConnection.Open();
+                object result = command.ExecuteScalar();
+
+                if (result != DBNull.Value)
+                {
+                    total = Convert.ToInt32(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return total;
+        }
+        public void UpdateOrdersInvoice(List<int> ids, int invoiceId)
+        {
+            string stringIds = string.Join(",", ids);
+            string query = $"UPDATE Orders SET OrderInvoice = {invoiceId} WHERE OrderId IN ({stringIds})";
+
+
+            OleDbCommand command = new OleDbCommand(query, myConnection);
+            try
+            {
+                myConnection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+        public void SetOrdersCheck(List<int> ids, int CheckId)
+        {
+            string stringIds = string.Join(",", ids);
+            string sSql = $"UPDATE Orders SET OrderCheck = {CheckId}, OrderFull = True, OrderPaid = OrderPrice WHERE OrderId IN ({stringIds})";
+            myConnection.Open();
+            try
+            {
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                myCmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+        public DataSet NeedsReceipt(int id)
+        {
+            string query = $"SELECT * FROM Orders WHERE OrderFull = False and OrderO = {id} and OrderInvoice <> 1 and OrderCheck = 1";
+            DataSet dataSet = new DataSet();
+            OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, myConnection);
+            try
+            {
+                myConnection.Open();
+                dataAdapter.Fill(dataSet, "Orders");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return dataSet;
+        }
+        
     }
 }

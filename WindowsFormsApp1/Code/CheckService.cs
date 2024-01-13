@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
             try
             {
                 myConnection.Open();
-                string sSql = "INSERT INTO Checks(CheckName, CheckUser, CheckPrice, CheckDate, CheckType) VALUES('" + p.Name + "'," + p.User + "," + p.Price + ",#" + p.Date + "#," + p.Type + ")";
+                string sSql = $"INSERT INTO Checks(CheckName, CheckUser, CheckPrice, CheckDate, CheckType) VALUES('{p.Name}',{p.User} , {p.Price} , Now(), {p.Type})";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 myCmd.ExecuteNonQuery();
             }
@@ -148,12 +148,13 @@ namespace WindowsFormsApp1
             {
                 myConnection.Open();
                 DateTime pastDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddMonths(-12);
-                string formatted = pastDate.ToString("MM/dd/yyyy");
+                string formatted = pastDate.ToString("mm/dd/yyyy");
                 string sSql = "SELECT Year(CheckDate) AS PaymentYear, Month(CheckDate) AS PaymentMonth, SUM(CheckPrice) AS TotalPaidAmount " +
                                   "FROM Checks " +
-                                  $"WHERE CheckDate >= #{formatted}# " + // Filter for the past 12 months
+                                  "WHERE Year(CheckDate) > Year(DateAdd('m', -12, Now()))" +
+                                  "OR(Year(CheckDate) = Year(DateAdd('m', -12, Now())) AND Month(CheckDate) >= Month(DateAdd('m', -12, Now())))" + // Filter for the past 12 months
                                   "GROUP BY Year(CheckDate), Month(CheckDate)";
-
+                
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 OleDbDataReader reader = myCmd.ExecuteReader();
                 while (reader.Read())
@@ -213,7 +214,8 @@ namespace WindowsFormsApp1
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    
+
                 }
                 finally
                 {
@@ -227,10 +229,12 @@ namespace WindowsFormsApp1
         public DataSet GetAllChecksByDate(DateTime date)
         {
             DataSet dataset = new DataSet();
+            string formatted = date.ToString("MM/dd/yyyy");
             try
             {
                 myConnection.Open();
-                string sSql = "select * from Checks, Types, Users WHERE CheckDate between #" + date +"# And #" +DateTime.Now+"# And Users.UserId = Checks.CheckUser AND Types.TypeId = Checks.CheckType";
+                string sSql = "select * from Checks, Types, Users WHERE CheckDate between #" + formatted +"# And Now()"
+                    +" And Users.UserId = Checks.CheckUser AND Types.TypeId = Checks.CheckType";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 OleDbDataAdapter adapter = new OleDbDataAdapter();
                 adapter.SelectCommand = myCmd;
@@ -252,7 +256,94 @@ namespace WindowsFormsApp1
             try
             {
                 myConnection.Open();
-                string sSql = "select * from Checks WHERE CheckType = " + t + " AND CheckDate between #" + date + "# And #" + DateTime.Now + "#";
+                string sSql = "select * from Checks WHERE CheckType = " + t + " AND CheckDate between #" + date + "# And Now()";
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                OleDbDataAdapter adapter = new OleDbDataAdapter();
+                adapter.SelectCommand = myCmd;
+                adapter.Fill(dataset, "Checks");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return dataset;
+        }
+        public int HighestCheck()
+        {
+            int id = 0;
+            string query = $"SELECT MAX(CheckId) FROM Checks"; // Replace YourTable with the actual table name
+            OleDbCommand command = new OleDbCommand(query, myConnection);
+            try
+            {
+                myConnection.Open();
+                object result = command.ExecuteScalar();
+
+                if (result != DBNull.Value)
+                {
+                    id = Convert.ToInt32(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return id;
+        }
+        public DataSet GetCheckById(int check)
+        {
+            DataSet dataset = new DataSet();
+            try
+            {
+                myConnection.Open();
+                string sSql = $"select Types.*, Checks.CheckId, Checks.CheckPrice, Checks.CheckType, Checks.CheckDate, Checks.CheckPrinted, Checks.CheckName From Types, Checks Where Checks.CheckId = {check} And Checks.CheckType = Types.TypeId";
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                OleDbDataAdapter adapter = new OleDbDataAdapter();
+                adapter.SelectCommand = myCmd;
+                adapter.Fill(dataset, "Checks");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return dataset;
+        }
+        public void SetCheckPrinted(int id)
+        {
+            string sSql = $"Update Checks SET CheckPrinted = True Where CheckId = {id}";
+            try
+            {
+                myConnection.Open();
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                myCmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+        public DataSet GetAllChecksByUserId(int id)
+        {
+            DataSet dataset = new DataSet();
+            try
+            {
+                myConnection.Open();
+                string sSql = $"select CheckId as IdColumn, CheckName as Name, CheckPrice as Price, CheckDate as DateColumn from Checks where CheckUser = {id}";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 OleDbDataAdapter adapter = new OleDbDataAdapter();
                 adapter.SelectCommand = myCmd;

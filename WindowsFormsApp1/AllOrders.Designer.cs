@@ -29,17 +29,20 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AllOrders));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.OrderGrid = new System.Windows.Forms.DataGridView();
             this.label26 = new System.Windows.Forms.Label();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.ReturnButton = new WindowsFormsApp1.MyButton();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.SelectAllOrder = new WindowsFormsApp1.MyButton();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
+            this.CreateInvoice = new WindowsFormsApp1.MyButton();
+            this.CheckBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.OrderId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OrderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,8 +52,6 @@
             this.OrderPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OrderFinish = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Paid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SelectAllOrder = new WindowsFormsApp1.MyButton();
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.OrderGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,17 +65,17 @@
             this.OrderGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.OrderGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.OrderGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Secular One", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.OrderGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Secular One", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.OrderGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.OrderGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.OrderGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Select,
+            this.CheckBox,
             this.OrderId,
             this.FullName,
             this.OrderName,
@@ -84,14 +85,14 @@
             this.OrderPrice,
             this.OrderFinish,
             this.Paid});
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(244)))), ((int)(((byte)(235)))));
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(196)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.OrderGrid.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(244)))), ((int)(((byte)(235)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Secular One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(196)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.OrderGrid.DefaultCellStyle = dataGridViewCellStyle6;
             this.OrderGrid.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.OrderGrid.EnableHeadersVisualStyles = false;
             this.OrderGrid.Location = new System.Drawing.Point(0, 83);
@@ -140,7 +141,7 @@
             this.ReturnButton.ForeColor = System.Drawing.Color.White;
             this.ReturnButton.ImageKey = "repair.png";
             this.ReturnButton.ImageList = this.imageList1;
-            this.ReturnButton.Location = new System.Drawing.Point(59, 23);
+            this.ReturnButton.Location = new System.Drawing.Point(124, 26);
             this.ReturnButton.Name = "ReturnButton";
             this.ReturnButton.Size = new System.Drawing.Size(82, 43);
             this.ReturnButton.TabIndex = 18;
@@ -154,13 +155,62 @@
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "repair.png");
+            this.imageList1.Images.SetKeyName(1, "GetItems.png");
             // 
-            // Select
+            // SelectAllOrder
             // 
-            this.Select.HeaderText = "";
-            this.Select.MinimumWidth = 50;
-            this.Select.Name = "Select";
-            this.Select.Width = 50;
+            this.SelectAllOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
+            this.SelectAllOrder.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
+            this.SelectAllOrder.BorderColor = System.Drawing.Color.LavenderBlush;
+            this.SelectAllOrder.BorderRadius = 0;
+            this.SelectAllOrder.BorderSize = 0;
+            this.SelectAllOrder.FlatAppearance.BorderSize = 0;
+            this.SelectAllOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SelectAllOrder.ForeColor = System.Drawing.Color.Lime;
+            this.SelectAllOrder.ImageKey = "checkbox.png";
+            this.SelectAllOrder.ImageList = this.imageList2;
+            this.SelectAllOrder.Location = new System.Drawing.Point(1057, 83);
+            this.SelectAllOrder.Name = "SelectAllOrder";
+            this.SelectAllOrder.Size = new System.Drawing.Size(41, 32);
+            this.SelectAllOrder.TabIndex = 58;
+            this.SelectAllOrder.TextColor = System.Drawing.Color.Lime;
+            this.SelectAllOrder.UseVisualStyleBackColor = false;
+            this.SelectAllOrder.Click += new System.EventHandler(this.SelectAllOrder_Click);
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "checkbox.png");
+            // 
+            // CreateInvoice
+            // 
+            this.CreateInvoice.BackColor = System.Drawing.Color.DodgerBlue;
+            this.CreateInvoice.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.CreateInvoice.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.CreateInvoice.BorderRadius = 17;
+            this.CreateInvoice.BorderSize = 0;
+            this.CreateInvoice.FlatAppearance.BorderSize = 0;
+            this.CreateInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CreateInvoice.ForeColor = System.Drawing.Color.White;
+            this.CreateInvoice.ImageKey = "GetItems.png";
+            this.CreateInvoice.ImageList = this.imageList1;
+            this.CreateInvoice.Location = new System.Drawing.Point(26, 26);
+            this.CreateInvoice.Name = "CreateInvoice";
+            this.CreateInvoice.Size = new System.Drawing.Size(82, 43);
+            this.CreateInvoice.TabIndex = 59;
+            this.CreateInvoice.TextColor = System.Drawing.Color.White;
+            this.toolTip1.SetToolTip(this.CreateInvoice, "חשבונית");
+            this.CreateInvoice.UseVisualStyleBackColor = false;
+            this.CreateInvoice.Visible = false;
+            this.CreateInvoice.Click += new System.EventHandler(this.CreateInvoice_Click);
+            // 
+            // CheckBox
+            // 
+            this.CheckBox.HeaderText = "";
+            this.CheckBox.MinimumWidth = 50;
+            this.CheckBox.Name = "CheckBox";
+            this.CheckBox.Width = 50;
             // 
             // OrderId
             // 
@@ -219,9 +269,9 @@
             // OrderPrice
             // 
             this.OrderPrice.DataPropertyName = "OrderPrice";
-            dataGridViewCellStyle14.Format = "C2";
-            dataGridViewCellStyle14.NullValue = null;
-            this.OrderPrice.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle5.Format = "C2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.OrderPrice.DefaultCellStyle = dataGridViewCellStyle5;
             this.OrderPrice.HeaderText = "מחיר";
             this.OrderPrice.Name = "OrderPrice";
             this.OrderPrice.ReadOnly = true;
@@ -241,37 +291,12 @@
             this.Paid.Name = "Paid";
             this.Paid.ReadOnly = true;
             // 
-            // SelectAllOrder
-            // 
-            this.SelectAllOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
-            this.SelectAllOrder.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(219)))), ((int)(((byte)(244)))));
-            this.SelectAllOrder.BorderColor = System.Drawing.Color.LavenderBlush;
-            this.SelectAllOrder.BorderRadius = 0;
-            this.SelectAllOrder.BorderSize = 0;
-            this.SelectAllOrder.FlatAppearance.BorderSize = 0;
-            this.SelectAllOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SelectAllOrder.ForeColor = System.Drawing.Color.Lime;
-            this.SelectAllOrder.ImageKey = "checkbox.png";
-            this.SelectAllOrder.ImageList = this.imageList2;
-            this.SelectAllOrder.Location = new System.Drawing.Point(1057, 83);
-            this.SelectAllOrder.Name = "SelectAllOrder";
-            this.SelectAllOrder.Size = new System.Drawing.Size(41, 32);
-            this.SelectAllOrder.TabIndex = 58;
-            this.SelectAllOrder.TextColor = System.Drawing.Color.Lime;
-            this.SelectAllOrder.UseVisualStyleBackColor = false;
-            this.SelectAllOrder.Click += new System.EventHandler(this.SelectAllOrder_Click);
-            // 
-            // imageList2
-            // 
-            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList2.Images.SetKeyName(0, "checkbox.png");
-            // 
             // AllOrders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1103, 581);
+            this.Controls.Add(this.CreateInvoice);
             this.Controls.Add(this.SelectAllOrder);
             this.Controls.Add(this.ReturnButton);
             this.Controls.Add(this.SearchText);
@@ -293,7 +318,10 @@
         private MyButton ReturnButton;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
+        private MyButton SelectAllOrder;
+        private System.Windows.Forms.ImageList imageList2;
+        private MyButton CreateInvoice;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn CheckBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderId;
         private System.Windows.Forms.DataGridViewTextBoxColumn FullName;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderName;
@@ -303,7 +331,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderFinish;
         private System.Windows.Forms.DataGridViewTextBoxColumn Paid;
-        private MyButton SelectAllOrder;
-        private System.Windows.Forms.ImageList imageList2;
     }
 }

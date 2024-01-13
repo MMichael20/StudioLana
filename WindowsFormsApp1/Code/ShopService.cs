@@ -40,7 +40,7 @@ namespace WindowsFormsApp1
             try
             {
                 myConnection.Open();
-                string sSql = $"INSERT INTO Shop(ShopName, ShopNote, ShopAmount, ShopDate) VALUES('{p.Name}', '{p.Note}', {p.Bought}, #{p.Date}#)";
+                string sSql = $"INSERT INTO Shop(ShopName, ShopNote, ShopAmount, ShopDate) VALUES('{p.Name}', '{p.Note}', {p.Bought}, Now())";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 myCmd.ExecuteNonQuery();
             }

@@ -13,13 +13,13 @@ namespace WindowsFormsApp1
             string connectionString = Connect.GetConnectionString();
             myConnection = new OleDbConnection(connectionString);
         }
-        public void SetStartWork(string name, DateTime dateTime)
+        public void SetStartWork(string name)
         {
             try
             {
                 myConnection.Open();
                 
-                string sSql = $"INSERT INTO Clock(ClockName, ClockEntry) VALUES('{name}', #{dateTime}#)";
+                string sSql = $"INSERT INTO Clock(ClockName, ClockEntry) VALUES('{name}', Now())";
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 myCmd.ExecuteNonQuery();
             }
@@ -32,13 +32,13 @@ namespace WindowsFormsApp1
                 myConnection.Close();
             }
         }
-        public void SetEndWork(string name, DateTime dateTime)
+        public void SetEndWork(string name)
         {
             try
             {
                 myConnection.Open();
 
-                string sSql = $"UPDATE Clock SET ClockExit = #{dateTime}# , ClockDiff =DATEDIFF('n', ClockEntry, #{dateTime}#) WHERE ClockName = '{name}' And ClockExit IS NULL";
+                string sSql = $"UPDATE Clock SET ClockExit = Now() , ClockDiff =DATEDIFF('n', ClockEntry, Now()) WHERE ClockName = '{name}' And ClockExit IS NULL";
                 
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
                 myCmd.ExecuteNonQuery();
@@ -124,10 +124,11 @@ namespace WindowsFormsApp1
         public int IsThereEntry(string name)
         {
             int count = 0;
+            string date = DateTime.Now.ToString("MM/dd/yyyy");
             try
             {
                 myConnection.Open();
-                string sSql = $"SELECT COUNT(*) FROM Clock WHERE ClockName = '{name}' AND DATEVALUE(ClockEntry) = #{DateTime.Now.ToShortDateString()}# AND ClockExit IS NULL";
+                string sSql = $"SELECT COUNT(*) FROM Clock WHERE ClockName = '{name}' AND DATEVALUE(ClockEntry) = #{date}# AND ClockExit IS NULL";
                 
                 OleDbCommand checkCommand = new OleDbCommand(sSql, myConnection);
                 count = (int)checkCommand.ExecuteScalar();

@@ -6,6 +6,7 @@ namespace WindowsFormsApp1
 {
     public partial class InputForm : Form
     {
+        static bool isInt = false;
         public InputForm()
         {
             InitializeComponent();
@@ -17,22 +18,43 @@ namespace WindowsFormsApp1
             ChangeLabel.Location = new Point((this.Width - ChangeLabel.Size.Width) / 2, (ChangeLabel.Location.Y));
         }
 
-        public InputForm(string label)
+        public InputForm(string label, bool isInted)
         {
             this.KeyPreview = true; 
             InitializeComponent();
             ChangeLabel.Text = label;
             CenterAll();
+            isInt = isInted;
 
         }
         public string userInput
         {
             get { return UserInput.Texts;}
+            
+        }
+        public int userInputInt
+        {
+            get { return int.Parse(UserInput.Texts); }
         }
         private void YesIcon_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (isInt)
+            {
+                if(!int.TryParse(UserInput.Texts, out int num))
+                {
+                    MessageBox.Show("רשום רק מספרים");
+                }
+                else
+                {
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+            }
+            else
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
 
         private void InputForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -50,7 +72,10 @@ namespace WindowsFormsApp1
                 YesIcon_Click(sender, e);
             }
         }
-
+        public void SetInputText(string text)
+        {
+            UserInput.Texts = text;
+        }
 
     }
 }

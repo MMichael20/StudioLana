@@ -26,7 +26,7 @@ namespace WindowsFormsApp1
             CityService cs = new CityService();
             return cs.GetId(x);
         }
-        public DataSet HighestUser()
+        public int HighestUser()
         {
             UserService us = new UserService();
             return us.HighestUser();
@@ -225,6 +225,186 @@ namespace WindowsFormsApp1
             //return us.GetUsers();
             OrderService os = new OrderService();
             return os.GetAllSentById(id);
+        }
+        public DataSet GetAllUnpaidOrdersById(int id)
+        {
+            OrderService os = new OrderService();
+            return os.GetAllUnpaidOrdersById(id);
+        }
+        public void CloseDebt(int id, int amount)
+        {
+            OrderService os = new OrderService();
+            os.CloseDebt(id, amount);
+        }
+        public void UpdateFull(int id)
+        {
+            OrderService os = new OrderService();
+            os.UpdateFull(id);
+        }
+        public void PayForOrders(int id, int amount)
+        {
+            OrderService os = new OrderService();
+            os.PayForOrders(id, amount);
+        }
+        public void NewCheck(Check p)
+        {
+            CheckService cs = new CheckService();
+            cs.NewCheck(p);
+        }
+        public void Pay(List<int[]> listId)
+        {
+            OrderService os = new OrderService();
+            os.Pay(listId);
+        }
+        public DataSet GetAllUnfinshedOrdersById(int id)
+        {
+            OrderService os = new OrderService();
+            return os.GetAllUnfinishedOrdersById(id);
+        }
+        public int HighestInvoice()
+        {
+            InvoiceService os = new InvoiceService();
+            return os.HighestInvoice();
+        }
+        public List<int> ListOfInvoices(List<int> ids)
+        {
+            OrderService os = new OrderService();
+            return os.ListOfInvoices(ids);
+        }
+        public int OrdersPriceSum(List<int> ids)
+        {
+            OrderService os = new OrderService();
+            return os.OrdersPriceSum(ids);
+        }
+        public void NewInvoice(Invoice invoice)
+        {
+            InvoiceService os = new InvoiceService();
+            os.NewInvoice(invoice);
+        }
+        public void UpdateOrdersInvoice(List<int> ids, int invoiceId)
+        {
+            OrderService os = new OrderService();
+            os.UpdateOrdersInvoice(ids, invoiceId);
+        }
+        public DataSet NeedsReceipt(int id)
+        {
+            OrderService os = new OrderService();
+            return os.NeedsReceipt(id);
+        }
+        public void SetOrdersCheck(List<int> ids, int CheckId)
+        {
+            OrderService os = new OrderService();
+            os.SetOrdersCheck(ids, CheckId);
+        }
+        public int HighestCheck()
+        {
+            CheckService cs = new CheckService();
+            return cs.HighestCheck();
+        }
+        public int HighestReceipt()
+        {
+            ReceiptService cs = new ReceiptService();
+            return cs.HighestReceipt();
+        }
+        public void NewReceipt(Receipt i)
+        {
+            ReceiptService cs = new ReceiptService();
+            cs.NewReceipt(i);
+        }
+        public DataSet GetAllInvoicelessOrdersById(int id)
+        {
+            OrderService os = new OrderService();
+            return os.GetAllInvoicelessOrdersById(id);
+        }
+        public DataSet GetCheckPrint(int check)
+        {
+            OrderService os = new OrderService();
+            return os.GetCheckPrint(check);
+        }
+        public DataSet GetCheckById(int check)
+        {
+            CheckService cs = new CheckService();
+            return cs.GetCheckById(check);
+        }
+        public DataSet GetReceiptById(int id)
+        {
+            ReceiptService cs = new ReceiptService();
+            return cs.GetReceiptById(id);
+        }
+        public DataSet GetInvoiceById(int id)
+        {
+            InvoiceService cs = new InvoiceService();
+            return cs.GetInvoiceById(id);
+        }
+        public DataSet GetInvoicePrint(int invoice)
+        {
+            OrderService cs = new OrderService();
+            return cs.GetInvoicePrint(invoice);
+        }
+        public void SetInvoicePrinted(int id)
+        {
+            InvoiceService os = new InvoiceService();
+            os.SetInvoicePrinted(id);
+        }
+        public void SetReceiptPrinted(int id)
+        {
+            ReceiptService os = new ReceiptService();
+            os.SetReceiptPrinted(id);
+        }
+        public void SetCheckPrinted(int id)
+        {
+            CheckService cs = new CheckService();
+            cs.SetCheckPrinted(id);
+        }
+        public DataSet GetAllReceiptsByUserId(int id)
+        {
+            ReceiptService os = new ReceiptService();
+            return os.GetAllReceiptsByUserId(id);
+        }
+        public DataSet GetReceiptByIdTable(int id)
+        {
+            ReceiptService os = new ReceiptService();
+            return os.GetReceiptByIdTable(id);
+        }
+        public DataSet GetAllInvoicesByUserId(int id)
+        {
+            InvoiceService os = new InvoiceService();
+            return os.GetAllInvoicesByUserId(id);
+        }
+        public DataSet GetAllChecksByUserId(int id)
+        {
+            CheckService cs = new CheckService();
+            return cs.GetAllChecksByUserId(id);
+        }
+        public DataSet GetInvoicesByIdTable(int id)
+        {
+            InvoiceService cs = new InvoiceService();
+            return cs.GetAllInvoicesByIdTable(id);
+        }
+        public bool isRegisterOpen()
+        {
+            RegisterService os = new RegisterService();
+            return os.isRegisterOpen();
+        }
+        public void OpenRegister(int amount)
+        {
+            RegisterService os = new RegisterService();
+            os.OpenRegister(amount);
+        }
+        public int SuggestOpen()
+        {
+            RegisterService os = new RegisterService();
+            return os.SuggestOpen();
+        }
+        public Register GetTodayRegister()
+        {
+            RegisterService os = new RegisterService();
+            return os.GetTodayRegister();
+        }
+        public void AddMoney(int amount, string type)
+        {
+            RegisterService os = new RegisterService();
+            os.AddMoney(amount, type);
         }
 
     }

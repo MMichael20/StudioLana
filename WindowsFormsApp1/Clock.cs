@@ -14,12 +14,12 @@ namespace WindowsFormsApp1
         private void SetStartWork(string name)
         {
             ClockService cs = new ClockService();
-            cs.SetStartWork(name, DateTime.Now);
+            cs.SetStartWork(name);
         }
         private void SetEndWork(string name)
         {
             ClockService cs = new ClockService();
-            cs.SetEndWork(name, DateTime.Now);
+            cs.SetEndWork(name);
         }
         private int IsThereEntry(string name)
         {
