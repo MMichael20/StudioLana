@@ -17,5 +17,9 @@ namespace WindowsFormsApp1
             this.Name = name;
             this.Price = price;
         }
+        public Invoice()
+        {
+
+        }
     }
 }

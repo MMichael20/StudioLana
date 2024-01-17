@@ -302,36 +302,9 @@ namespace WindowsFormsApp1
         }
         private void AddMoney(int amount)
         {
-            function.AddMoney(amount, GetTypeString());
+            function.AddMoney(amount, function.GetTypeString(TypeBox.SelectedIndex));
         }
-        private string GetTypeString()
-        {
-            int index = TypeBox.SelectedIndex;
-            if (index == 0)
-            {
-                return "[Bit]";
-            }
-            else if (index == 1)
-            {
-                return "PayBox";
-            }
-            else if (index == 2)
-            {
-                return "Cash";
-            }
-            else if (index == 3)
-            {
-                return "Checks";
-            }
-            else if (index == 4)
-            {
-                return "Credit";
-            }
-            else
-            {
-                return "Other";
-            }
-        }
+        
         private void Submit_Click(object sender, EventArgs e)
         {
             SubmitAll();

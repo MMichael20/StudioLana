@@ -560,7 +560,7 @@ namespace WindowsFormsApp1
         }
         private void createInvoice(int price, int id)
         {
-            Invoice invoice = new Invoice(Choose.id, "חשבונית מספר " + id, price);
+            Invoice invoice = new Invoice(Choose.id, "חשבונית מס מספר " + id + " עבור " + Choose.u.Fname + " " + Choose.u.LName , price);
             function.NewInvoice(invoice);
         }
         private void Exp2_Click(object sender, EventArgs e)

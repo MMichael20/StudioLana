@@ -27,6 +27,12 @@ namespace WindowsFormsApp1
             this.date = DateTime.Now;
             this.type = type;
         }
+        public Check(int user, int price, int type)
+        {
+            this.user = user;
+            this.price = price;
+            this.type = type;
+        }
         public Check()
         {
 

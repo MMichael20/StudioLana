@@ -51,7 +51,7 @@ namespace WindowsFormsApp1
             OrderService os = new OrderService();
             return os.GetFinishById(x);
         }
-        public DataSet GetDebt(int x)
+        public int GetDebt(int x)
         {
             UserService us = new UserService();
             return us.GetDebt(x);
@@ -406,6 +406,167 @@ namespace WindowsFormsApp1
             RegisterService os = new RegisterService();
             os.AddMoney(amount, type);
         }
-
+        public DataTable GetAllFinanceById(int id)
+        {
+            InvoiceService os = new InvoiceService();
+            return os.GetAllFinanceById(id);
+        }
+        public int HighestReReceipt()
+        {
+            ReceiptService os = new ReceiptService();
+            return os.HighestReReceipt();
+        }
+        public string FullNameById(int id)
+        {
+            UserService us = new UserService();
+            return us.FullNameById(id);
+        }
+        public void NewReReceipt(List<Receipt> receipts)
+        {
+            ReceiptService us = new ReceiptService();
+            us.NewReReceipt(receipts);
+        }
+        public int GetReceiptTypeById(int id)
+        {
+            ReceiptService us = new ReceiptService();
+            return us.GetReceiptTypeById(id);
+        }
+        public Receipt GetReceiptCopyById(int id)
+        {
+            ReceiptService us = new ReceiptService();
+            return us.GetReceiptCopyById(id);
+        }
+        public DataSet GetReReceiptById(int id)
+        {
+            ReceiptService us = new ReceiptService();
+            return us.GetReReceiptById(id);
+        }
+        public void SetReReceiptPrinted(int id)
+        {
+            ReceiptService us = new ReceiptService();
+            us.SetReReceiptPrinted(id);
+        }
+        public DataSet ReceiptRefund(int id)
+        {
+            OrderService us = new OrderService();
+            return us.ReceiptRefund(id);
+        }
+        public void Refund(List<int[]> listId)
+        {
+            OrderService us = new OrderService();
+            us.Refund(listId);
+        }
+        public void SetReceiptCanceled(int id)
+        {
+            ReceiptService us = new ReceiptService();
+            us.SetReceiptCanceled(id);
+        }
+        public List<int> CanceledReceipts(List<int> ids)
+        {
+            ReceiptService us = new ReceiptService();
+            return us.CanceledReceipts(ids);
+        }
+        public List<int> canceledInvoices(List<int> ids)
+        {
+            InvoiceService us = new InvoiceService();
+            return us.canceledInvoices(ids);
+        }
+        public List<int> OrdersPaid(List<int> ids)
+        {
+            OrderService os = new OrderService();
+            return os.OrdersPaid(ids);
+        }
+        public Invoice GetInvoiceCopyById(int id)
+        {
+            InvoiceService os = new InvoiceService();
+            return os.GetInvoiceCopyById(id);
+        }
+        public List<int> OrdersPaidByInvoice(List<int> ids)
+        {
+            OrderService os = new OrderService();
+            return os.OrdersPaidByInvoice(ids);
+        }
+        public void SetOrdersReInvoiceByInvoice(int invoiceId, int reInvoiceId)
+        {
+            OrderService os = new OrderService();
+            os.SetOrdersReInvoiceByInvoice(invoiceId, reInvoiceId);
+        }
+        public int HighestReInvoice()
+        {
+            InvoiceService os = new InvoiceService();
+            return os.HighestReInvoice();
+        }
+        public void NewReInvoice(List<Invoice> invoices)
+        {
+            InvoiceService os = new InvoiceService();
+            os.NewReInvoice(invoices);
+        }
+        public DataSet GetReInvoicePrint(int reInvoice)
+        {
+            OrderService os = new OrderService();
+            return os.GetReInvoicePrint(reInvoice);
+        }
+        public void SetInvoiceCanceled(int id)
+        {
+            InvoiceService os = new InvoiceService();
+            os.SetInvoiceCanceled(id);
+        }
+        public DataSet GetReInvoiceById(int id)
+        {
+            InvoiceService os = new InvoiceService();
+            return os.GetReInvoiceById(id);
+        }
+        public void SetReInvoicePrinted(int id)
+        {
+            InvoiceService os = new InvoiceService();
+            os.SetReInvoicePrinted(id);
+        }
+        public string GetTypeString(int index)
+        {
+            if (index == 0)
+            {
+                return "[Bit]";
+            }
+            else if (index == 1)
+            {
+                return "PayBox";
+            }
+            else if (index == 2)
+            {
+                return "Cash";
+            }
+            else if (index == 3)
+            {
+                return "Checks";
+            }
+            else if (index == 4)
+            {
+                return "Credit";
+            }
+            else
+            {
+                return "Other";
+            }
+        }
+        public Check GetCheckCopyById(int id)
+        {
+            CheckService cs = new CheckService();
+            return cs.GetCheckCopyById(id);
+        }
+        public void SetOrdersReInvoiceByCheck(int CheckId, int reInvoiceId)
+        {
+            OrderService os = new OrderService();
+            os.SetOrdersReInvoiceByCheck(CheckId, reInvoiceId);
+        }
+        public void SetCheckCanceled(int id)
+        {
+            CheckService cs = new CheckService();
+            cs.SetCheckCanceled(id);
+        }
+        public List<int> canceledChecks(List<int> ids)
+        {
+            CheckService cs = new CheckService();
+            return cs.canceledChecks(ids);
+        }
     }
 }

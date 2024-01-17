@@ -64,6 +64,7 @@ namespace WindowsFormsApp1
             Populate(Choose.u);
             Block();
             tabControl1.SelectedIndex = 2;
+            PopulateFinance();
         }
         private List<int> IdSelected(DataGridView table, int index, int idIndex)
         {
@@ -168,6 +169,13 @@ namespace WindowsFormsApp1
             PopulateShop();
             CalculateProfit();
             populateGraff();
+            PopulateFinance();
+
+        }
+        private void PopulateFinance()
+        {
+            FinanceGrid.AutoGenerateColumns = false;
+            FinanceGrid.DataSource = function.GetAllFinanceById(Choose.id);
 
         }
         private void Main_Load(object sender, EventArgs e)
@@ -177,7 +185,6 @@ namespace WindowsFormsApp1
             //Clock w = new Clock();
             //w.Show();
             //function.SortChecks();
-
         }
         private void UserS_Click(object sender, EventArgs e)
         {
@@ -189,7 +196,13 @@ namespace WindowsFormsApp1
                 Block();
             }
         }
-        public void Populate(User u)
+        public void PopulateDebt()
+        {
+            int debt = function.GetDebt(Choose.id);
+            Debt.Text = String.Format("₪ {0:n}", debt.ToString());
+            DebtBox.Text = String.Format("₪ {0:n}", debt.ToString());
+        }
+        private void Populate(User u)
         {
             Mname.Text = u.Fname + " " + u.LName;
             Debt.Text = String.Format("₪ {0:n}", u.Debt.ToString());
@@ -243,7 +256,7 @@ namespace WindowsFormsApp1
             DebtBox.ReadOnly = true;
             isBlocked = true;
         }
-        public void ResetAllBoxes()
+        private void ResetAllBoxes()
         {
             FnameBox.Text = "";
             LnameBox.Text = "";
@@ -256,7 +269,7 @@ namespace WindowsFormsApp1
             EmailBox.Text = "";
             DebtBox.Text = "";
         }
-        public void Unpopulate()
+        private void Unpopulate()
         {
             Mname.Text = "";
             Debt.Text = "";
@@ -317,8 +330,6 @@ namespace WindowsFormsApp1
                 CityForm cf = new CityForm();
                 cf.Show();
             }
-
-
         }
         public void UpdateCity(int x)
         {
@@ -477,6 +488,7 @@ namespace WindowsFormsApp1
                     System.Threading.Thread.Sleep(100);
                     PrintPreview.Document = printDocument1;
                     PrintPreview.ShowDialog();
+                    printInvoice();
                     //for(int i = 0)
                     //printDocument1.Print();
                 }
@@ -536,30 +548,42 @@ namespace WindowsFormsApp1
             }
             else
             {
-                DialogResult result = MessageBox.Show("האם בטוח שלמחוק?", "Confirmation", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("רציני את רוצה לבטל", "Confirmation", MessageBoxButtons.YesNo);
 
                 if (result == DialogResult.Yes)
                 {
-                    int total = 0;
-                    foreach (DataGridViewRow row in OrderGrid.Rows)
+                    List<int> ordersPaid = function.OrdersPaid(ids);
+                    List<int> listOfInvoices = function.ListOfInvoices(ids);
+                    if(ordersPaid.Count > 0)
                     {
-                        if (row.Cells[0].Value != null && Convert.ToBoolean(row.Cells[0].Value) == true)
-                        {
-                            total += int.Parse(row.Cells["OrderPrice"].Value.ToString());
-                        }
+                        MessageBox.Show("הזמנות " + String.Join(", ", ordersPaid) + " כבר שולמו");
                     }
-                    function.UpdateStatus(IdSelected(OrderGrid, 0, 1), "בוטל");
-                    int newDebt = Choose.u.Debt - total;
-                    Choose.u.Debt = newDebt;
-                    function.SetDebt(Choose.id, newDebt);
-                    MessageBox.Show("הפריט הוסר בהצלחה");
-                    OrderGrid.AutoGenerateColumns = false;
-                    OrderGrid.DataSource = function.GetOrders(Choose.id);
-                    OrderGrid.DataMember = "Orders";
-                    Calculate();
-                    Populate(Choose.u);
+                    else if (listOfInvoices.Count > 0)
+                    {
+                        MessageBox.Show("להזמנות " + String.Join(", ", listOfInvoices) + " קיימות חשבונית מס");
+                    }
+                    else
+                    {
+                        int total = 0;
+                        foreach (DataGridViewRow row in OrderGrid.Rows)
+                        {
+                            if (row.Cells[0].Value != null && Convert.ToBoolean(row.Cells[0].Value) == true)
+                            {
+                                total += int.Parse(row.Cells["OrderPrice"].Value.ToString());
+                            }
+                        }
+                        function.UpdateStatus(IdSelected(OrderGrid, 0, 1), "בוטל");
+                        int newDebt = Choose.u.Debt - total;
+                        Choose.u.Debt = newDebt;
+                        function.SetDebt(Choose.id, newDebt);
+                        MessageBox.Show("הפריט הוסר בהצלחה");
+                        OrderGrid.AutoGenerateColumns = false;
+                        OrderGrid.DataSource = function.GetOrders(Choose.id);
+                        OrderGrid.DataMember = "Orders";
+                        Calculate();
+                        Populate(Choose.u);
+                    }
                 }
-
             }
         }
         private void ReadyB_Click(object sender, EventArgs e)
@@ -673,8 +697,38 @@ namespace WindowsFormsApp1
             {
                 PrintPreview.Document = PrintReceipt;
                 PrintPreview.ShowDialog();
-                //PrintCheck.Print();
+                //PrintReceipt.Print();
                 Choose.ReceiptsToPrint.RemoveAt(0);
+            }
+        }
+        public void printReReceipt(bool changeDebt)
+        {
+            int count = Choose.ReceiptsToPrint.Count;
+            for (int i = 0; i < count; i++)
+            {
+                PrintPreview.Document = PrintReReceipt;
+                PrintPreview.ShowDialog();
+                //PrintReReceipt.Print();
+                Choose.ReceiptsToPrint.RemoveAt(0);
+            }
+            if (changeDebt)
+            {
+                PopulateDebt();
+            }
+        }
+        public void printReInvoice(bool changeDebt)
+        {
+            int count = Choose.InvoicesToPrint.Count;
+            for (int i = 0; i < count; i++)
+            {
+                PrintPreview.Document = ReInvoicePrint;
+                PrintPreview.ShowDialog();
+                //ReInvoicePrint.Print();
+                Choose.InvoicesToPrint.RemoveAt(0);
+            }
+            if (changeDebt)
+            {
+                SignIn(Choose.id);
             }
         }
         public static void CheckMaker()
@@ -2143,6 +2197,7 @@ namespace WindowsFormsApp1
             DrawAdditionalMessages(graphics, normalFont, centerX, ref topMargin);
             // The existing thank you message
             graphics.DrawString(thankYou, normalFont, brush, centerX - thankYouSize.Width / 2, topMargin);
+            function.SetCheckPrinted(Choose.ChecksToPrint[0]);
         }
 
         private void PrintReceipt_PrintPage(object sender, PrintPageEventArgs e)
@@ -2421,6 +2476,26 @@ namespace WindowsFormsApp1
                 }
                 topMargin += 25; // Increased row height
             }
+            decimal totalAmount = int.Parse(invoiceData.Tables[0].Rows[0]["InvoicePrice"].ToString());
+            decimal tax = totalAmount * 0.17m;
+            decimal beforeTax = totalAmount - tax;
+            string line1BeforeTotal = "לפני מע'מ: " + beforeTax.ToString("C");
+            string line2BeforeTotal = "סה'כ מע'מ: " + tax.ToString("C");
+
+            line1Size = measureString(line1BeforeTotal, normalFont);
+            line2Size = measureString(line2BeforeTotal, normalFont);
+
+            topMargin += 10; // Increase space between previous content and additional lines
+
+            graphics.DrawString(line1BeforeTotal, normalFont, brush, centerX - line1Size.Width / 2, topMargin);
+            topMargin += (int)line1Size.Height;
+
+            graphics.DrawString(line2BeforeTotal, normalFont, brush, centerX - line2Size.Width / 2, topMargin);
+            topMargin += (int)line2Size.Height;
+
+            string totalText = "סך הכל לתשלום: " + totalAmount.ToString("C");
+            SizeF totalSize = graphics.MeasureString(totalText, tableFont);
+            graphics.DrawString(totalText, tableFont, Brushes.Black, centerX - totalSize.Width / 2, topMargin);
             topMargin += 40;
             DrawAdditionalMessages(graphics, normalFont, centerX, ref topMargin);
             // The existing thank you message
@@ -2434,19 +2509,28 @@ namespace WindowsFormsApp1
         private void ReceiptsButton_Click(object sender, EventArgs e)
         {
             FinancePage f = new FinancePage(1);
-            f.Show();
+            if(f.ShowDialog() == DialogResult.OK)
+            {
+
+            }
         }
 
         private void ChecksButton_Click(object sender, EventArgs e)
         {
             FinancePage f = new FinancePage(3);
-            f.Show();
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+
+            }
         }
 
         private void InvoicesButton_Click(object sender, EventArgs e)
         {
             FinancePage f = new FinancePage(2);
-            f.Show();
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+
+            }
         }
 
         private void OpenRegister_Click(object sender, EventArgs e)
@@ -2481,6 +2565,310 @@ namespace WindowsFormsApp1
                     MessageBox.Show("פעולה נכשלה");
                 }
             }
+        }
+
+        private void PrintReReceipt_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            DataSet dataSet = function.GetReReceiptById(Choose.ReceiptsToPrint[0]);
+            string[] selectedColumns = { "Price", "TypeName" };
+            Dictionary<string, string> columnTitleMap = new Dictionary<string, string>
+                {
+                    { "TypeName", "אופן הפקדה" },
+                    { "Price", "סכום" },
+                    // Add more mappings as needed
+                };
+            Graphics graphics = e.Graphics;
+            Font titleFont = new Font("Arial", 16, FontStyle.Bold);
+            Font normalFont = new Font("Arial", 10);
+            Brush brush = Brushes.Black;
+            Brush headingBrush = Brushes.DarkBlue;
+            int topMargin = 20; // Set top margin to position at the top of the page
+
+            string storeName = "Studio Lana";
+            string address = "עין חנוך 15, גני תקווה";
+            string phone = "טלפון: " + "054-5606832";
+            string date = DateTime.Now.ToString("dd / MM / yyyy HH: mm");
+            string thankYou = "!תודה רבה ולהתראות";
+
+            // Calculate the width of the receipt content
+            float totalWidth = graphics.VisibleClipBounds.Width;
+
+            // Calculate the center of the drawing area
+            int centerX = (int)(totalWidth / 2);
+
+            SizeF measureString(string text, Font font) => graphics.MeasureString(text, font);
+
+            SizeF storeNameSize = measureString(storeName, titleFont);
+            SizeF addressSize = measureString(address, normalFont);
+            SizeF phoneSize = measureString(phone, normalFont);
+            SizeF dateSize = measureString(date, normalFont);
+            SizeF thankYouSize = measureString(thankYou, normalFont);
+
+            // Calculate the total height of the receipt content
+            float totalHeight = storeNameSize.Height + addressSize.Height + phoneSize.Height +
+                                dateSize.Height + // Space between sections
+                                40 + // Increased space between store information and table headers
+                                selectedColumns.Length * 30 + // Height of table headers
+                                dataSet.Tables[0].Rows.Count * 25;
+
+            topMargin = 20;
+
+            graphics.DrawString(storeName, titleFont, headingBrush, centerX - storeNameSize.Width / 2, topMargin);
+            topMargin += (int)storeNameSize.Height;
+            graphics.DrawString(address, normalFont, brush, centerX - addressSize.Width / 2, topMargin);
+            topMargin += (int)addressSize.Height;
+            graphics.DrawString(phone, normalFont, brush, centerX - phoneSize.Width / 2, topMargin);
+            topMargin += (int)phoneSize.Height;
+            graphics.DrawString(date, normalFont, brush, centerX - dateSize.Width / 2, topMargin);
+            topMargin += (int)dateSize.Height;
+            // Define the text for the three lines
+            //string line1 = "לכ': " + Choose.u.Fname + " " + Choose.u.LName;
+            string extraLine;
+            if (Boolean.Parse(dataSet.Tables[0].Rows[0]["Printed"].ToString()))
+            {
+                extraLine = "העתק";
+            }
+            else
+            {
+                extraLine = "מקור";
+            }
+            string name = dataSet.Tables[0].Rows[0]["FullName"].ToString();
+            int index = name.IndexOf('ע');
+            string line1 = name.Substring(0, index);
+            string nameLine = name.Substring(index);
+            string line2 = "תאריך הפקה: " + dataSet.Tables[0].Rows[0]["FullDate"].ToString();
+            Font headlineFont = new Font("Arial", 12, FontStyle.Bold);
+
+            // Measure the sizes of these lines
+            SizeF line1Size = measureString(line1, headlineFont);
+            SizeF nameLineSize = measureString(nameLine, headlineFont);
+            SizeF line2Size = measureString(line2, normalFont);
+            SizeF extraLineSize = measureString(extraLine, normalFont);
+            topMargin += 10; // Add space before the table segment
+
+            // Draw headline style line
+            graphics.DrawString(line1, headlineFont, headingBrush, centerX - line1Size.Width / 2, topMargin);
+            topMargin += (int)line1Size.Height + 5; // Add some space between headline and normal text lines
+            graphics.DrawString(nameLine, headlineFont, headingBrush, centerX - nameLineSize.Width / 2, topMargin);
+            topMargin += (int)nameLineSize.Height + 5; // Add some space between headline and normal text lines
+
+            graphics.DrawString(extraLine, normalFont, brush, centerX - extraLineSize.Width / 2, topMargin);
+            topMargin += (int)extraLineSize.Height + 5;
+
+            graphics.DrawString(line2, normalFont, brush, centerX - line2Size.Width / 2, topMargin);
+            topMargin += (int)line2Size.Height + 10;
+
+            Font tableFont = new Font("Arial", 10);
+            Font HeaderTableFont = new Font("Arial", 10, FontStyle.Bold);
+
+            int columnWidth = 50; // Increased column width
+            int columnSpacing = 30; // Increased column spacing
+
+            for (int i = 0; i < selectedColumns.Length; i++)
+            {
+                string columnName = selectedColumns[i];
+                string columnTitle = columnTitleMap.ContainsKey(columnName) ? columnTitleMap[columnName] : columnName;
+                SizeF columnTitleSize = graphics.MeasureString(columnTitle, HeaderTableFont);
+
+                // Calculate the center for each column
+                int xPosition = (int)(((totalWidth - (selectedColumns.Length * columnWidth) - (selectedColumns.Length - 1) * columnSpacing)) / 2) + i * (columnWidth + columnSpacing);
+                int textOffset = (int)((columnWidth - columnTitleSize.Width) / 2); // Adjust for text alignment
+
+                graphics.DrawString(columnTitle, HeaderTableFont, Brushes.Black, xPosition + textOffset, topMargin);
+            }
+
+            topMargin += 30; // Increased space between table header and data
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                for (int i = 0; i < selectedColumns.Length; i++)
+                {
+                    int columnIndex = dataSet.Tables[0].Columns.IndexOf(selectedColumns[i]);
+                    if (columnIndex >= 0)
+                    {
+                        string columnValue = row[columnIndex].ToString();
+                        SizeF columnValueSize = graphics.MeasureString(columnValue, tableFont);
+
+                        // Calculate the center for each column and adjust for text alignment
+                        int xPosition = (int)(((totalWidth - (selectedColumns.Length * columnWidth) - (selectedColumns.Length - 1) * columnSpacing)) / 2) + i * (columnWidth + columnSpacing);
+                        int textOffset = (int)((columnWidth - columnValueSize.Width) / 2); // Adjust for text alignment
+
+                        graphics.DrawString(columnValue, tableFont, Brushes.Black, xPosition + textOffset, topMargin);
+                    }
+                }
+                topMargin += 25; // Increased row height
+            }
+            string totalText = "סך הכל הוחזר ב" + dataSet.Tables[0].Rows[0]["TypeName"].ToString() + ": " + int.Parse(dataSet.Tables[0].Rows[0]["Price"].ToString()).ToString("C");
+            SizeF totalSize = graphics.MeasureString(totalText, tableFont);
+            graphics.DrawString(totalText, tableFont, Brushes.Black, centerX - totalSize.Width / 2, topMargin);
+            topMargin += 40;
+            DrawAdditionalMessages(graphics, normalFont, centerX, ref topMargin);
+            // The existing thank you message
+            graphics.DrawString(thankYou, normalFont, brush, centerX - thankYouSize.Width / 2, topMargin);
+            function.SetReReceiptPrinted(Choose.ReceiptsToPrint[0]);
+        }
+
+        private void ReInvoicePrint_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            DataSet invoiceData = function.GetReInvoiceById(Choose.InvoicesToPrint[0]);
+            DataSet dataSet = function.GetReInvoicePrint(Choose.InvoicesToPrint[0]);
+            string[] selectedColumns = { "OrderPrice", "OrderAmount", "ItemName", "OrderId" };
+            Dictionary<string, string> columnTitleMap = new Dictionary<string, string>
+                {
+                    { "OrderId", "מס'" },
+                    { "UserName", "שם" },
+                    { "ItemName", "תיאור" },
+                    { "ColorName", "צבע" },
+                    { "OrderAmount", "כמות" },
+                    { "OrderPrice", "מחיר" },
+                    { "OrderDate" , "ת. הזמנה" }
+                    // Add more mappings as needed
+                };
+            Graphics graphics = e.Graphics;
+            Font titleFont = new Font("Arial", 16, FontStyle.Bold);
+            Font normalFont = new Font("Arial", 10);
+            Brush brush = Brushes.Black;
+            Brush headingBrush = Brushes.DarkBlue;
+            int topMargin = 20; // Set top margin to position at the top of the page
+
+            string storeName = "Studio Lana";
+            string address = "עין חנוך 15, גני תקווה";
+            string phone = "טלפון: " + "054-5606832";
+            string date = DateTime.Now.ToString("dd / MM / yyyy HH: mm");
+            string thankYou = "!תודה רבה ולהתראות";
+
+            // Calculate the width of the receipt content
+            float totalWidth = graphics.VisibleClipBounds.Width;
+
+            // Calculate the center of the drawing area
+            int centerX = (int)(totalWidth / 2);
+
+            SizeF measureString(string text, Font font) => graphics.MeasureString(text, font);
+
+            SizeF storeNameSize = measureString(storeName, titleFont);
+            SizeF addressSize = measureString(address, normalFont);
+            SizeF phoneSize = measureString(phone, normalFont);
+            SizeF dateSize = measureString(date, normalFont);
+            SizeF thankYouSize = measureString(thankYou, normalFont);
+
+            // Calculate the total height of the receipt content
+            float totalHeight = storeNameSize.Height + addressSize.Height + phoneSize.Height +
+                                dateSize.Height + // Space between sections
+                                40 + // Increased space between store information and table headers
+                                selectedColumns.Length * 30 + // Height of table headers
+                                dataSet.Tables[0].Rows.Count * 25;
+
+            topMargin = 20;
+
+            graphics.DrawString(storeName, titleFont, headingBrush, centerX - storeNameSize.Width / 2, topMargin);
+            topMargin += (int)storeNameSize.Height;
+            graphics.DrawString(address, normalFont, brush, centerX - addressSize.Width / 2, topMargin);
+            topMargin += (int)addressSize.Height;
+            graphics.DrawString(phone, normalFont, brush, centerX - phoneSize.Width / 2, topMargin);
+            topMargin += (int)phoneSize.Height;
+            graphics.DrawString(date, normalFont, brush, centerX - dateSize.Width / 2, topMargin);
+            topMargin += (int)dateSize.Height;
+            // Define the text for the three lines
+            //string line1 = "לכ': " + Choose.u.Fname + " " + Choose.u.LName;
+            string extraLine;
+            if (Boolean.Parse(invoiceData.Tables[0].Rows[0]["Printed"].ToString()))
+            {
+                extraLine = "העתק";
+            }
+            else
+            {
+                extraLine = "מקור";
+            }
+            string name = invoiceData.Tables[0].Rows[0]["FullName"].ToString();
+            int index = name.IndexOf('ע');
+            string line1 = name.Substring(0, index);
+            string nameLine = name.Substring(index);
+            string line2 = "תאריך הפקה: " + invoiceData.Tables[0].Rows[0]["FullDate"].ToString();
+            Font headlineFont = new Font("Arial", 12, FontStyle.Bold);
+
+            // Measure the sizes of these lines
+            SizeF line1Size = measureString(line1, headlineFont);
+            SizeF nameLineSize = measureString(nameLine, headlineFont);
+            SizeF line2Size = measureString(line2, normalFont);
+            SizeF extraLineSize = measureString(extraLine, normalFont);
+            topMargin += 10; // Add space before the table segment
+
+            // Draw headline style line
+            graphics.DrawString(line1, headlineFont, headingBrush, centerX - line1Size.Width / 2, topMargin);
+            topMargin += (int)line1Size.Height + 5; // Add some space between headline and normal text lines
+            graphics.DrawString(nameLine, headlineFont, headingBrush, centerX - nameLineSize.Width / 2, topMargin);
+            topMargin += (int)nameLineSize.Height + 5; // Add some space between headline and normal text lines
+            graphics.DrawString(extraLine, normalFont, brush, centerX - extraLineSize.Width / 2, topMargin);
+            topMargin += (int)extraLineSize.Height + 5;
+            // Draw normal style lines
+            graphics.DrawString(line2, normalFont, brush, centerX - line2Size.Width / 2, topMargin);
+            topMargin += (int)line2Size.Height + 10;
+
+            Font tableFont = new Font("Arial", 10);
+            Font HeaderTableFont = new Font("Arial", 10, FontStyle.Bold);
+
+            int columnWidth = 50; // Increased column width
+            int columnSpacing = 30; // Increased column spacing
+
+            for (int i = 0; i < selectedColumns.Length; i++)
+            {
+                string columnName = selectedColumns[i];
+                string columnTitle = columnTitleMap.ContainsKey(columnName) ? columnTitleMap[columnName] : columnName;
+                SizeF columnTitleSize = graphics.MeasureString(columnTitle, HeaderTableFont);
+
+                // Calculate the center for each column
+                int xPosition = (int)(((totalWidth - (selectedColumns.Length * columnWidth) - (selectedColumns.Length - 1) * columnSpacing)) / 2) + i * (columnWidth + columnSpacing);
+                int textOffset = (int)((columnWidth - columnTitleSize.Width) / 2); // Adjust for text alignment
+
+                graphics.DrawString(columnTitle, HeaderTableFont, Brushes.Black, xPosition + textOffset, topMargin);
+            }
+
+            topMargin += 30; // Increased space between table header and data
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                for (int i = 0; i < selectedColumns.Length; i++)
+                {
+                    int columnIndex = dataSet.Tables[0].Columns.IndexOf(selectedColumns[i]);
+                    if (columnIndex >= 0)
+                    {
+                        string columnValue = row[columnIndex].ToString();
+                        SizeF columnValueSize = graphics.MeasureString(columnValue, tableFont);
+
+                        // Calculate the center for each column and adjust for text alignment
+                        int xPosition = (int)(((totalWidth - (selectedColumns.Length * columnWidth) - (selectedColumns.Length - 1) * columnSpacing)) / 2) + i * (columnWidth + columnSpacing);
+                        int textOffset = (int)((columnWidth - columnValueSize.Width) / 2); // Adjust for text alignment
+
+                        graphics.DrawString(columnValue, tableFont, Brushes.Black, xPosition + textOffset, topMargin);
+                    }
+                }
+                topMargin += 25; // Increased row height
+            }
+            decimal totalAmount = int.Parse(invoiceData.Tables[0].Rows[0]["Price"].ToString());
+            decimal tax = totalAmount * 0.17m;
+            decimal beforeTax = totalAmount - tax;
+            string line1BeforeTotal = "לפני מע'מ: " + beforeTax.ToString("C");
+            string line2BeforeTotal = "סה'כ מע'מ: " + tax.ToString("C");
+
+            line1Size = measureString(line1BeforeTotal, normalFont);
+            line2Size = measureString(line2BeforeTotal, normalFont);
+
+            topMargin += 10; // Increase space between previous content and additional lines
+
+            graphics.DrawString(line1BeforeTotal, normalFont, brush, centerX - line1Size.Width / 2, topMargin);
+            topMargin += (int)line1Size.Height;
+
+            graphics.DrawString(line2BeforeTotal, normalFont, brush, centerX - line2Size.Width / 2, topMargin);
+            topMargin += (int)line2Size.Height;
+
+            string totalText = "סך הכל לתשלום: " + totalAmount.ToString("C");
+            SizeF totalSize = graphics.MeasureString(totalText, tableFont);
+            graphics.DrawString(totalText, tableFont, Brushes.Black, centerX - totalSize.Width / 2, topMargin);
+            topMargin += 40;
+            DrawAdditionalMessages(graphics, normalFont, centerX, ref topMargin);
+            // The existing thank you message
+            graphics.DrawString(thankYou, normalFont, brush, centerX - thankYouSize.Width / 2, topMargin);
+            function.SetReInvoicePrinted(Choose.InvoicesToPrint[0]);
         }
     }   
 }

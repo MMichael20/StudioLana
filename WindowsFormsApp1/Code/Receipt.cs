@@ -15,5 +15,9 @@ namespace WindowsFormsApp1
             this.Price = price;
             this.Type = type;
         }
+        public Receipt()
+        {
+
+        }
     }
 }

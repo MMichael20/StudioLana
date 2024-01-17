@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
@@ -359,6 +360,88 @@ namespace WindowsFormsApp1
             }
             return dataset;
         }
-    }
+        public Check GetCheckCopyById(int id)
+        {
+            Check check = null;
+            try
+            {
+                myConnection.Open();
+                string sSql = $"SELECT CheckId, CheckUser as UserId, CheckPrice as Price, CheckType FROM Checks WHERE CheckId = {id}";
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
 
+                using (OleDbDataReader reader = myCmd.ExecuteReader())
+                {
+                    // Check if any rows were retrieved
+                    if (reader.Read())
+                    {
+                        // Create a new Receipt object and populate its properties
+                        check = new Check
+                        {
+                            Id = Convert.ToInt32(reader["CheckId"]),
+                            User = Convert.ToInt32(reader["UserId"]),
+                            Price = Convert.ToInt32(reader["Price"]),
+                            Type = Convert.ToInt32(reader["CheckType"]),
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+
+            return check;
+        }
+        public void SetCheckCanceled(int id)
+        {
+            string sSql = $"Update Checks SET Canceled = True Where CheckId = {id}";
+            try
+            {
+                myConnection.Open();
+                OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
+                myCmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+        public List<int> canceledChecks(List<int> ids)
+        {
+            List<int> listOfChecks = new List<int>();
+            string listOfIds = string.Join(",", ids);
+            string query = $"SELECT CheckId FROM Checks WHERE CheckId IN ({listOfIds}) AND Canceled = True";
+            OleDbCommand command = new OleDbCommand(query, myConnection);
+            try
+            {
+                myConnection.Open();
+                OleDbDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int orderId = Convert.ToInt32(reader["CheckId"]);
+                    listOfChecks.Add(orderId);
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return listOfChecks;
+        }
+    }
 }

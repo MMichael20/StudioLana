@@ -85,6 +85,7 @@ namespace WindowsFormsApp1
                 {
                     function.UpdateStatus(ids, "מוכן");
                     Populate();
+                    Program.play.SignIn(Choose.id);
                 }
             }
         }

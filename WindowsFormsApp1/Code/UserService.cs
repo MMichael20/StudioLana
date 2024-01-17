@@ -159,17 +159,20 @@ namespace WindowsFormsApp1
                 myConnection.Close();
             }
         }
-        public DataSet GetDebt(int id)
+        public int GetDebt(int id)
         {
-            DataSet dataset = new DataSet();
+            int debt = 0;
             try
             {
                 myConnection.Open();
                 string sSql = "select UserDebt from Users Where UserId =" + id;
                 OleDbCommand myCmd = new OleDbCommand(sSql, myConnection);
-                OleDbDataAdapter adapter = new OleDbDataAdapter();
-                adapter.SelectCommand = myCmd;
-                adapter.Fill(dataset, "Users");
+                object result = myCmd.ExecuteScalar();
+
+                if (result != DBNull.Value)
+                {
+                    debt = Convert.ToInt32(result);
+                }
             }
             catch (Exception ex)
             {
@@ -179,7 +182,7 @@ namespace WindowsFormsApp1
             {
                 myConnection.Close();
             }
-            return dataset;
+            return debt;
         }
         
         public DataSet GetUserDebts()
@@ -203,6 +206,30 @@ namespace WindowsFormsApp1
                 myConnection.Close();
             }
             return dataset;
+        }
+        public string FullNameById(int id)
+        {
+            string name = "";
+            string query = $"SELECT UserName & ' ' & UserLName AS FullName FROM Users where UserId = {id}"; // Replace YourTable with the actual table name
+            OleDbCommand command = new OleDbCommand(query, myConnection);
+            try
+            {
+                myConnection.Open();
+                object result = command.ExecuteScalar();
+                if (result != DBNull.Value)
+                {
+                    name = result.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return name;
         }
     }
 }

@@ -43,6 +43,7 @@ namespace WindowsFormsApp1
             this.SearchButton = new WindowsFormsApp1.MyButton();
             this.CheckBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UserId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -97,6 +98,7 @@ namespace WindowsFormsApp1
             this.FinanceGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CheckBox,
             this.IdColumn,
+            this.UserId,
             this.NameColumn,
             this.Price,
             this.DateColumn});
@@ -176,6 +178,7 @@ namespace WindowsFormsApp1
             this.CancelOrder.TabIndex = 67;
             this.CancelOrder.TextColor = System.Drawing.Color.LightPink;
             this.CancelOrder.UseVisualStyleBackColor = false;
+            this.CancelOrder.Click += new System.EventHandler(this.CancelOrder_Click);
             // 
             // NewItemB
             // 
@@ -230,11 +233,19 @@ namespace WindowsFormsApp1
             this.IdColumn.Name = "IdColumn";
             this.IdColumn.Visible = false;
             // 
+            // UserId
+            // 
+            this.UserId.DataPropertyName = "UserId";
+            this.UserId.HeaderText = "";
+            this.UserId.Name = "UserId";
+            this.UserId.Visible = false;
+            // 
             // NameColumn
             // 
             this.NameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.NameColumn.DataPropertyName = "Name";
             this.NameColumn.HeaderText = "שם";
+            this.NameColumn.MinimumWidth = 325;
             this.NameColumn.Name = "NameColumn";
             this.NameColumn.ReadOnly = true;
             // 
@@ -288,6 +299,7 @@ namespace WindowsFormsApp1
         private MyButton SearchButton;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CheckBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserId;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateColumn;
